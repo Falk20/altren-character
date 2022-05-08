@@ -1,4 +1,5 @@
 import inventory from "../inventory";
+import status from "../status";
 
 export default {
   namespaced: true,
@@ -10,5 +11,6 @@ export default {
 
   modules: {
     inventory,
+    status,
   },
 };
