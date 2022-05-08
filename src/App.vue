@@ -1,5 +1,9 @@
 <template>
   <v-app>
+    <AltNavbar />
+
+    <AltSideMenu />
+
     <v-main>
       <router-view />
     </v-main>
@@ -8,9 +12,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import AltNavbar from "@/components/navbar/index.vue";
+import AltSideMenu from "@/components/side-menu/index.vue";
 
 export default defineComponent({
   name: "App",
+
+  components: {
+    AltNavbar,
+    AltSideMenu,
+  },
 
   data() {
     return {
