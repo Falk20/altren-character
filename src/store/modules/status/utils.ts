@@ -1,9 +1,8 @@
 import { IStatus } from "@/helpers/types";
-
-const KEY = "character-state";
+import { statusStorageKey } from "@/helpers/constants";
 
 export function generateState(): IStatus {
-  const storageValue = localStorage.getItem(KEY);
+  const storageValue = localStorage.getItem(statusStorageKey);
 
   if (storageValue) {
     try {
@@ -17,19 +16,9 @@ export function generateState(): IStatus {
 
   return {
     hits: 4,
-    maxHits: 4,
     mana: 5,
-    maxMana: 5,
 
-    basisThreshold: 5,
-    fatigueLevel: 0,
-
-    money: 0,
-
-    equipment: {
-      weapons: [],
-      armors: [],
-    },
+    fatigue: 0,
 
     conditions: [],
   };

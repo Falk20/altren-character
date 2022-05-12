@@ -1,36 +1,47 @@
 export interface IStatus {
   hits: number;
-  maxHits: number;
   mana: number;
-  maxMana: number;
 
-  basisThreshold: number;
-  fatigueLevel: number;
-
-  money: number;
-
-  equipment: IEquipment;
+  fatigue: number;
 
   conditions: ICondition[];
 }
 
-export interface IEquipment {
-  weapons: IWeapon[];
-  armors: IArmor[];
+export enum ItemTypes {
+  stackable = "stackable",
+  nonStackable = "nonStackable",
+  armor = "armor",
+  weapon = "weapon",
+  projectile = "projectile",
+  food = "food",
 }
 
 export interface IItem {
   title: string;
   description: string;
+  type: ItemTypes;
 }
 
 export interface IWeapon extends IItem {
+  type: ItemTypes.weapon;
   damageDice: number;
   damageModificator: number;
 }
 
 export interface IArmor extends IItem {
+  type: ItemTypes.armor;
   protection: number;
+}
+
+export interface IProjectile extends IItem {
+  type: ItemTypes.projectile;
+  damageDice: number;
+  damageModificator: number;
+}
+
+export interface IEquipment {
+  weapons: IWeapon[];
+  armors: IArmor[];
 }
 
 export enum ConditionTypes {
