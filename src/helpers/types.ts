@@ -45,18 +45,23 @@ export interface IEquipment {
 }
 
 export enum ConditionTypes {
-  boon = "boon",
-  curse = "curse",
-  neutral = "neutral",
+  plusHP = "plusHP",
+  minusHP = "minusHP",
+  plusMP = "plusMP",
+  minusMP = "minusMP",
+  plusThreshold = "plusThreshold",
+  minusThreshold = "minusThreshold",
+  plusDamage = "plusDamage",
+  minusDamage = "minusDamage",
 }
 
 export interface ICondition {
   title: string;
   description: string;
+  icon: string;
+  color: string;
 
   type: ConditionTypes;
-
-  affects: string;
 
   value: number;
 }
