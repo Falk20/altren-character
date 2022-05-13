@@ -20,6 +20,10 @@ export function generateState(): IStatus {
 
     fatigue: 0,
 
-    conditions: [],
+    conditions: {
+      HP: 0,
+      MP: 0,
+      threshold: 0,
+    },
   };
 }

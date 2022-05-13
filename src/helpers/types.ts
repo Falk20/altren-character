@@ -4,7 +4,7 @@ export interface IStatus {
 
   fatigue: number;
 
-  conditions: ICondition[];
+  conditions: IConditions;
 }
 
 export enum ItemTypes {
@@ -58,13 +58,8 @@ export enum ConditionTitles {
   minusMP = "Уменьшение маны",
 }
 
-export interface ICondition {
-  title: string;
-  description: string;
-  icon: string;
-  color: string;
-
-  type: ConditionTypes;
-
-  value: number;
+export interface IConditions {
+  HP: number;
+  MP: number;
+  threshold: number;
 }

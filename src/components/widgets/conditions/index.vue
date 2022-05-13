@@ -3,17 +3,27 @@
     <v-col class="pa-0">
       <h3 class="ml-3">
         <span>Эффекты</span>
-        <v-btn
-          variant="text"
-          icon="mdi-pencil"
-          @click="changeEditDialog(true)"
-        />
+        <v-btn variant="text" icon="mdi-pencil" @click="editDialog = true" />
       </h3>
-      <EditForm
-        v-model:editDialog="editDialog"
-        @open-add-dialog="addDialog = true"
-      />
-      <AddForm v-model:addDialog="addDialog" />
+      <div class="mx-3 d-flex flex-wrap">
+        <template v-if="haveAnyCondition">
+          <v-icon v-if="haveHPCondition" class="mr-2" :color="HPIcon.color">
+            {{ HPIcon.icon }}
+          </v-icon>
+          <v-icon v-if="haveMPCondition" class="mr-2" :color="MPIcon.color">
+            {{ MPIcon.icon }}
+          </v-icon>
+          <v-icon
+            v-if="haveThresholdCondition"
+            class="mr-2"
+            :color="thresholdIcon.color"
+          >
+            {{ thresholdIcon.icon }}
+          </v-icon>
+        </template>
+        <p class="text-caption" v-else>Нет активных эффектов</p>
+      </div>
+      <EditForm v-model:editDialog="editDialog" />
     </v-col>
   </v-row>
 </template>
@@ -21,31 +31,93 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import EditForm from "./EditForm.vue";
-import AddForm from "./AddForm.vue";
 
-// import { createNamespacedHelpers } from "vuex";
-// const { mapGetters, mapMutations } =
-//   createNamespacedHelpers("character/status");
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("character/status");
 
 export default defineComponent({
   name: "AltFatigue",
 
   components: {
     EditForm,
-    AddForm,
   },
 
   data() {
     return {
       editDialog: false,
-      addDialog: false,
     };
   },
 
-  methods: {
-    changeEditDialog(value: boolean): void {
-      this.editDialog = value;
+  computed: {
+    ...mapGetters(["conditionHP", "conditionMP", "conditionThreshold"]),
+
+    haveHPCondition(): boolean {
+      return this.conditionHP !== 0;
+    },
+    haveMPCondition(): boolean {
+      return this.conditionMP !== 0;
+    },
+    haveThresholdCondition(): boolean {
+      return this.conditionThreshold !== 0;
+    },
+
+    HPIcon() {
+      if (!this.haveHPCondition) return null;
+
+      if (this.conditionHP > 0) {
+        return {
+          icon: "mdi-heart",
+          color: "red",
+        };
+      }
+
+      return {
+        icon: "mdi-heart-broken",
+        color: "black",
+      };
+    },
+
+    MPIcon() {
+      if (!this.haveMPCondition) return null;
+
+      if (this.conditionMP > 0) {
+        return {
+          icon: "mdi-star-plus",
+          color: "primary",
+        };
+      }
+
+      return {
+        icon: "mdi-star-minus",
+        color: "brown",
+      };
+    },
+
+    thresholdIcon() {
+      if (!this.haveThresholdCondition) return null;
+
+      if (this.conditionThreshold > 0) {
+        return {
+          icon: "mdi-shield-plus",
+          color: "green",
+        };
+      }
+
+      return {
+        icon: "mdi-shield-off",
+        color: "orange",
+      };
+    },
+
+    haveAnyCondition(): boolean {
+      return (
+        this.haveHPCondition ||
+        this.haveMPCondition ||
+        this.haveThresholdCondition
+      );
     },
   },
+
+  methods: {},
 });
 </script>

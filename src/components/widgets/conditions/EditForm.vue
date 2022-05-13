@@ -1,20 +1,53 @@
 <template>
-  <v-dialog v-model="dialogModel" fullscreen>
+  <v-dialog v-model="dialogModel" fullscreen scrollable>
     <v-card>
       <v-toolbar color="primary">
         <v-btn icon="mdi-close" @click="dialogModel = false" />
         <v-card-title> Эффекты </v-card-title>
         <v-spacer></v-spacer>
-        <v-btn icon="mdi-plus" @click="$emit('open-add-dialog')" />
       </v-toolbar>
       <v-card-text>
-        <v-container fluid>
-          <v-row dense>
-            <v-col
-              v-for="(condition, index) in conditions"
-              :key="`condition-${index}`"
-            >
-              {{ condition.title }}
+        <v-container class="pa-0">
+          <v-row>
+            <v-col class="mt-5">
+              <v-slider
+                v-model="modelHP"
+                :min="-5"
+                :max="5"
+                :step="1"
+                show-ticks="always"
+                thumb-label="always"
+                :hide-details="true"
+              ></v-slider>
+              <pre class="text-caption text-center">HP</pre>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col class="mt-5">
+              <v-slider
+                v-model="modelMP"
+                :min="-5"
+                :max="5"
+                :step="1"
+                show-ticks="always"
+                thumb-label="always"
+                :hide-details="true"
+              ></v-slider>
+              <pre class="text-caption text-center">MP</pre>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col class="mt-5">
+              <v-slider
+                v-model="modelThreshold"
+                :min="-5"
+                :max="5"
+                :step="1"
+                show-ticks="always"
+                thumb-label="always"
+                :hide-details="true"
+              ></v-slider>
+              <pre class="text-caption text-center">Порог</pre>
             </v-col>
           </v-row>
         </v-container>
@@ -24,7 +57,6 @@
 </template>
 
 <script lang="ts">
-import { ICondition } from "@/helpers/types";
 import { defineComponent } from "vue";
 
 import { createNamespacedHelpers } from "vuex";
@@ -36,8 +68,6 @@ export default defineComponent({
 
   props: {
     editDialog: Boolean,
-    closeEditDialog: Function,
-    closeAddDialog: Function,
   },
 
   emits: ["update:editDialog"],
@@ -52,20 +82,40 @@ export default defineComponent({
       },
     },
 
-    ...mapGetters(["conditions"]),
+    ...mapGetters(["conditionHP", "conditionMP", "conditionThreshold"]),
 
-    modelConditions: {
-      get(): ICondition[] {
-        return this.conditions;
+    modelHP: {
+      get(): number {
+        return this.conditionHP;
       },
-      set(value: ICondition[]): void {
-        this.setConditions(value);
+      set(value: number): void {
+        this.setConditionHP(value);
+      },
+    },
+    modelMP: {
+      get(): number {
+        return this.conditionMP;
+      },
+      set(value: number): void {
+        this.setConditionMP(value);
+      },
+    },
+    modelThreshold: {
+      get(): number {
+        return this.conditionThreshold;
+      },
+      set(value: number): void {
+        this.setConditionThreshold(value);
       },
     },
   },
 
   methods: {
-    ...mapMutations(["setConditions"]),
+    ...mapMutations([
+      "setConditionHP",
+      "setConditionMP",
+      "setConditionThreshold",
+    ]),
   },
 });
 </script>
