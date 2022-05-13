@@ -23,17 +23,17 @@ export default {
     hits(state: IStatus): number {
       return state.hits;
     },
-    maxHits(): number {
-      return defaultHits;
+    maxHits(state: IStatus): number {
+      return defaultHits + state.conditions.HP;
     },
     mana(state: IStatus): number {
       return state.mana;
     },
-    maxMana(): number {
-      return defaultMana;
+    maxMana(state: IStatus): number {
+      return defaultMana + state.conditions.MP;
     },
-    threshold(): number {
-      return defaultThreshold;
+    threshold(state: IStatus): number {
+      return defaultThreshold + state.conditions.threshold;
     },
     fatigue(state: IStatus): number {
       return state.fatigue;
