@@ -29,11 +29,18 @@ export default {
     mana(state: IStatus): number {
       return state.mana;
     },
-    maxMana(state: IStatus): number {
-      return defaultMana + state.conditions.MP;
+    // eslint-disable-next-line
+    maxMana(state: IStatus, getters: any, _: any, rootGetters: any): number {
+      const statBuff = getters.isMage
+        ? rootGetters["character/stats/intelligence"]
+        : rootGetters["character/stats/endurance"];
+
+      return defaultMana + state.conditions.MP + statBuff;
     },
-    threshold(state: IStatus): number {
-      return defaultThreshold + state.conditions.threshold;
+    // eslint-disable-next-line
+    threshold(state: IStatus, _1: any, _2: any, rootGetters: any): number {
+      const statBuff = rootGetters["character/stats/endurance"];
+      return defaultThreshold + state.conditions.threshold + statBuff;
     },
     fatigue(state: IStatus): number {
       return state.fatigue;
