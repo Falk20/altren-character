@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <AltStats />
-  </div>
+  <AltStats />
 </template>
 
 <script lang="ts">
