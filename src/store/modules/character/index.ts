@@ -1,5 +1,6 @@
 import inventory from "../inventory";
 import status from "../status";
+import stats from "../stats";
 
 export default {
   namespaced: true,
@@ -12,5 +13,6 @@ export default {
   modules: {
     inventory,
     status,
+    stats,
   },
 };

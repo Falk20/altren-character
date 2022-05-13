@@ -1,13 +1,17 @@
 <template>
-  <div>StatsView</div>
+  <AltStats />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import AltStats from "@/components/widgets/stats/index.vue";
+
 export default defineComponent({
   name: "StatsView",
 
-  components: {},
+  components: {
+    AltStats,
+  },
 });
 </script>
