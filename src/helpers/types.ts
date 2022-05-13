@@ -49,10 +49,13 @@ export enum ConditionTypes {
   minusHP = "minusHP",
   plusMP = "plusMP",
   minusMP = "minusMP",
-  plusThreshold = "plusThreshold",
-  minusThreshold = "minusThreshold",
-  plusDamage = "plusDamage",
-  minusDamage = "minusDamage",
+}
+
+export enum ConditionTitles {
+  plusHP = "Увеличение здоровья",
+  minusHP = "Уменьшение здоровья",
+  plusMP = "Увеличение маны",
+  minusMP = "Уменьшение маны",
 }
 
 export interface ICondition {

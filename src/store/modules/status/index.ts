@@ -1,4 +1,4 @@
-import { IStatus } from "@/helpers/types";
+import { ICondition, IStatus } from "@/helpers/types";
 import { saveState } from "@/helpers/utils";
 import { generateState } from "./utils";
 
@@ -38,6 +38,9 @@ export default {
     fatigue(state: IStatus): number {
       return state.fatigue;
     },
+    conditions(state: IStatus): ICondition[] {
+      return state.conditions;
+    },
   },
   mutations: {
     setHits(state: IStatus, value: number) {
@@ -52,6 +55,11 @@ export default {
     },
     setFatigue(state: IStatus, value: number) {
       state.fatigue = value;
+
+      saveState(statusStorageKey, state);
+    },
+    setConditions(state: IStatus, value: ICondition[]) {
+      state.conditions = value;
 
       saveState(statusStorageKey, state);
     },

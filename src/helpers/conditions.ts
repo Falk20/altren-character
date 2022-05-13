@@ -1,4 +1,4 @@
-import { ConditionTypes, ICondition } from "./types";
+import { ConditionTitles, ConditionTypes, ICondition } from "./types";
 
 class Condition implements ICondition {
   title: string;
@@ -21,11 +21,11 @@ class Condition implements ICondition {
 }
 
 export class ConditionFactory {
-  create(type: ConditionTypes, value: number) {
+  create(type: ConditionTypes | string, value: number) {
     switch (type) {
       case ConditionTypes.plusHP: {
         return new Condition({
-          title: "Увеличение здоровья",
+          title: ConditionTitles.plusHP,
           description: "Увеличивает максимальное кол-во здоровья",
           icon: "mdi-heart",
           color: "red",
@@ -35,7 +35,7 @@ export class ConditionFactory {
       }
       case ConditionTypes.minusHP: {
         return new Condition({
-          title: "Уменьшение здоровья",
+          title: ConditionTitles.minusHP,
           description: "Уменьшает максимальное кол-во здоровья",
           icon: "mdi-heart-broken",
           color: "black",
@@ -45,7 +45,7 @@ export class ConditionFactory {
       }
       case ConditionTypes.plusMP: {
         return new Condition({
-          title: "Увеличение маны",
+          title: ConditionTitles.plusMP,
           description: "Увеличивает максимальное кол-во маны",
           icon: "mdi-star-plus",
           color: "primary",
@@ -53,9 +53,10 @@ export class ConditionFactory {
           value: value,
         });
       }
-      case ConditionTypes.minusMP: {
+      case ConditionTypes.minusMP:
+      default: {
         return new Condition({
-          title: "Уменьшение маны",
+          title: ConditionTitles.minusMP,
           description: "Уменьшает максимальное кол-во маны",
           icon: "mdi-star-minus",
           color: "primary",
@@ -67,29 +68,21 @@ export class ConditionFactory {
   }
 }
 
-// class PlusHP extends Condition {
-//   constructor(value: number) {
-//     super({
-//       title: "Увеличение здоровья",
-//       description: "Увеличивает максимальное кол-во здоровья",
-//       icon: "",
-//       type: ConditionTypes.plusHP,
-//       value: value,
-//     });
-//   }
-// }
-
-// class MinusHP extends Condition {
-//   constructor(value: number) {
-// super({
-//   title: "Уменьшение здоровья",
-//   description: "Уменьшает максимальное кол-во здоровья",
-//   icon: "",
-//   type: ConditionTypes.minusHP,
-//   value: value,
-// });
-//   }
-// }
-
-// this.title = "Увеличение здоровья";
-// this.description = "Увеличивает максимальное кол-во здоровья";
+export const conditionList = [
+  {
+    value: ConditionTypes.plusHP,
+    title: ConditionTitles.plusHP,
+  },
+  {
+    value: ConditionTypes.minusHP,
+    title: ConditionTitles.minusHP,
+  },
+  {
+    value: ConditionTypes.plusMP,
+    title: ConditionTitles.plusMP,
+  },
+  {
+    value: ConditionTypes.minusMP,
+    title: ConditionTitles.minusMP,
+  },
+];
