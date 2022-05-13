@@ -44,20 +44,6 @@ export interface IEquipment {
   armors: IArmor[];
 }
 
-export enum ConditionTypes {
-  plusHP = "plusHP",
-  minusHP = "minusHP",
-  plusMP = "plusMP",
-  minusMP = "minusMP",
-}
-
-export enum ConditionTitles {
-  plusHP = "Увеличение здоровья",
-  minusHP = "Уменьшение здоровья",
-  plusMP = "Увеличение маны",
-  minusMP = "Уменьшение маны",
-}
-
 export interface IConditions {
   HP: number;
   MP: number;
