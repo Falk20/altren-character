@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import StatusView from "../views/StatusView.vue";
+import StatsView from "../views/StatsView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -23,7 +24,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/stats",
     name: "stats",
-    component: import(/* webpackChunkName: "stats" */ "../views/StatsView.vue"),
+    // component: import(/* webpackChunkName: "stats" */ "../views/StatsView.vue")
+    component: StatsView,
     meta: {
       title: "Характеристики",
     },
