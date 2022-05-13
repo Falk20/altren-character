@@ -38,7 +38,8 @@ export default defineComponent({
 
   methods: {
     ...mapMutations(["changeSideMenu"]),
-
+    // RouteRecordNormalized возвращает unknown, а компонент принимает только string
+    // eslint-disable-next-line
     getPageTitle(page: RouteRecordNormalized): any {
       return page?.meta?.title ?? "";
     },
