@@ -1,2 +1,2 @@
 "use strict";(self["webpackChunkaltren_character"]=self["webpackChunkaltren_character"]||[]).push([[591],{6059:function(e,n,r){r.r(n),r.d(n,{default:function(){return s}});var a=r(3396);function t(e,n,r,t,c,u){return(0,a.wg)(),(0,a.iD)("div",null,"PersonalView")}var c=(0,a.aZ)({name:"PersonalView",components:{}}),u=r(89);const l=(0,u.Z)(c,[["render",t]]);var s=l}}]);
-//# sourceMappingURL=personal.aebbf3e8.js.map
+//# sourceMappingURL=personal.2daa1e9b.js.map
