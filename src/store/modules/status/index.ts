@@ -32,7 +32,7 @@ export default {
     // eslint-disable-next-line
     maxMana(state: IStatus, getters: any, _: any, rootGetters: any): number {
       const statBuff = getters.isMage
-        ? rootGetters["character/stats/intelligence"]
+        ? rootGetters["character/stats/intelligence"] * 2
         : rootGetters["character/stats/endurance"];
 
       return defaultMana + state.conditions.MP + statBuff;
