@@ -26,8 +26,8 @@
             <v-col class="mt-5">
               <v-slider
                 v-model="modelMP"
-                :min="-5"
-                :max="5"
+                :min="-10"
+                :max="10"
                 :step="1"
                 show-ticks="always"
                 thumb-label="always"
@@ -40,8 +40,8 @@
             <v-col class="mt-5">
               <v-slider
                 v-model="modelThreshold"
-                :min="-5"
-                :max="5"
+                :min="-10"
+                :max="10"
                 :step="1"
                 show-ticks="always"
                 thumb-label="always"
