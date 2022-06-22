@@ -7,10 +7,10 @@
         <v-rating
           class="flex-wrap justify-center"
           v-model="MP"
-          empty-icon="mdi-star-outline"
-          full-icon="mdi-star"
+          :empty-icon="emptyIcon"
+          :full-icon="fullIcon"
           :length="maxMana"
-          color="primary"
+          :color="color"
         />
         <v-btn variant="text" icon="mdi-plus" @click="increment" />
       </div>
@@ -32,7 +32,19 @@ export default defineComponent({
     ...mapGetters(["mana", "maxMana", "isMage"]),
 
     title(): string {
-      return this.isMage ? "MP" : "Энергия";
+      return this.isMage ? "MP" : "EP";
+    },
+
+    emptyIcon(): string {
+      return this.isMage ? "mdi-star-outline" : "mdi-flash-outline";
+    },
+
+    fullIcon(): string {
+      return this.isMage ? "mdi-star" : "mdi-flash";
+    },
+
+    color(): string {
+      return this.isMage ? "primary" : "yellow-darken-1";
     },
 
     MP: {

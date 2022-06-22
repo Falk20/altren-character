@@ -7,6 +7,14 @@ export interface IStatus {
   conditions: IConditions;
 }
 
+export interface IPersonalInfo {
+  isMage: boolean;
+  name: string;
+  race: string;
+  telents: unknown[];
+  mutations: unknown[];
+}
+
 export enum ItemTypes {
   stackable = "stackable",
   nonStackable = "nonStackable",

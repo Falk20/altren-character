@@ -17,8 +17,9 @@ export default {
     return generateState();
   },
   getters: {
-    isMage(): boolean {
-      return true;
+    // eslint-disable-next-line
+    isMage(state: IStatus, getters: any, _: any, rootGetters: any): boolean {
+      return rootGetters["character/personalInfo/isMage"];
     },
     hits(state: IStatus): number {
       return state.hits;

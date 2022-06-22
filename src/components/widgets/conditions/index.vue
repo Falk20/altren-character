@@ -49,7 +49,12 @@ export default defineComponent({
   },
 
   computed: {
-    ...mapGetters(["conditionHP", "conditionMP", "conditionThreshold"]),
+    ...mapGetters([
+      "conditionHP",
+      "conditionMP",
+      "conditionThreshold",
+      "isMage",
+    ]),
 
     haveHPCondition(): boolean {
       return this.conditionHP !== 0;
@@ -80,16 +85,30 @@ export default defineComponent({
     MPIcon() {
       if (!this.haveMPCondition) return null;
 
+      if (this.isMage) {
+        if (this.conditionMP > 0) {
+          return {
+            icon: "mdi-star-plus",
+            color: "primary",
+          };
+        }
+
+        return {
+          icon: "mdi-star-minus",
+          color: "brown",
+        };
+      }
+
       if (this.conditionMP > 0) {
         return {
-          icon: "mdi-star-plus",
-          color: "primary",
+          icon: "mdi-flash-alert",
+          color: "yellow-darken-1",
         };
       }
 
       return {
-        icon: "mdi-star-minus",
-        color: "brown",
+        icon: "mdi-flash-off",
+        color: "purple",
       };
     },
 

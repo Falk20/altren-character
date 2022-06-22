@@ -33,7 +33,7 @@
                 thumb-label="always"
                 :hide-details="true"
               ></v-slider>
-              <pre class="text-caption text-center">MP</pre>
+              <pre class="text-caption text-center">{{ mpTitle }}</pre>
             </v-col>
           </v-row>
           <v-row>
@@ -73,6 +73,10 @@ export default defineComponent({
   emits: ["update:editDialog"],
 
   computed: {
+    mpTitle(): string {
+      return this.isMage ? "MP" : "EP";
+    },
+
     dialogModel: {
       get() {
         return this.editDialog;
@@ -82,7 +86,12 @@ export default defineComponent({
       },
     },
 
-    ...mapGetters(["conditionHP", "conditionMP", "conditionThreshold"]),
+    ...mapGetters([
+      "conditionHP",
+      "conditionMP",
+      "conditionThreshold",
+      "isMage",
+    ]),
 
     modelHP: {
       get(): number {
