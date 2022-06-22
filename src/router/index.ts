@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import StatusView from "../views/StatusView.vue";
 import StatsView from "../views/StatsView.vue";
+import PersonalView from "../views/PersonalView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -43,9 +44,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/personal",
     name: "personal",
-    component: import(
-      /* webpackChunkName: "personal" */ "../views/PersonalView.vue"
-    ),
+    component: PersonalView,
     meta: {
       title: "Личность",
     },
