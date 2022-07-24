@@ -64,7 +64,7 @@ export default defineComponent({
 
     hitsModel: {
       get(): number {
-        return this.hits;
+        return this.hits ?? 0;
       },
       set(value: number): void {
         this.setHits(value);
@@ -73,7 +73,7 @@ export default defineComponent({
 
     manaModel: {
       get(): number {
-        return this.mana;
+        return this.mana ?? 0;
       },
       set(value: number): void {
         this.setMana(value);
@@ -82,7 +82,7 @@ export default defineComponent({
 
     inspirationModel: {
       get(): number {
-        return this.inspiration;
+        return this.inspiration ?? 0;
       },
       set(value: number): void {
         this.setInspiration(value);

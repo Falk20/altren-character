@@ -37,7 +37,7 @@ export default defineComponent({
 
     isMageModel: {
       get() {
-        return this.isMage;
+        return this.isMage ?? false;
       },
       set(value: boolean) {
         this.setIsMage(value);
@@ -49,7 +49,7 @@ export default defineComponent({
     },
     isBasijModel: {
       get() {
-        return this.isBasij;
+        return this.isBasij ?? false;
       },
       set(value: boolean) {
         this.setIsBasij(value);
@@ -57,7 +57,7 @@ export default defineComponent({
     },
     isBardModel: {
       get() {
-        return this.isBard;
+        return this.isBard ?? false;
       },
       set(value: boolean) {
         this.setIsBard(value);
