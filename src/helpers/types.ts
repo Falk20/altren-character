@@ -1,6 +1,7 @@
 export interface IStatus {
   hits: number;
   mana: number;
+  inspiration: number;
 
   fatigue: number;
 
@@ -9,6 +10,8 @@ export interface IStatus {
 
 export interface IPersonalInfo {
   isMage: boolean;
+  isBasij: boolean;
+  isBard: boolean;
   name: string;
   race: string;
   telents: unknown[];

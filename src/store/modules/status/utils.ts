@@ -5,6 +5,7 @@ import { getState } from "@/helpers/utils";
 const defaultValue: IStatus = {
   hits: 4,
   mana: 5,
+  inspiration: 6,
 
   fatigue: 0,
 

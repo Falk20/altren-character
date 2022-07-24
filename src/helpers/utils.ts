@@ -1,4 +1,5 @@
 import { IPersonalInfo, IStatus } from "./types";
+import { BasijBar, EPBar, MPBar } from "./viewConstants";
 
 export function saveState(
   stateName: string,
@@ -25,4 +26,12 @@ export function getState(
   }
 
   return defaultValue;
+}
+
+export function getCurrentPointBar(isMage: boolean, isBasij: boolean) {
+  if (isMage && isBasij) return BasijBar;
+
+  if (isMage && !isBasij) return MPBar;
+
+  return EPBar;
 }

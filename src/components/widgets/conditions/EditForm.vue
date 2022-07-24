@@ -74,10 +74,6 @@ export default defineComponent({
   emits: ["update:editDialog"],
 
   computed: {
-    mpTitle(): string {
-      return this.isMage ? "MP" : "EP";
-    },
-
     dialogModel: {
       get() {
         return this.editDialog;
@@ -92,6 +88,7 @@ export default defineComponent({
       "conditionMP",
       "conditionThreshold",
       "isMage",
+      "isBasij",
     ]),
 
     modelHP: {
@@ -117,6 +114,10 @@ export default defineComponent({
       set(value: number): void {
         this.setConditionThreshold(value);
       },
+    },
+
+    mpTitle(): string {
+      return this.isMage ? (this.isBasij ? "Басидж" : "MP") : "EP";
     },
   },
 

@@ -4,6 +4,8 @@ import { getState } from "@/helpers/utils";
 
 const defaultValue: IPersonalInfo = {
   isMage: false,
+  isBasij: false,
+  isBard: false,
   name: "",
   race: "",
   telents: [],
