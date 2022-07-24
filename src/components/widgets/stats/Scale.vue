@@ -2,9 +2,19 @@
   <v-row>
     <v-col class="d-flex flex-column align-center">
       <h4 class="mb-2">
-        <v-btn variant="text" icon="mdi-minus" @click="decrement" />
+        <v-btn
+          class="d-inline"
+          variant="text"
+          icon="mdi-minus"
+          @click="decrement"
+        />
         <span>{{ title }}</span>
-        <v-btn variant="text" icon="mdi-plus" @click="increment" />
+        <v-btn
+          class="d-inline"
+          variant="text"
+          icon="mdi-plus"
+          @click="increment"
+        />
       </h4>
       <v-rating v-model="valueModel" :length="6">
         <template v-slot:item="props">

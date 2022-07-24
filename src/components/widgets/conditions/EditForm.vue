@@ -1,11 +1,12 @@
 <template>
   <v-dialog v-model="dialogModel" fullscreen scrollable>
     <v-card>
-      <v-toolbar color="primary">
-        <v-btn icon="mdi-close" @click="dialogModel = false" />
-        <v-card-title> Эффекты </v-card-title>
-        <v-spacer></v-spacer>
-      </v-toolbar>
+      <v-container class="pa-0">
+        <v-toolbar height="48" color="primary">
+          <v-btn icon="mdi-close" @click="dialogModel = false" />
+          <v-toolbar-title>Эффекты</v-toolbar-title>
+        </v-toolbar>
+      </v-container>
       <v-card-text>
         <v-container class="pa-0">
           <v-row>

@@ -3,7 +3,12 @@
     <v-col class="pa-0">
       <h3 class="ml-3">
         <span>Эффекты</span>
-        <v-btn variant="text" icon="mdi-pencil" @click="editDialog = true" />
+        <v-btn
+          class="d-inline"
+          variant="text"
+          icon="mdi-pencil"
+          @click="editDialog = true"
+        />
       </h3>
       <div class="mx-3 d-flex flex-wrap">
         <template v-if="haveAnyCondition">
