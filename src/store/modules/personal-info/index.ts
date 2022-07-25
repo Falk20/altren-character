@@ -17,6 +17,9 @@ export default {
     isBasij(state: IPersonalInfo): boolean {
       return state.isBasij;
     },
+    basijLevel(state: IPersonalInfo): number {
+      return state.basijLevel;
+    },
     isBard(state: IPersonalInfo): boolean {
       return state.isBard;
     },
@@ -29,6 +32,11 @@ export default {
     },
     setIsBasij(state: IPersonalInfo, value: boolean): void {
       state.isBasij = value;
+
+      saveState(personalInfoStorageKey, state);
+    },
+    setBasijLevel(state: IPersonalInfo, value: number): void {
+      state.basijLevel = value;
 
       saveState(personalInfoStorageKey, state);
     },

@@ -43,7 +43,9 @@ export default {
       const conditionMP = state.conditions.MP;
 
       if (getters.isBasij) {
-        return defaultBasij + conditionMP;
+        const basijLevel = rootGetters["character/personalInfo/basijLevel"];
+
+        return basijLevel + conditionMP;
       }
 
       const statBuff = getters.isMage

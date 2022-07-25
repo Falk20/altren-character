@@ -5,6 +5,7 @@ import { getState } from "@/helpers/utils";
 const defaultValue: IPersonalInfo = {
   isMage: false,
   isBasij: false,
+  basijLevel: 2,
   isBard: false,
   name: "",
   race: "",

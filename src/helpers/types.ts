@@ -11,6 +11,7 @@ export interface IStatus {
 export interface IPersonalInfo {
   isMage: boolean;
   isBasij: boolean;
+  basijLevel: number;
   isBard: boolean;
   name: string;
   race: string;
