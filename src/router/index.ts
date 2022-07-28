@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import StatusView from "../views/StatusView.vue";
 import StatsView from "../views/StatsView.vue";
 import PersonalView from "../views/PersonalView.vue";
+import InventoryView from "../views/InventoryView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -15,9 +16,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/inventory",
     name: "inventory",
-    component: import(
-      /* webpackChunkName: "inventory" */ "../views/InventoryView.vue"
-    ),
+    component: InventoryView,
     meta: {
       title: "Инвентарь",
     },
