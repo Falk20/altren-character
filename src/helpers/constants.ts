@@ -7,6 +7,7 @@ export const maxBasij = 10;
 export const statusStorageKey = "character-status";
 export const statsStorageKey = "character-stats";
 export const personalInfoStorageKey = "character-personal-info";
+export const inventoryStorageKey = "character-inventory";
 
 export const skills = {
   strength: {

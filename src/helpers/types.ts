@@ -19,6 +19,10 @@ export interface IPersonalInfo {
   mutations: unknown[];
 }
 
+export interface IInventory {
+  wallet: number;
+}
+
 export enum ItemTypes {
   stackable = "stackable",
   nonStackable = "nonStackable",

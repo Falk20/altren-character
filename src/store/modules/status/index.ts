@@ -3,7 +3,6 @@ import { saveState } from "@/helpers/utils";
 import { generateState } from "./utils";
 
 import {
-  defaultBasij,
   defaultHits,
   defaultInspiration,
   defaultMana,
