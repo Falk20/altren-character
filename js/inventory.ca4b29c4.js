@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkaltren_character"]=self["webpackChunkaltren_character"]||[]).push([[234],{3756:function(n,e,r){r.r(e),r.d(e,{default:function(){return o}});var t=r(3396);function a(n,e,r,a,c,u){return(0,t.wg)(),(0,t.iD)("div",null,"InventoryView")}var c=(0,t.aZ)({name:"InventoryView",components:{}}),u=r(89);const i=(0,u.Z)(c,[["render",a]]);var o=i}}]);
-//# sourceMappingURL=inventory.ca4b29c4.js.map
