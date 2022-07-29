@@ -11,6 +11,8 @@ const defaultValue: IPersonalInfo = {
   race: "",
   telents: [],
   mutations: [],
+  karma: 0,
+  fame: 0,
 };
 
 export function generateState(): IPersonalInfo {

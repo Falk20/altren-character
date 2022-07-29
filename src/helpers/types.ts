@@ -17,6 +17,8 @@ export interface IPersonalInfo {
   race: string;
   telents: unknown[];
   mutations: unknown[];
+  karma: number;
+  fame: number;
 }
 
 export interface IInventory {

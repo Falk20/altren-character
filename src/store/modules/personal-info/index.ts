@@ -23,6 +23,12 @@ export default {
     isBard(state: IPersonalInfo): boolean {
       return state.isBard;
     },
+    karma(state: IPersonalInfo): number {
+      return state.karma;
+    },
+    fame(state: IPersonalInfo): number {
+      return state.fame;
+    },
   },
   mutations: {
     setIsMage(state: IPersonalInfo, value: boolean): void {
@@ -42,6 +48,16 @@ export default {
     },
     setIsBard(state: IPersonalInfo, value: boolean): void {
       state.isBard = value;
+
+      saveState(personalInfoStorageKey, state);
+    },
+    setKarma(state: IPersonalInfo, value: number): void {
+      state.karma = value;
+
+      saveState(personalInfoStorageKey, state);
+    },
+    setFame(state: IPersonalInfo, value: number): void {
+      state.fame = value;
 
       saveState(personalInfoStorageKey, state);
     },

@@ -1,13 +1,13 @@
 <template>
   <v-container class="pa-0">
     <v-row>
-      <AltPersonalToggler
+      <AltCheckboxField
         v-model:value="isMageModel"
         title="Магическое существо"
       />
     </v-row>
     <v-row v-if="isMageModel">
-      <AltPersonalToggler v-model:value="isBasijModel" title="Басидж-каран" />
+      <AltCheckboxField v-model:value="isBasijModel" title="Басидж-каран" />
     </v-row>
     <v-row v-if="isMageModel && isBasijModel">
       <v-col class="mt-5">
@@ -24,7 +24,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <AltPersonalToggler v-model:value="isBardModel" title="Бард" />
+      <AltCheckboxField v-model:value="isBardModel" title="Бард" />
     </v-row>
   </v-container>
 </template>
@@ -38,13 +38,13 @@ const { mapGetters, mapMutations } = createNamespacedHelpers(
   "character/personalInfo"
 );
 
-import AltPersonalToggler from "./personal-toggler.vue";
+import AltCheckboxField from "@/components/atoms/checkbox-field.vue";
 
 export default defineComponent({
   name: "AltPersonalTogglers",
 
   components: {
-    AltPersonalToggler,
+    AltCheckboxField,
   },
 
   data() {

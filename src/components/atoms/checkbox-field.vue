@@ -11,7 +11,7 @@
 import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
-  name: "AltPersonalToggler",
+  name: "AltCheckboxField",
 
   props: {
     value: { type: Boolean as PropType<boolean>, required: true },
