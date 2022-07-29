@@ -48,7 +48,7 @@ export default defineComponent({
 
     value: {
       get(): number {
-        return this.fatigue;
+        return this.fatigue ?? 0;
       },
       set(value: number): void {
         this.setFatigue(value);

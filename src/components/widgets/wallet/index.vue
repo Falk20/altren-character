@@ -8,15 +8,7 @@
           icon="mdi-minus"
           @click="decrement()"
         />
-        <v-text-field
-          v-model.number="value"
-          type="number"
-          variant="solo"
-          density="compact"
-          label="Кошель"
-          hide-details="true"
-          v-maska="'######'"
-        />
+        <AltNumberField v-model="value" label="Кошель" mask="######" />
         <v-btn
           class="d-inline"
           variant="text"
@@ -75,15 +67,21 @@ const { mapGetters, mapMutations } = createNamespacedHelpers(
   "character/inventory"
 );
 
+import AltNumberField from "@/components/atoms/number-field.vue";
+
 export default defineComponent({
   name: "AltWallet",
+
+  components: {
+    AltNumberField,
+  },
 
   computed: {
     ...mapGetters(["wallet"]),
 
     value: {
       get(): number {
-        return this.wallet;
+        return this.wallet ?? 0;
       },
       set(value: number): void {
         this.setWallet(value);

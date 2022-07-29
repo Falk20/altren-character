@@ -1,13 +1,12 @@
 <template>
-  <v-text-field
-    v-model.number="valueModel"
-    type="number"
+  <v-select
+    v-model="valueModel"
+    :items="items"
     variant="solo"
     density="compact"
     :label="label"
     hide-details="true"
-    v-maska="mask"
-  />
+  ></v-select>
 </template>
 
 <script lang="ts">
@@ -18,25 +17,25 @@ export default defineComponent({
 
   props: {
     value: {
-      type: Number as PropType<number>,
+      type: String as PropType<string>,
       required: true,
     },
     label: {
       type: String as PropType<string>,
       required: true,
     },
-    mask: {
-      type: String as PropType<string>,
-      default: "####",
+    items: {
+      type: Array as PropType<any[]>,
+      required: true,
     },
   },
 
   computed: {
     valueModel: {
-      get(): number {
+      get(): string {
         return this.value;
       },
-      set(value: number): void {
+      set(value: string): void {
         this.$emit("update:value", value);
       },
     },

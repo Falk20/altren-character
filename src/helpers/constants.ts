@@ -9,6 +9,21 @@ export const statsStorageKey = "character-stats";
 export const personalInfoStorageKey = "character-personal-info";
 export const inventoryStorageKey = "character-inventory";
 
+export const kinds = [
+  {
+    title: "Человек",
+    value: "human",
+  },
+  {
+    title: "Мальф",
+    value: "malf",
+  },
+  {
+    title: "Зверолюд",
+    value: "beastman",
+  },
+];
+
 export const skills = {
   strength: {
     oneHandedWeapons: {
