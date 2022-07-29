@@ -37,6 +37,24 @@ export default {
       return rootGetters["character/personalInfo/kind"] === malfID;
     },
 
+    isFameLvl2(
+      state: IStatus,
+      getters: any,
+      _: any,
+      rootGetters: any
+    ): boolean {
+      return rootGetters["character/personalInfo/fame"] >= 350;
+    },
+
+    isFameLvl3(
+      state: IStatus,
+      getters: any,
+      _: any,
+      rootGetters: any
+    ): boolean {
+      return rootGetters["character/personalInfo/fame"] >= 700;
+    },
+
     hits(state: IStatus): number {
       return state.hits;
     },
@@ -80,7 +98,9 @@ export default {
       rootGetters: any
     ): number {
       const statBuff = rootGetters["character/stats/charisma"];
-      return defaultInspiration + statBuff;
+      const fameModifier = getters.isFameLvl2 ? 2 : 1;
+      const maxInspiration = (defaultInspiration + statBuff) * fameModifier;
+      return maxInspiration;
     },
 
     threshold(state: IStatus, _1: any, _2: any, rootGetters: any): number {

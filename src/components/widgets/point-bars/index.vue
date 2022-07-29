@@ -9,7 +9,7 @@
         />
       </v-col>
     </v-row>
-    <v-row class="pa-0 ma-0 mb-3">
+    <v-row v-if="!isFameLvl3" class="pa-0 ma-0 mb-3">
       <v-col class="pa-0">
         <AltPointBar
           v-model:value="manaModel"
@@ -54,6 +54,7 @@ export default defineComponent({
       "isMage",
       "isBasij",
       "isBard",
+      "isFameLvl3",
       "hits",
       "maxHits",
       "mana",
