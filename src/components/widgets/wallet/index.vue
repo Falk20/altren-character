@@ -106,10 +106,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.v-input__prepend,
-.v-input__append {
-  padding-top: 0;
-}
-</style>
