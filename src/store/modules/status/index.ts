@@ -7,6 +7,8 @@ import {
   defaultInspiration,
   defaultMana,
   defaultThreshold,
+  humanID,
+  malfID,
 } from "@/helpers/constants";
 
 import { statusStorageKey } from "@/helpers/constants";
@@ -28,11 +30,20 @@ export default {
       return rootGetters["character/personalInfo/isBard"];
     },
 
+    isHuman(state: IStatus, getters: any, _: any, rootGetters: any): boolean {
+      return rootGetters["character/personalInfo/kind"] === humanID;
+    },
+    isMalf(state: IStatus, getters: any, _: any, rootGetters: any): boolean {
+      return rootGetters["character/personalInfo/kind"] === malfID;
+    },
+
     hits(state: IStatus): number {
       return state.hits;
     },
-    maxHits(state: IStatus): number {
-      return defaultHits + state.conditions.HP;
+    maxHits(state: IStatus, getters: any): number {
+      const bonusHP = getters.isMalf ? 1 : 0;
+
+      return defaultHits + state.conditions.HP + bonusHP;
     },
 
     mana(state: IStatus): number {
@@ -47,9 +58,14 @@ export default {
         return basijLevel + conditionMP;
       }
 
-      const statBuff = getters.isMage
-        ? rootGetters["character/stats/intelligence"] * 2
-        : rootGetters["character/stats/endurance"];
+      if (getters.isMage) {
+        const statBuff = rootGetters["character/stats/intelligence"] * 2;
+        const manaBuff = getters.isHuman ? statBuff + 1 : statBuff;
+
+        return defaultMana + conditionMP + manaBuff;
+      }
+
+      const statBuff = rootGetters["character/stats/endurance"];
 
       return defaultMana + conditionMP + statBuff;
     },

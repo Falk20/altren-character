@@ -9,18 +9,22 @@ export const statsStorageKey = "character-stats";
 export const personalInfoStorageKey = "character-personal-info";
 export const inventoryStorageKey = "character-inventory";
 
+export const humanID = "human";
+export const malfID = "malf";
+export const beastmanID = "beastman";
+
 export const kinds = [
   {
     title: "Человек",
-    value: "human",
+    value: humanID,
   },
   {
     title: "Мальф",
-    value: "malf",
+    value: malfID,
   },
   {
     title: "Зверолюд",
-    value: "beastman",
+    value: beastmanID,
   },
 ];
 
