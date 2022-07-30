@@ -42,7 +42,7 @@
               <v-slider
                 v-model="modelThreshold"
                 :min="-10"
-                :max="10"
+                :max="20"
                 :step="1"
                 show-ticks="always"
                 thumb-label="always"
