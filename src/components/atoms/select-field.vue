@@ -13,7 +13,7 @@
 import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
-  name: "AltNumberField",
+  name: "AltSelectField",
 
   props: {
     value: {

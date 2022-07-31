@@ -1,9 +1,9 @@
-import { IInventory, IPersonalInfo, IStatus } from "./types";
+import { IInventory, IPersonalInfo, ISkills, IStatus } from "./types";
 import { BasijBar, EPBar, MPBar } from "./viewConstants";
 
 export function saveState(
   stateName: string,
-  state: IStatus | IPersonalInfo | IInventory | Record<string, number>
+  state: IStatus | IPersonalInfo | IInventory | ISkills | Record<string, number>
 ): void {
   const stringifiedState = JSON.stringify(state);
 

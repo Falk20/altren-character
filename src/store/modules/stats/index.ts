@@ -1,6 +1,6 @@
 import { generateState } from "./utils";
 import { saveState } from "@/helpers/utils";
-import { statsStorageKey } from "@/helpers/constants";
+import { Stats, statsStorageKey } from "@/helpers/constants";
 
 export default {
   namespaced: true,
@@ -9,6 +9,10 @@ export default {
     return generateState();
   },
   getters: {
+    statByName: (state: Record<string, number>) => (name: Stats) => {
+      return state[name];
+    },
+
     strength(state: Record<string, number>): number {
       return state.strength;
     },

@@ -1,17 +1,17 @@
 <template>
   <v-container>
-    <AltScale v-model:value="strengthModel" title="Сила" />
-    <AltScale v-model:value="agilityModel" title="Ловкость" />
-    <AltScale v-model:value="intelligenceModel" title="Интеллект" />
-    <AltScale v-model:value="charismaModel" title="Харизма" />
-    <AltScale v-model:value="enduranceModel" title="Выносливость" />
+    <AltScaleField v-model:value="strengthModel" title="Сила" />
+    <AltScaleField v-model:value="agilityModel" title="Ловкость" />
+    <AltScaleField v-model:value="intelligenceModel" title="Интеллект" />
+    <AltScaleField v-model:value="charismaModel" title="Харизма" />
+    <AltScaleField v-model:value="enduranceModel" title="Выносливость" />
   </v-container>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import AltScale from "./Scale.vue";
+import AltScaleField from "@/components/atoms/scale-field.vue";
 
 import { createNamespacedHelpers } from "vuex";
 const { mapGetters, mapMutations } = createNamespacedHelpers("character/stats");
@@ -20,7 +20,7 @@ export default defineComponent({
   name: "AltStats",
 
   components: {
-    AltScale,
+    AltScaleField,
   },
 
   computed: {
