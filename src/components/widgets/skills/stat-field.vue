@@ -1,29 +1,29 @@
 <template>
   <v-container class="pa-0">
-    <h2 class="text-center">{{ name }}</h2>
-
-    <!-- <AltScaleField
-      v-for="skill in skills"
-      :key="'skill' + skill.value"
-      v-model:value="agilityModel"
-      :title="skill.title"
-    /> -->
+    <AltScaleField
+      v-model:value="valueModel"
+      :title="title"
+      :maxValue="maxValue"
+    />
   </v-container>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 
-// import AltScaleField from "@/components/atoms/scale-field.vue";
+import AltScaleField from "@/components/atoms/scale-field.vue";
 
 import { createNamespacedHelpers } from "vuex";
-const { mapMutations } = createNamespacedHelpers("character/skills");
+import { Stats, statsWithSkills } from "@/helpers/constants";
+import { ISkill } from "@/helpers/types";
+const { mapGetters, mapMutations } =
+  createNamespacedHelpers("character/skills");
 
 export default defineComponent({
   name: "altSkillField",
 
   components: {
-    // AltScaleField,
+    AltScaleField,
   },
 
   props: {
@@ -35,6 +35,11 @@ export default defineComponent({
       type: Number as PropType<number>,
       default: 6,
     },
+    statName: {
+      type: String as PropType<Stats>,
+      requred: true,
+      default: "",
+    },
   },
 
   data() {
@@ -42,16 +47,27 @@ export default defineComponent({
   },
 
   computed: {
+    ...mapGetters(["getSkill"]),
+
     valueModel: {
       get(): number {
-        return 0;
+        return this.getSkill(this.name, this.statName);
       },
       set(value: number): void {
         this.setSkill({
-          statName: "endurance",
-          value,
+          name: this.name,
+          level: value,
+          statName: this.statName,
         });
       },
+    },
+
+    title(): string {
+      return (
+        statsWithSkills[this.statName].skills.find(
+          (skill: ISkill) => skill.value === this.name
+        )?.title ?? ""
+      );
     },
   },
 

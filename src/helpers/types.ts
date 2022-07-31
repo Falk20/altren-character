@@ -34,7 +34,7 @@ export interface ISetSkillPayload {
 export interface ISkill {
   title: string;
   value: string;
-  affects: string[];
+  affects?: string[];
 }
 
 export interface IInventory {

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-0">
+  <v-container class="px-0 py-2">
     <h2 class="d-flex justify-center">
       <span>{{ title }}</span>
       <v-btn
@@ -13,22 +13,23 @@
       />
     </h2>
 
-    <template v-if="learnedSkills.length">
-      <AltStateField
-        v-for="skill in learnedSkills"
-        :key="'skill-' + skill"
-        :name="skill"
-        :maxValue="statLevel"
-      />
-    </template>
-    <p class="text-center" v-else-if="!isCurrentFormOpen">Навыки не изучены</p>
-
     <AltSkillAddingForm
       v-if="isCurrentFormOpen"
       :statName="name"
       :skillsDictionary="filteredSkillsDictionary"
       @close-form="closeForm"
     />
+
+    <template v-if="learnedSkills.length">
+      <AltStateField
+        v-for="skill in learnedSkills"
+        :key="'skill-' + skill"
+        :name="skill"
+        :maxValue="statLevel"
+        :statName="name"
+      />
+    </template>
+    <p class="text-center" v-else-if="!isCurrentFormOpen">Навыки не изучены</p>
   </v-container>
 </template>
 
@@ -44,6 +45,7 @@ const { mapGetters: mapStatsGetters } =
 
 import AltStateField from "./stat-field.vue";
 import AltSkillAddingForm from "./adding-form.vue";
+import { Stats } from "@/helpers/constants";
 
 export default defineComponent({
   name: "altSkillsStatSection",
@@ -55,7 +57,7 @@ export default defineComponent({
 
   props: {
     name: {
-      type: String as PropType<string>,
+      type: String as PropType<Stats>,
       requred: true,
     },
     title: {
