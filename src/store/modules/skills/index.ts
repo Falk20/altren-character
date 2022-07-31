@@ -1,11 +1,8 @@
 import { skillsStorageKey } from "@/helpers/constants";
 import { ISetSkillPayload, ISkills } from "@/helpers/types";
 import { saveState } from "@/helpers/utils";
-// import { statsWithSkills } from "@/helpers/constants";
 
 import { generateState } from "./utils";
-// import { saveState } from "@/helpers/utils";
-// import { skillsStorageKey } from "@/helpers/constants";
 
 export default {
   namespaced: true,
