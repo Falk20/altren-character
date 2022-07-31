@@ -9,6 +9,7 @@ import {
   defaultThreshold,
   humanID,
   malfID,
+  Stats,
 } from "@/helpers/constants";
 
 import { statusStorageKey } from "@/helpers/constants";
@@ -58,8 +59,14 @@ export default {
     hits(state: IStatus): number {
       return state.hits;
     },
-    maxHits(state: IStatus, getters: any): number {
-      const bonusHP = getters.isMalf ? 1 : 0;
+    maxHits(state: IStatus, getters: any, _: any, rootGetters: any): number {
+      const skillBonus =
+        rootGetters["character/skills/getSkill"]("health", Stats.endurance) ??
+        0;
+
+      const kindBonus = getters.isMalf ? 1 : 0;
+
+      const bonusHP = skillBonus + kindBonus;
 
       return defaultHits + state.conditions.HP + bonusHP;
     },
