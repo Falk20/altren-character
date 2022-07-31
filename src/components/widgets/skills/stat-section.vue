@@ -97,7 +97,11 @@ export default defineComponent({
     },
 
     canAddNewSkill(): boolean {
-      return !!this.filteredSkillsDictionary.length && this.skillCount < 13;
+      return (
+        !!this.filteredSkillsDictionary.length &&
+        this.skillCount < 13 &&
+        this.statLevel > 0
+      );
     },
 
     btnIcon() {
