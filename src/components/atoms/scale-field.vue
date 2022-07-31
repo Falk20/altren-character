@@ -16,7 +16,7 @@
           @click="increment"
         />
       </h4>
-      <v-rating v-model="valueModel" :length="6">
+      <v-rating v-model="valueModel" :length="maxValue">
         <template v-slot:item="props">
           <v-icon
             :color="props.isFilled ? 'green' : 'grey-lighten-1'"
@@ -35,11 +35,15 @@
 import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
-  name: "AltStatsScale",
+  name: "AltScaleField",
 
   props: {
     value: { type: Number as PropType<number>, required: true },
     title: String,
+    maxValue: {
+      type: Number as PropType<number>,
+      default: 6,
+    },
   },
 
   emits: ["update:value"],
@@ -63,7 +67,7 @@ export default defineComponent({
     },
 
     increment(): void {
-      if (this.valueModel < 6) {
+      if (this.valueModel < this.maxValue) {
         this.valueModel++;
       }
     },

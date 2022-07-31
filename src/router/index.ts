@@ -3,6 +3,7 @@ import StatusView from "../views/StatusView.vue";
 import StatsView from "../views/StatsView.vue";
 import PersonalView from "../views/PersonalView.vue";
 import InventoryView from "../views/InventoryView.vue";
+import SkillsView from "../views/SkillsView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -33,9 +34,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/skills",
     name: "skills",
-    component: import(
-      /* webpackChunkName: "skills" */ "../views/SkillsView.vue"
-    ),
+    component: SkillsView,
     meta: {
       title: "Навыки",
     },

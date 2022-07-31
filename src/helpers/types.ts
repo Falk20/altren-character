@@ -21,6 +21,22 @@ export interface IPersonalInfo {
   fame: number;
 }
 
+export interface ISkills {
+  skills: Record<string, Record<string, number>>;
+}
+
+export interface ISetSkillPayload {
+  name: string;
+  level: number;
+  statName: string;
+}
+
+export interface ISkill {
+  title: string;
+  value: string;
+  affects?: string[];
+}
+
 export interface IInventory {
   wallet: number;
 }
