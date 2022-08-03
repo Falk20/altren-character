@@ -221,3 +221,30 @@ export const statsWithSkills = {
     ],
   },
 };
+
+export const dices = [
+  {
+    title: "d4",
+    value: 1,
+  },
+  {
+    title: "d6",
+    value: 2,
+  },
+  {
+    title: "d8",
+    value: 3,
+  },
+  {
+    title: "d10",
+    value: 4,
+  },
+  {
+    title: "d12",
+    value: 5,
+  },
+  {
+    title: "d20",
+    value: 6,
+  },
+];

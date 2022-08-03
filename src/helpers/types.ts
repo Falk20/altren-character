@@ -50,16 +50,30 @@ export enum ItemTypes {
   food = "food",
 }
 
+export enum DamageTypes {
+  dice = "dice",
+  modificator = "modificator",
+}
+
+export interface IDamage {
+  type: DamageTypes;
+  value: number;
+}
+
 export interface IItem {
   title: string;
   description: string;
   type: ItemTypes;
 }
 
+export interface IItemStackeble extends IItem {
+  type: ItemTypes.stackable;
+  count: number;
+}
+
 export interface IWeapon extends IItem {
   type: ItemTypes.weapon;
-  damageDice: number;
-  damageModificator: number;
+  damage: IDamage[];
 }
 
 export interface IArmor extends IItem {
@@ -67,15 +81,16 @@ export interface IArmor extends IItem {
   protection: number;
 }
 
-export interface IProjectile extends IItem {
+export interface IProjectile {
   type: ItemTypes.projectile;
-  damageDice: number;
-  damageModificator: number;
+  count: number;
+  damage: IDamage[];
 }
 
 export interface IEquipment {
   weapons: IWeapon[];
   armors: IArmor[];
+  projectiles: IProjectile[];
 }
 
 export interface IConditions {
