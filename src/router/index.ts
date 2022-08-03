@@ -25,7 +25,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/stats",
     name: "stats",
-    // component: import(/* webpackChunkName: "stats" */ "../views/StatsView.vue")
     component: StatsView,
     meta: {
       title: "Характеристики",
@@ -47,16 +46,16 @@ const routes: Array<RouteRecordRaw> = [
       title: "Личность",
     },
   },
-  {
-    path: "/abilities",
-    name: "abilities",
-    component: import(
-      /* webpackChunkName: "abilities" */ "../views/AbilitiesView.vue"
-    ),
-    meta: {
-      title: "Способности",
-    },
-  },
+  // {
+  //   path: "/abilities",
+  //   name: "abilities",
+  //   component: import(
+  //     /* webpackChunkName: "abilities" */ "../views/AbilitiesView.vue"
+  //   ),
+  //   meta: {
+  //     title: "Способности",
+  //   },
+  // },
 ];
 
 const router = createRouter({
