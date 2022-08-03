@@ -26,7 +26,7 @@ export default defineComponent({
       required: true,
     },
     mask: {
-      type: String as PropType<string>,
+      type: [String, Array],
       default: "####",
     },
   },
@@ -34,7 +34,7 @@ export default defineComponent({
   computed: {
     valueModel: {
       get(): number {
-        return this.value;
+        return this.value ?? 0;
       },
       set(value: number): void {
         this.$emit("update:value", value);

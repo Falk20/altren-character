@@ -8,7 +8,7 @@
           icon="mdi-minus"
           @click="decrement()"
         />
-        <AltNumberField v-model="value" label="Кошель" mask="######" />
+        <AltNumberField v-model.number="value" label="Кошель" mask="######" />
         <v-btn
           class="d-inline"
           variant="text"
@@ -93,12 +93,22 @@ export default defineComponent({
     ...mapMutations(["setWallet"]),
 
     decrement(value = 1): void {
-      if (this.value - value > 0) {
+      if (typeof this.value !== "number") {
+        this.value = 0;
+        return;
+      }
+
+      if (this.value - value >= 0) {
         this.value -= value;
       }
     },
 
     increment(value = 1): void {
+      if (typeof this.value !== "number") {
+        this.value = value;
+        return;
+      }
+
       this.value += value;
     },
   },
