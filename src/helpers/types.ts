@@ -39,6 +39,13 @@ export interface ISkill {
 
 export interface IInventory {
   wallet: number;
+  bags?: IBag[];
+}
+
+export interface IBag {
+  title: string;
+  capacity: number;
+  items: IItem[];
 }
 
 export enum ItemTypes {
@@ -47,7 +54,6 @@ export enum ItemTypes {
   armor = "armor",
   weapon = "weapon",
   projectile = "projectile",
-  food = "food",
 }
 
 export enum DamageTypes {
@@ -64,6 +70,7 @@ export interface IItem {
   title: string;
   description: string;
   type: ItemTypes;
+  weight: number;
 }
 
 export interface IItemStackeble extends IItem {
@@ -81,7 +88,7 @@ export interface IArmor extends IItem {
   protection: number;
 }
 
-export interface IProjectile {
+export interface IProjectile extends IItem {
   type: ItemTypes.projectile;
   count: number;
   damage: IDamage[];

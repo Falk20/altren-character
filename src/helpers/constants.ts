@@ -1,3 +1,5 @@
+import { ItemTypes } from "./types";
+
 export const defaultHits = 4;
 export const defaultMana = 5;
 export const defaultThreshold = 4;
@@ -246,5 +248,28 @@ export const dices = [
   {
     title: "d20",
     value: 6,
+  },
+];
+
+export const itemTypes = [
+  {
+    title: "Один",
+    value: ItemTypes.nonStackable,
+  },
+  {
+    title: "Несколько",
+    value: ItemTypes.stackable,
+  },
+  {
+    title: "Одежда",
+    value: ItemTypes.armor,
+  },
+  {
+    title: "Оружие",
+    value: ItemTypes.weapon,
+  },
+  {
+    title: "Снаряды",
+    value: ItemTypes.projectile,
   },
 ];
