@@ -7,6 +7,7 @@ export const defaultInspiration = 6;
 export const defaultBasij = 2;
 export const maxBasij = 10;
 export const maxSkillCount = 13;
+export const defaultStepCount = 3;
 export const statusStorageKey = "character-status";
 export const statsStorageKey = "character-stats";
 export const personalInfoStorageKey = "character-personal-info";

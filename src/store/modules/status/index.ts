@@ -6,6 +6,7 @@ import {
   defaultHits,
   defaultInspiration,
   defaultMana,
+  defaultStepCount,
   defaultThreshold,
   humanID,
   malfID,
@@ -126,6 +127,16 @@ export default {
     },
     conditionThreshold(state: IStatus): number {
       return state.conditions.threshold;
+    },
+
+    stepCount(state: IStatus, _1: any, _2: any, rootGetters: any): number {
+      const skillBonus =
+        rootGetters["character/skills/getSkill"]("athletics", Stats.agility) ??
+        0;
+      const agility = rootGetters["character/stats/agility"] ?? 0;
+      const statBuff = Math.floor(agility / 2);
+
+      return defaultStepCount + statBuff + skillBonus;
     },
   },
   mutations: {
