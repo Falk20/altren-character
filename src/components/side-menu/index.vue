@@ -8,6 +8,9 @@
         :title="getPageTitle(page)"
       ></v-list-item>
     </v-list>
+    <template v-slot:append>
+      <AltExportJson />
+    </template>
   </v-navigation-drawer>
 </template>
 
@@ -16,8 +19,14 @@ import { defineComponent } from "vue";
 import { RouteRecordNormalized } from "vue-router";
 import { mapGetters, mapMutations } from "vuex";
 
+import AltExportJson from "./export-json.vue";
+
 export default defineComponent({
   name: "AltSideMenu",
+
+  components: {
+    AltExportJson,
+  },
 
   computed: {
     ...mapGetters(["sideMenu"]),
