@@ -45,7 +45,7 @@ export default {
       _: any,
       rootGetters: any
     ): boolean {
-      return rootGetters["character/personalInfo/fame"] >= 350;
+      return rootGetters["character/personalInfo/fame"] >= 100;
     },
 
     isFameLvl3(
@@ -54,7 +54,7 @@ export default {
       _: any,
       rootGetters: any
     ): boolean {
-      return rootGetters["character/personalInfo/fame"] >= 700;
+      return rootGetters["character/personalInfo/fame"] >= 350;
     },
 
     hits(state: IStatus): number {
