@@ -7,11 +7,6 @@ import skills from "./skills";
 export default {
   namespaced: true,
 
-  state: () => ({}),
-  mutations: {},
-  actions: {},
-  getters: {},
-
   modules: {
     inventory,
     status,
