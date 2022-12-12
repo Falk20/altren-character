@@ -10,4 +10,13 @@ module.exports = defineConfig({
       // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
     },
   },
+
+  pwa: {
+    name: "Altren Character",
+    themeColor: "#6200ee",
+
+    manifestOptions: {
+      background_color: "#6200ee",
+    },
+  },
 });
