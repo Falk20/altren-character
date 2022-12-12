@@ -9,7 +9,7 @@ const defaultValue: IPersonalInfo = {
   isBard: false,
   name: "",
   race: "",
-  telents: [],
+  talents: [],
   mutations: [],
   karma: 0,
   fame: 0,

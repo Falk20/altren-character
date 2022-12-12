@@ -15,7 +15,7 @@ export interface IPersonalInfo {
   isBard: boolean;
   name: string;
   race: string;
-  telents: unknown[];
+  talents: unknown[];
   mutations: unknown[];
   karma: number;
   fame: number;
