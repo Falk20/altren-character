@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  signOut,
+} from "firebase/auth";
+
+import store from "@/store/index";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAwm7Sgf-Hk64_VjALFEadEsT4RinaWjtY",
@@ -15,3 +22,17 @@ export const firebaseApp = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(firebaseApp);
+export const provider = new GoogleAuthProvider();
+
+export const googleSignIn = () => {
+  signInWithRedirect(auth, provider);
+};
+
+export const googleSignOut = async () => {
+  try {
+    await signOut(auth);
+    store.commit("app/auth/setUser", null);
+  } catch (error) {
+    console.log(error);
+  }
+};

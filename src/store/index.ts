@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 
 import character from "./modules/character";
+import app from "./modules/app";
 
 export interface IState {
   sideMenu: boolean;
@@ -28,5 +29,6 @@ export default createStore({
   actions: {},
   modules: {
     character,
+    app,
   },
 });

@@ -41,7 +41,7 @@ export default defineComponent({
     },
 
     pageList(): RouteRecordNormalized[] {
-      return this.$router.getRoutes();
+      return this.$router.getRoutes().filter((page) => !page.meta.hideInNav);
     },
   },
 

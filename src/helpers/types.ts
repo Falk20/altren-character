@@ -1,3 +1,9 @@
+import { User } from "firebase/auth";
+
+export interface IAuth {
+  user: User | null;
+}
+
 export interface IStatus {
   hits: number;
   mana: number;

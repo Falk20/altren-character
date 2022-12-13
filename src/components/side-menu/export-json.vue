@@ -1,6 +1,7 @@
 <template>
   <v-list density="compact" nav>
     <v-list-item title="Экспорт" @click="importJson"></v-list-item>
+    <v-list-item title="Выход" class="red" @click="logOut"></v-list-item>
   </v-list>
 </template>
 
@@ -8,6 +9,8 @@
 import { defineComponent } from "vue";
 
 import { mapState } from "vuex";
+
+import { googleSignOut } from "@/firebase/config";
 
 export default defineComponent({
   name: "AltExportJson",
@@ -17,6 +20,11 @@ export default defineComponent({
   },
 
   methods: {
+    async logOut() {
+      await googleSignOut();
+      this.$router.push("/start");
+    },
+
     importJson(): void {
       const stateJson = JSON.stringify(this.character);
       const stateFile =
@@ -30,3 +38,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.red {
+  color: rgb(var(--v-theme-error));
+}
+</style>

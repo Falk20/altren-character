@@ -2,7 +2,7 @@
   <v-app>
     <AltNavbar />
 
-    <AltSideMenu />
+    <AltSideMenu v-if="isAuth" />
 
     <v-main>
       <router-view />
@@ -15,6 +15,9 @@ import { defineComponent } from "vue";
 import AltNavbar from "@/components/navbar/index.vue";
 import AltSideMenu from "@/components/side-menu/index.vue";
 
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("app/auth");
+
 export default defineComponent({
   name: "App",
 
@@ -25,6 +28,10 @@ export default defineComponent({
 
   data() {
     return {};
+  },
+
+  computed: {
+    ...mapGetters(["isAuth"]),
   },
 });
 </script>
