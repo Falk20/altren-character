@@ -16,7 +16,7 @@ export default defineComponent({
   name: "AltSelectField",
 
   props: {
-    value: {
+    modelValue: {
       type: String as PropType<string>,
       required: true,
     },
@@ -30,13 +30,15 @@ export default defineComponent({
     },
   },
 
+  emits: ["update:modelValue"],
+
   computed: {
     valueModel: {
       get(): string {
-        return this.value;
+        return this.modelValue;
       },
       set(value: string): void {
-        this.$emit("update:value", value);
+        this.$emit("update:modelValue", value);
       },
     },
   },
