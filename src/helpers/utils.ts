@@ -1,6 +1,20 @@
 import { IInventory, IPersonalInfo, ISkills, IStatus } from "./types";
 import { BasijBar, EPBar, MPBar } from "./viewConstants";
 
+import { generateState as generateInventory } from "@/store/modules/character/inventory/utils";
+import { generateState as generateStatus } from "@/store/modules/character/status/utils";
+import { generateState as generateStats } from "@/store/modules/character/stats/utils";
+import { generateState as generatePersonalInfo } from "@/store/modules/character/personal-info/utils";
+import { generateState as generateSkills } from "@/store/modules/character/skills/utils";
+import {
+  idStorageKey,
+  statusStorageKey,
+  statsStorageKey,
+  personalInfoStorageKey,
+  inventoryStorageKey,
+  skillsStorageKey,
+} from "./constants";
+
 export function saveState(
   stateName: string,
   state: IStatus | IPersonalInfo | IInventory | ISkills | Record<string, number>
@@ -52,4 +66,25 @@ export function getDiceIcon(value: number) {
       return "mdi-dice-d20";
   }
   return "mdi-dice-d4";
+}
+
+export function generateCharlist() {
+  return {
+    inventory: generateInventory(),
+    status: generateStatus(),
+    stats: generateStats(),
+    personalInfo: generatePersonalInfo(),
+    skills: generateSkills(),
+  };
+}
+
+export function setCharacterState(item: any) {
+  localStorage.setItem(idStorageKey, item.id);
+  saveState(statusStorageKey, item.status);
+  saveState(statsStorageKey, item.stats);
+  saveState(personalInfoStorageKey, item.personalInfo);
+  saveState(inventoryStorageKey, item.inventory);
+  saveState(skillsStorageKey, item.skills);
+
+  window.location.reload();
 }
