@@ -9,7 +9,9 @@
 
     <v-app-bar-title>{{ $route.meta.title }}</v-app-bar-title>
 
-    <template v-slot:append></template>
+    <template v-slot:append>
+      <HeaderRight />
+    </template>
   </v-app-bar>
 </template>
 
@@ -19,8 +21,14 @@ import { mapMutations } from "vuex";
 import { createNamespacedHelpers } from "vuex";
 const { mapGetters } = createNamespacedHelpers("app/auth");
 
+import HeaderRight from "@/components/widgets/header-right/index.vue";
+
 export default defineComponent({
   name: "AltNavbar",
+
+  components: {
+    HeaderRight,
+  },
 
   computed: {
     ...mapGetters(["isAuth"]),
