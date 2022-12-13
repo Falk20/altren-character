@@ -17,7 +17,7 @@ export default defineComponent({
   name: "AltNumberField",
 
   props: {
-    value: {
+    modelValue: {
       type: Number as PropType<number>,
       required: true,
     },
@@ -31,13 +31,15 @@ export default defineComponent({
     },
   },
 
+  emits: ["update:modelValue"],
+
   computed: {
     valueModel: {
       get(): number {
-        return this.value ?? 0;
+        return this.modelValue ?? 0;
       },
       set(value: number): void {
-        this.$emit("update:value", value);
+        this.$emit("update:modelValue", value);
       },
     },
   },
