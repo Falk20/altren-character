@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <AltSelectField
-          v-model:value="selectedSkill"
+          v-model="selectedSkill"
           :items="skillsDictionary"
           label="Новый навык"
         />
