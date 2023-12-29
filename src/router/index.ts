@@ -7,10 +7,10 @@ import {
 import { getCurrentUser } from "vuefire";
 import StatusView from "../views/StatusView.vue";
 import StatsView from "../views/StatsView.vue";
-import PersonalView from "../views/PersonalView.vue";
+import PersonalView from "@/views/PersonalView.vue";
 import InventoryView from "../views/InventoryView.vue";
 import SkillsView from "../views/SkillsView.vue";
-import StartView from "../views/StartView.vue";
+import StartView from "@/views/StartView.vue";
 import { useAuthStore } from "@/store/stores/auth";
 import store from "@/store";
 
@@ -47,14 +47,14 @@ const routes: Array<RouteRecordSingleView> = [
   //     title: "Навыки",
   //   },
   // },
-  // {
-  //   path: "/personal",
-  //   name: "personal",
-  //   component: PersonalView,
-  //   meta: {
-  //     title: "Личность",
-  //   },
-  // },
+  {
+    path: "/personal",
+    name: "personal",
+    component: PersonalView,
+    meta: {
+      title: "Личность",
+    },
+  },
   {
     path: "/start",
     name: "start",

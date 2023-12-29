@@ -2,55 +2,34 @@
   <v-container class="pa-0" v-if="isMage || isBard">
     <v-row>
       <v-col v-if="isMage">
-        <AltNumberField v-model="karmaModel" label="Карма" />
+        <AltNumberField v-model="karma" label="Карма" />
       </v-col>
       <v-col v-if="isBard">
-        <AltNumberField v-model="fameModel" label="Известность" />
+        <AltNumberField v-model="fame" label="Известность" />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapMutations } = createNamespacedHelpers(
-  "character/personalInfo"
-);
-
+<script setup lang="ts">
 import AltNumberField from "@/components/atoms/number-field.vue";
 
-export default defineComponent({
-  name: "AltKarmaFame",
+import { useCharacterPersonalInfoStore } from "@/store/stores/character-personal-info";
+import { computed } from "vue";
 
-  components: {
-    AltNumberField,
-  },
+const personalInfoStore = useCharacterPersonalInfoStore()
 
-  computed: {
-    ...mapGetters(["isMage", "isBard", "karma", "fame"]),
+const isMage = computed(() => personalInfoStore.isMage)
 
-    karmaModel: {
-      get(): number {
-        return this.karma ?? 0;
-      },
-      set(value: number) {
-        this.setKarma(value);
-      },
-    },
-    fameModel: {
-      get(): number {
-        return this.fame ?? 0;
-      },
-      set(value: number) {
-        this.setFame(value);
-      },
-    },
-  },
+const isBard = computed(() => personalInfoStore.isBard)
 
-  methods: {
-    ...mapMutations(["setKarma", "setFame"]),
-  },
-});
+const karma = computed({
+  get: () => personalInfoStore.karma,
+  set: (value: number) => personalInfoStore.setKarma(value)
+})
+
+const fame = computed({
+  get: () => personalInfoStore.fame,
+  set: (value: number) => personalInfoStore.setFame(value)
+})
 </script>

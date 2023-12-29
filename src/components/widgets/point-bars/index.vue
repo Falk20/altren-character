@@ -2,29 +2,17 @@
   <v-container class="pa-0">
     <v-row class="pa-0 ma-0 mb-3">
       <v-col class="pa-0">
-        <AltPointBar
-          v-model:value="hitsModel"
-          v-bind="hitsBar"
-          :maxValue="maxHits"
-        />
+        <AltPointBar v-model:value="hitsModel" v-bind="hitsBar" :maxValue="maxHits" />
       </v-col>
     </v-row>
     <v-row v-if="!isFameLvl3" class="pa-0 ma-0 mb-3">
       <v-col class="pa-0">
-        <AltPointBar
-          v-model:value="manaModel"
-          v-bind="manaBar"
-          :maxValue="maxMana"
-        />
+        <AltPointBar v-model:value="manaModel" v-bind="manaBar" :maxValue="maxMana" />
       </v-col>
     </v-row>
     <v-row v-if="isBard" class="pa-0 ma-0 mb-3">
       <v-col class="pa-0">
-        <AltPointBar
-          v-model:value="inspirationModel"
-          v-bind="inspirationBar"
-          :maxValue="maxInspiration"
-        />
+        <AltPointBar v-model:value="inspirationModel" v-bind="inspirationBar" :maxValue="maxInspiration" />
       </v-col>
     </v-row>
   </v-container>
@@ -108,3 +96,4 @@ export default defineComponent({
   },
 });
 </script>
+@/helpers

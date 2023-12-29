@@ -3,14 +3,8 @@
     <v-list density="compact">
       <v-list-subheader> Список персонажей </v-list-subheader>
 
-      <v-list-item
-        v-for="item in chars"
-        :key="item.id"
-        class="char"
-        active-color="primary"
-        :active="item.id === this.currentID"
-        @click="chooseChar(item)"
-      >
+      <v-list-item v-for="item in chars" :key="item.id" class="char" color="primary" :active="item.id === this.currentID"
+        @click="chooseChar(item)">
         <v-list-item-title>{{
           item.personalInfo.name || "Нет имени"
         }}</v-list-item-title>
@@ -84,3 +78,4 @@ export default defineComponent({
   border-bottom: 1px solid grey;
 }
 </style>
+@/helpers
