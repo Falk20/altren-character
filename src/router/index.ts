@@ -5,11 +5,11 @@ import {
   createWebHashHistory,
 } from "vue-router";
 import { getCurrentUser } from "vuefire";
-import StatusView from "../views/StatusView.vue";
-import StatsView from "../views/StatsView.vue";
+import StatusView from "@/views/StatusView.vue";
+import StatsView from "@/views/StatsView.vue";
 import PersonalView from "@/views/PersonalView.vue";
-import InventoryView from "../views/InventoryView.vue";
-import SkillsView from "../views/SkillsView.vue";
+import InventoryView from "@/views/InventoryView.vue";
+import SkillsView from "@/views/SkillsView.vue";
 import StartView from "@/views/StartView.vue";
 import { useAuthStore } from "@/store/stores/auth";
 import store from "@/store";
@@ -31,14 +31,14 @@ const routes: Array<RouteRecordSingleView> = [
       title: "Инвентарь",
     },
   },
-  // {
-  //   path: "/stats",
-  //   name: "stats",
-  //   component: StatsView,
-  //   meta: {
-  //     title: "Характеристики",
-  //   },
-  // },
+  {
+    path: "/stats",
+    name: "stats",
+    component: StatsView,
+    meta: {
+      title: "Характеристики",
+    },
+  },
   // {
   //   path: "/skills",
   //   name: "skills",
@@ -68,7 +68,7 @@ const routes: Array<RouteRecordSingleView> = [
   //   path: "/abilities",
   //   name: "abilities",
   //   component: import(
-  //     /* webpackChunkName: "abilities" */ "../views/AbilitiesView.vue"
+  //     /* webpackChunkName: "abilities" */ "@/views/AbilitiesView.vue"
   //   ),
   //   meta: {
   //     title: "Способности",

@@ -3,7 +3,7 @@ import { BasijBar, EPBar, MPBar } from "../viewConstants";
 
 import { generateState as generateInventory } from "@/helpers/utils/inventory";
 import { generateState as generateStatus } from "@/store/modules/character/status/utils";
-import { generateState as generateStats } from "@/store/modules/character/stats/utils";
+import { generateState as generateStats } from "@/helpers/utils/stats";
 import { generateState as generatePersonalInfo } from "@/helpers/utils/personal-info";
 import { generateState as generateSkills } from "@/store/modules/character/skills/utils";
 import {
@@ -13,11 +13,12 @@ import {
   personalInfoStorageKey,
   inventoryStorageKey,
   skillsStorageKey,
+  Stats,
 } from "../constants";
 
 export function saveState(
   stateName: string,
-  state: IStatus | IPersonalInfo | IInventory | ISkills | Record<string, number>
+  state: IStatus | IPersonalInfo | IInventory | ISkills | Record<Stats, number>
 ): void {
   const stringifiedState = JSON.stringify(state);
 
@@ -48,24 +49,6 @@ export function getCurrentPointBar(isMage: boolean, isBasij: boolean) {
   if (isMage && !isBasij) return MPBar;
 
   return EPBar;
-}
-
-export function getDiceIcon(value: number) {
-  switch (value) {
-    case 1:
-      return "mdi-dice-d4";
-    case 2:
-      return "mdi-dice-d6";
-    case 3:
-      return "mdi-dice-d8";
-    case 4:
-      return "mdi-dice-d10";
-    case 5:
-      return "mdi-dice-d12";
-    case 6:
-      return "mdi-dice-d20";
-  }
-  return "mdi-dice-d4";
 }
 
 export function generateCharlist() {
