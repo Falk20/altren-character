@@ -5,38 +5,32 @@
   </v-list>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-import { mapState } from "vuex";
-
+<script setup lang="ts">
 import { googleSignOut } from "@/firebase/config";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-export default defineComponent({
-  name: "AltExportJson",
+const router = useRouter()
 
-  computed: {
-    ...mapState(["character"]),
-  },
+// todo: починить, когда перепишу стор
+const character = ref('test')
 
-  methods: {
-    async logOut() {
-      await googleSignOut();
-      this.$router.push("/start");
-    },
+const logOut = async () => {
+  await googleSignOut();
 
-    importJson(): void {
-      const stateJson = JSON.stringify(this.character);
-      const stateFile =
-        "data:text/json;charset=utf-8," + encodeURIComponent(stateJson);
+  router.push("/start");
+}
 
-      const linkElem = document.createElement("a");
-      linkElem.setAttribute("href", stateFile);
-      linkElem.setAttribute("download", "character.json");
-      linkElem.click();
-    },
-  },
-});
+const importJson = () => {
+  const stateJson = JSON.stringify(character);
+  const stateFile =
+    "data:text/json;charset=utf-8," + encodeURIComponent(stateJson);
+
+  const linkElem = document.createElement("a");
+  linkElem.setAttribute("href", stateFile);
+  linkElem.setAttribute("download", "character.json");
+  linkElem.click();
+}
 </script>
 
 <style>

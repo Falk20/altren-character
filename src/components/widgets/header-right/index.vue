@@ -6,50 +6,42 @@
       {{ alertText }}
     </v-snackbar>
 
-    <v-btn v-bind="props" icon="mdi-swap-horizontal" @click="switchChar" />
+    <v-btn icon="mdi-swap-horizontal" @click="switchChar" />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
+<script setup lang="ts">
 import { saveCharlist } from "@/firebase/db";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-export default defineComponent({
-  name: "AltHeaderRight",
+const router = useRouter()
 
-  data() {
-    return {
-      alert: false,
-      alertType: "success",
-      alertText: "Лист персонажа сохранён",
-    };
-  },
+const alert = ref(false)
+const alertType = ref("success")
+const alertText = ref("Лист персонажа сохранён")
 
-  methods: {
-    async saveChar() {
-      try {
-        await saveCharlist();
-        this.alertText = "Лист персонажа сохранён";
-        this.alertType = "success";
-      } catch (error) {
-        console.error(error);
-        this.alertText = "Ошибка сохранения";
-        this.alertType = "error";
-      } finally {
-        this.alert = true;
+const saveChar = async () => {
+  try {
+    await saveCharlist();
+    alertText.value = "Лист персонажа сохранён";
+    alertType.value = "success";
+  } catch (error) {
+    console.error(error);
+    alertText.value = "Ошибка сохранения";
+    alertType.value = "error";
+  } finally {
+    alert.value = true;
 
-        setTimeout(() => {
-          this.alert = false;
-        }, 2000);
-      }
-    },
+    setTimeout(() => {
+      alert.value = false;
+    }, 2000);
+  }
+}
 
-    async switchChar() {
-      await this.saveChar();
+const switchChar = async () => {
+  await saveChar();
 
-      this.$router.push("/start");
-    },
-  },
-});
+  router.push("/start");
+}
 </script>

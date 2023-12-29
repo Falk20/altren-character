@@ -1,3 +1,5 @@
+import { useAuthStore } from "@/store/stores/auth";
+import pinia from "@/store";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -5,8 +7,6 @@ import {
   signInWithRedirect,
   signOut,
 } from "firebase/auth";
-
-import store from "@/store/index";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAwm7Sgf-Hk64_VjALFEadEsT4RinaWjtY",
@@ -31,7 +31,10 @@ export const googleSignIn = () => {
 export const googleSignOut = async () => {
   try {
     await signOut(auth);
-    store.commit("app/auth/setUser", null);
+
+    const authStore = useAuthStore(pinia);
+
+    authStore.setUser(null);
   } catch (error) {
     console.log(error);
   }

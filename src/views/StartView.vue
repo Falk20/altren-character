@@ -5,24 +5,14 @@
   </v-container>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
+import { useAuthStore } from "@/store/stores/auth";
+
 import LoginButton from "@/components/widgets/login-button/index.vue";
 import CharacterList from "@/components/widgets/character-list/index.vue";
 
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("app/auth");
+const authStore = useAuthStore()
 
-export default defineComponent({
-  name: "StartView",
-
-  components: {
-    LoginButton,
-    CharacterList,
-  },
-
-  computed: {
-    ...mapGetters(["isAuth"]),
-  },
-});
+const isAuth = computed(()=> authStore.isAuth)
 </script>

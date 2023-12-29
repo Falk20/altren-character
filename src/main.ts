@@ -1,30 +1,22 @@
-import { createApp } from "vue";
-import Maska from "maska";
-import { VueFire, VueFireAuth } from "vuefire";
-import { onAuthStateChanged } from "firebase/auth";
-import { firebaseApp, auth } from "@/firebase/config";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import vuetify from "./plugins/vuetify";
-import { loadFonts } from "./plugins/webfontloader";
+/**
+ * main.ts
+ *
+ * Bootstraps Vuetify and other plugins then mounts the App`
+ */
 
 import "./registerServiceWorker";
 
-loadFonts();
+// Plugins
+import { registerPlugins } from "@/plugins";
 
-const unsub = onAuthStateChanged(auth, (user) => {
-  store.commit("app/auth/setUser", user);
-  unsub();
-});
+// Components
+import App from "./App.vue";
 
-createApp(App)
-  .use(VueFire, {
-    firebaseApp,
-    modules: [VueFireAuth()],
-  })
-  .use(router)
-  .use(store)
-  .use(vuetify)
-  .use(Maska)
-  .mount("#app");
+// Composables
+import { createApp } from "vue";
+
+const app = createApp(App);
+
+registerPlugins(app);
+
+app.mount("#app");

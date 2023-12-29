@@ -10,30 +10,15 @@
   </v-app>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
+import { useAuthStore } from "./store/stores/auth";
 import AltNavbar from "@/components/navbar/index.vue";
 import AltSideMenu from "@/components/side-menu/index.vue";
 
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("app/auth");
+const authStore = useAuthStore()
 
-export default defineComponent({
-  name: "App",
-
-  components: {
-    AltNavbar,
-    AltSideMenu,
-  },
-
-  data() {
-    return {};
-  },
-
-  computed: {
-    ...mapGetters(["isAuth"]),
-  },
-});
+const isAuth = computed(() => authStore.isAuth)
 </script>
 
 <style>
