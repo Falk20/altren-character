@@ -3,8 +3,14 @@
     <v-list density="compact">
       <v-list-subheader> Список персонажей </v-list-subheader>
 
-      <v-list-item v-for="item in chars" :key="item.id" class="char" color="primary" :active="item.id === this.currentID"
-        @click="chooseChar(item)">
+      <v-list-item
+        v-for="item in chars"
+        :key="item.id"
+        class="char"
+        color="primary"
+        :active="item.id === this.currentID"
+        @click="chooseChar(item)"
+      >
         <v-list-item-title>{{
           item.personalInfo.name || "Нет имени"
         }}</v-list-item-title>
@@ -12,7 +18,12 @@
     </v-list>
     <v-row>
       <v-col>
-        <v-btn size="small" prepend-icon="mdi-plus" block @click="createChar">
+        <v-btn
+          size="small"
+          prepend-icon="mdi-plus"
+          block
+          @click="createChar"
+        >
           Новый персонаж
         </v-btn>
       </v-col>
@@ -73,9 +84,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-.char:not(:last-child) {
+<style scoped>.char:not(:last-child) {
   border-bottom: 1px solid grey;
-}
-</style>
+}</style>
 @/helpers

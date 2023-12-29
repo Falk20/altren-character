@@ -1,7 +1,17 @@
 <template>
-  <v-list density="compact" nav>
-    <v-list-item title="Экспорт" @click="importJson"></v-list-item>
-    <v-list-item title="Выход" class="red" @click="logOut"></v-list-item>
+  <v-list
+    density="compact"
+    nav
+  >
+    <v-list-item
+      title="Экспорт"
+      @click="importJson"
+    ></v-list-item>
+    <v-list-item
+      title="Выход"
+      class="red"
+      @click="logOut"
+    ></v-list-item>
   </v-list>
 </template>
 
@@ -33,8 +43,6 @@ const importJson = () => {
 }
 </script>
 
-<style>
-.red {
+<style>.red {
   color: rgb(var(--v-theme-error));
-}
-</style>
+}</style>

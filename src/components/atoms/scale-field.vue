@@ -16,7 +16,10 @@
           @click="increment"
         />
       </h4>
-      <v-rating v-model="valueModel" :length="maxValue">
+      <v-rating
+        v-model="valueModel"
+        :length="maxValue"
+      >
         <template v-slot:item="props">
           <v-icon
             :color="props.isFilled ? 'green' : 'grey-lighten-1'"

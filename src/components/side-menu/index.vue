@@ -1,6 +1,12 @@
 <template>
-  <v-navigation-drawer v-model="drawer" temporary>
-    <v-list density="compact" nav>
+  <v-navigation-drawer
+    v-model="drawer"
+    temporary
+  >
+    <v-list
+      density="compact"
+      nav
+    >
       <v-list-item
         v-for="(page, index) in pageList"
         :key="index"
@@ -28,7 +34,7 @@ const drawer = computed({
   set: (value: boolean) => appStore.changeSideMenu(value)
 })
 
-const pageList = computed(()=> router.getRoutes().filter((page) => !page.meta.hideInNav))
+const pageList = computed(() => router.getRoutes().filter((page) => !page.meta.hideInNav))
 
 const getPageTitle = (page: RouteRecordNormalized) => page?.meta?.title as string ?? "";
 </script>

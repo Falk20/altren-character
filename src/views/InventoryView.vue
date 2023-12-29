@@ -4,16 +4,6 @@
   </v-container>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
+<script setup lang="ts">
 import AltWallet from "@/components/widgets/wallet/index.vue";
-
-export default defineComponent({
-  name: "InventoryView",
-
-  components: {
-    AltWallet,
-  },
-});
 </script>

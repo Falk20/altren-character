@@ -23,14 +23,14 @@ const routes: Array<RouteRecordSingleView> = [
   //     title: "Статус",
   //   },
   // },
-  // {
-  //   path: "/inventory",
-  //   name: "inventory",
-  //   component: InventoryView,
-  //   meta: {
-  //     title: "Инвентарь",
-  //   },
-  // },
+  {
+    path: "/inventory",
+    name: "inventory",
+    component: InventoryView,
+    meta: {
+      title: "Инвентарь",
+    },
+  },
   // {
   //   path: "/stats",
   //   name: "stats",

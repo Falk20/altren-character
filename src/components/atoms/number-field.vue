@@ -5,7 +5,7 @@
     variant="solo"
     density="compact"
     :label="label"
-    hide-details="true"
+    hide-details
     v-maska="mask"
   />
 </template>
@@ -38,8 +38,8 @@ export default defineComponent({
       get(): number {
         return this.modelValue ?? 0;
       },
-      set(value: number): void {
-        this.$emit("update:modelValue", value);
+      set(value: number | string): void {
+        this.$emit("update:modelValue", typeof value === 'number' ? value : 0);
       },
     },
   },

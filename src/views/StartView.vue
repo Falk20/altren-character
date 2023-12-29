@@ -14,5 +14,5 @@ import CharacterList from "@/components/widgets/character-list/index.vue";
 
 const authStore = useAuthStore()
 
-const isAuth = computed(()=> authStore.isAuth)
+const isAuth = computed(() => authStore.isAuth)
 </script>

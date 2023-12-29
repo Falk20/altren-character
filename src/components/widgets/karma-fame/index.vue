@@ -1,11 +1,20 @@
 <template>
-  <v-container class="pa-0" v-if="isMage || isBard">
+  <v-container
+    class="pa-0"
+    v-if="isMage || isBard"
+  >
     <v-row>
       <v-col v-if="isMage">
-        <AltNumberField v-model="karma" label="Карма" />
+        <AltNumberField
+          v-model="karma"
+          label="Карма"
+        />
       </v-col>
       <v-col v-if="isBard">
-        <AltNumberField v-model="fame" label="Известность" />
+        <AltNumberField
+          v-model="fame"
+          label="Известность"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -14,10 +23,10 @@
 <script setup lang="ts">
 import AltNumberField from "@/components/atoms/number-field.vue";
 
-import { useCharacterPersonalInfoStore } from "@/store/stores/character-personal-info";
+import { usePersonalInfoStore } from "@/store/stores/personal-info";
 import { computed } from "vue";
 
-const personalInfoStore = useCharacterPersonalInfoStore()
+const personalInfoStore = usePersonalInfoStore()
 
 const isMage = computed(() => personalInfoStore.isMage)
 

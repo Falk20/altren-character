@@ -2,7 +2,10 @@
   <v-container class="pa-0">
     <v-row>
       <v-col>
-        <AltTextField v-model="name" label="Имя" />
+        <AltTextField
+          v-model="name"
+          label="Имя"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -10,10 +13,10 @@
 
 <script setup lang="ts">
 import AltTextField from "@/components/atoms/text-field.vue";
-import { useCharacterPersonalInfoStore } from "@/store/stores/character-personal-info";
+import { usePersonalInfoStore } from "@/store/stores/personal-info";
 import { computed } from "vue";
 
-const personalInfoStore = useCharacterPersonalInfoStore()
+const personalInfoStore = usePersonalInfoStore()
 
 const name = computed({
   get: () => personalInfoStore.name,

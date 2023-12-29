@@ -1,10 +1,10 @@
 import { IInventory, IPersonalInfo, ISkills, IStatus } from "../types";
 import { BasijBar, EPBar, MPBar } from "../viewConstants";
 
-import { generateState as generateInventory } from "@/store/modules/character/inventory/utils";
+import { generateState as generateInventory } from "@/helpers/utils/inventory";
 import { generateState as generateStatus } from "@/store/modules/character/status/utils";
 import { generateState as generateStats } from "@/store/modules/character/stats/utils";
-import { generateState as generatePersonalInfo } from "@/helpers/utils/character-personal-info";
+import { generateState as generatePersonalInfo } from "@/helpers/utils/personal-info";
 import { generateState as generateSkills } from "@/store/modules/character/skills/utils";
 import {
   idStorageKey,

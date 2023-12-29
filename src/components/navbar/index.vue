@@ -1,7 +1,13 @@
 <template>
-  <v-app-bar color="primary" density="compact">
+  <v-app-bar
+    color="primary"
+    density="compact"
+  >
     <template v-slot:prepend>
-      <v-app-bar-nav-icon v-if="isAuth" @click="() => appStore.toggleSideMenu()" />
+      <v-app-bar-nav-icon
+        v-if="isAuth"
+        @click="() => appStore.toggleSideMenu()"
+      />
     </template>
 
     <v-app-bar-title>{{ $route.meta.title }}</v-app-bar-title>
