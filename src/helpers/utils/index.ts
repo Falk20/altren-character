@@ -5,7 +5,7 @@ import { generateState as generateInventory } from "@/helpers/utils/inventory";
 import { generateState as generateStatus } from "@/store/modules/character/status/utils";
 import { generateState as generateStats } from "@/helpers/utils/stats";
 import { generateState as generatePersonalInfo } from "@/helpers/utils/personal-info";
-import { generateState as generateSkills } from "@/store/modules/character/skills/utils";
+import { generateState as generateSkills } from "@/helpers/utils/skills";
 import {
   idStorageKey,
   statusStorageKey,
@@ -27,7 +27,12 @@ export function saveState(
 
 export function getState(
   storageKey: string,
-  defaultValue: unknown,
+  defaultValue:
+    | IStatus
+    | IPersonalInfo
+    | IInventory
+    | ISkills
+    | Record<Stats, number>,
   errorText: string
 ) {
   const storageValue = localStorage.getItem(storageKey);

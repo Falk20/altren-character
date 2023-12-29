@@ -4,9 +4,12 @@
       <h3 class="ml-3">
         Порог {{ calcThreshold }}
         <v-icon :color="color"> mdi-shield </v-icon>
-        <span :class="`text-${color}`" v-if="calcThreshold === 0"
-          >ТОБИ ПИЗДА</span
+        <span
+          :class="`text-${color}`"
+          v-if="calcThreshold === 0"
         >
+          ТОБИ ПИЗДА
+        </span>
       </h3>
     </v-col>
   </v-row>

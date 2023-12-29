@@ -21,108 +21,71 @@
     />
 
     <template v-if="learnedSkills.length">
-      <AltStateField
+      <AltStatField
         v-for="skill in learnedSkills"
         :key="'skill-' + skill"
         :name="skill"
         :maxValue="statLevel"
         :statName="name"
+        :skillsDictionary="skillsDictionary"
       />
     </template>
-    <p class="text-center" v-else-if="!isCurrentFormOpen">Навыки не изучены</p>
+    <p
+      class="text-center"
+      v-else-if="!isCurrentFormOpen"
+    >
+      Навыки не изучены
+    </p>
   </v-container>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
 import { ISkill } from "@/helpers/types";
-
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters: mapSkillsGetters } =
-  createNamespacedHelpers("character/skills");
-const { mapGetters: mapStatsGetters } =
-  createNamespacedHelpers("character/stats");
-
-import AltStateField from "./stat-field.vue";
+import AltStatField from "./stat-field.vue";
 import AltSkillAddingForm from "./adding-form.vue";
 import { Stats } from "@/helpers/constants";
+import { useStatsStore } from "@/store/stores/stats";
+import { useSkillsStore } from "@/store/stores/skills";
+import { computed } from "vue";
 
-export default defineComponent({
-  name: "altSkillsStatSection",
+export interface Props {
+  name: Stats,
+  title: string,
+  skillsDictionary: ISkill[]
+  maxSkillPointCount: number
+  openedForm: string | null
+}
 
-  components: {
-    AltStateField,
-    AltSkillAddingForm,
-  },
+const props = defineProps<Props>()
 
-  props: {
-    name: {
-      type: String as PropType<Stats>,
-      requred: true,
-    },
-    title: {
-      type: String as PropType<string>,
-      requred: true,
-    },
-    skillsDictionary: {
-      type: Array as PropType<ISkill[]>,
-      requred: true,
-      default: () => [],
-    },
-    openedForm: {
-      type: String as PropType<string>,
-      requred: true,
-      default: null,
-    },
-  },
+const emit = defineEmits<{
+  'update:openedForm': [value: string | null]
+}>()
 
-  data() {
-    return {};
-  },
+const statsStore = useStatsStore()
+const skillsStore = useSkillsStore()
 
-  computed: {
-    ...mapSkillsGetters(["statSkills", "skillCount"]),
-    ...mapStatsGetters(["statByName"]),
+const isCurrentFormOpen = computed(() => props.openedForm === props.name)
 
-    statLevel() {
-      return this.statByName(this.name);
-    },
+const learnedSkills = computed(() => Object.keys(skillsStore.skills[props.name]))
+const filteredSkillsDictionary = computed(() => props.skillsDictionary.filter(
+  (skill) => !learnedSkills.value.includes(skill.value)
+))
 
-    learnedSkills() {
-      return Object.keys(this.statSkills(this.name));
-    },
+const statLevel = computed(() => statsStore[props.name])
+const canAddNewSkill = computed(() => {
+  return !!filteredSkillsDictionary.value.length
+    && statLevel.value > 0
+    && skillsStore.skillPointCount < props.maxSkillPointCount
+})
 
-    isCurrentFormOpen(): boolean {
-      return this.openedForm === this.name;
-    },
+const btnIcon = computed(() => isCurrentFormOpen.value ? "mdi-minus" : "mdi-plus")
 
-    canAddNewSkill(): boolean {
-      return (
-        !!this.filteredSkillsDictionary.length &&
-        this.skillCount < 13 &&
-        this.statLevel > 0
-      );
-    },
+const toggleForm = () => {
+  emit("update:openedForm", isCurrentFormOpen.value ? null : props.name);
+}
 
-    btnIcon() {
-      return this.isCurrentFormOpen ? "mdi-minus" : "mdi-plus";
-    },
-
-    filteredSkillsDictionary(): ISkill[] {
-      return this.skillsDictionary.filter(
-        (skill) => !this.learnedSkills.includes(skill.value)
-      );
-    },
-  },
-
-  methods: {
-    toggleForm(): void {
-      let value = this.isCurrentFormOpen ? null : this.name;
-      this.$emit("update:openedForm", value);
-    },
-    closeForm(): void {
-      this.$emit("update:openedForm", null);
-    },
-  },
-});
+const closeForm = () => {
+  emit("update:openedForm", null);
+}
 </script>

@@ -1,4 +1,8 @@
-import { skillsStorageKey, Stats } from "@/helpers/constants";
+import {
+  defaultMaxSkillPointCount,
+  skillsStorageKey,
+  Stats,
+} from "@/helpers/constants";
 import { ISkills } from "@/helpers/types";
 import { getState } from "@/helpers/utils";
 
@@ -18,4 +22,8 @@ export function generateState(): ISkills {
     defaultValue,
     "В хранилище невалидные данные о характеристиках персонажа"
   );
+}
+
+export function getMaxSkillPointCount(intelligence: number) {
+  return defaultMaxSkillPointCount + intelligence * 10;
 }

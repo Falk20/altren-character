@@ -47,7 +47,9 @@ const props = withDefaults(defineProps<Props>(), {
   maxValue: 6,
 })
 
-const emit = defineEmits(['update:value'])
+const emit = defineEmits<{
+  'update:value': [value: number]
+}>()
 
 const model = computed({
   get: () => props.value,

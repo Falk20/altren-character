@@ -1,4 +1,5 @@
 import { User } from "firebase/auth";
+import { Stats } from "./constants";
 
 export interface IAuth {
   user: User | null;
@@ -28,13 +29,7 @@ export interface IPersonalInfo {
 }
 
 export interface ISkills {
-  skills: Record<string, Record<string, number>>;
-}
-
-export interface ISetSkillPayload {
-  name: string;
-  level: number;
-  statName: string;
+  skills: Record<Stats, Record<string, number>>;
 }
 
 export interface ISkill {

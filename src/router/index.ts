@@ -39,14 +39,14 @@ const routes: Array<RouteRecordSingleView> = [
       title: "Характеристики",
     },
   },
-  // {
-  //   path: "/skills",
-  //   name: "skills",
-  //   component: SkillsView,
-  //   meta: {
-  //     title: "Навыки",
-  //   },
-  // },
+  {
+    path: "/skills",
+    name: "skills",
+    component: SkillsView,
+    meta: {
+      title: "Навыки",
+    },
+  },
   {
     path: "/personal",
     name: "personal",

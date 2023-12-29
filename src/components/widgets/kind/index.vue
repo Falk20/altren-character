@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <AltSelectField
-          v-model="kind"
+          v-model:value="kind"
           label="Раса"
           :items="kinds"
         />
