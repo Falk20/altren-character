@@ -2,98 +2,79 @@
   <v-container class="pa-0">
     <v-row class="pa-0 ma-0 mb-3">
       <v-col class="pa-0">
-        <AltPointBar v-model:value="hitsModel" v-bind="hitsBar" :maxValue="maxHits" />
+        <AltPointBar
+          v-model:value="hits"
+          v-bind="HPBar"
+          :maxValue="maxHits"
+        />
       </v-col>
     </v-row>
-    <v-row v-if="!isFameLvl3" class="pa-0 ma-0 mb-3">
+    <v-row
+      v-if="!isFameLvl3"
+      class="pa-0 ma-0 mb-3"
+    >
       <v-col class="pa-0">
-        <AltPointBar v-model:value="manaModel" v-bind="manaBar" :maxValue="maxMana" />
+        <AltPointBar
+          v-model:value="mana"
+          v-bind="manaBar"
+          :maxValue="maxMana"
+        />
       </v-col>
     </v-row>
-    <v-row v-if="isBard" class="pa-0 ma-0 mb-3">
+    <v-row
+      v-if="isBard"
+      class="pa-0 ma-0 mb-3"
+    >
       <v-col class="pa-0">
-        <AltPointBar v-model:value="inspirationModel" v-bind="inspirationBar" :maxValue="maxInspiration" />
+        <AltPointBar
+          v-model:value="inspiration"
+          v-bind="InspirationBar"
+          :maxValue="maxInspiration"
+        />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { computed } from "vue";
+
 import { getCurrentPointBar } from "@/helpers/utils";
 import { HPBar, InspirationBar } from "@/helpers/viewConstants";
-import { defineComponent } from "vue";
+import { fameLvl3 } from "@/helpers/constants";
 
-import { createNamespacedHelpers } from "vuex";
-
-const { mapGetters, mapMutations } =
-  createNamespacedHelpers("character/status");
+import { useStatusStore } from "@/store/stores/status";
+import { usePersonalInfoStore } from "@/store/stores/personal-info";
 
 import AltPointBar from "./point-bar.vue";
 
-export default defineComponent({
-  name: "AltPersonalTogglers",
+const personalInfoStore = usePersonalInfoStore()
+const statusStore = useStatusStore()
 
-  components: {
-    AltPointBar,
-  },
+const hits = computed({
+  get: () => statusStore.hits,
+  set: (value: number) => statusStore.setStatusField('hits', value)
+})
 
-  computed: {
-    ...mapGetters([
-      "isMage",
-      "isBasij",
-      "isBard",
-      "isFameLvl3",
-      "hits",
-      "maxHits",
-      "mana",
-      "maxMana",
-      "inspiration",
-      "maxInspiration",
-    ]),
+const maxHits = computed(() => statusStore.maxHits)
 
-    hitsModel: {
-      get(): number {
-        return this.hits ?? 0;
-      },
-      set(value: number): void {
-        this.setHits(value);
-      },
-    },
+const mana = computed({
+  get: () => statusStore.mana,
+  set: (value: number) => statusStore.setStatusField('mana', value)
+})
 
-    manaModel: {
-      get(): number {
-        return this.mana ?? 0;
-      },
-      set(value: number): void {
-        this.setMana(value);
-      },
-    },
+const maxMana = computed(() => statusStore.maxMana)
 
-    inspirationModel: {
-      get(): number {
-        return this.inspiration ?? 0;
-      },
-      set(value: number): void {
-        this.setInspiration(value);
-      },
-    },
+const inspiration = computed({
+  get: () => statusStore.inspiration,
+  set: (value: number) => statusStore.setStatusField('inspiration', value)
+})
 
-    hitsBar() {
-      return HPBar;
-    },
+const maxInspiration = computed(() => statusStore.maxInspiration)
 
-    manaBar() {
-      return getCurrentPointBar(this.isMage, this.isBasij);
-    },
+const manaBar = computed(() => getCurrentPointBar(personalInfoStore.isMage, personalInfoStore.isBasij))
 
-    inspirationBar() {
-      return InspirationBar;
-    },
-  },
+const isBard = computed(() => personalInfoStore.isBard)
 
-  methods: {
-    ...mapMutations(["setHits", "setMana", "setInspiration"]),
-  },
-});
+const isFameLvl3 = computed(() => personalInfoStore.fame >= fameLvl3)
 </script>
-@/helpers

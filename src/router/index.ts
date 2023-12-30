@@ -15,14 +15,14 @@ import { useAuthStore } from "@/store/stores/auth";
 import store from "@/store";
 
 const routes: Array<RouteRecordSingleView> = [
-  // {
-  //   path: "/",
-  //   name: "status",
-  //   component: StatusView,
-  //   meta: {
-  //     title: "Статус",
-  //   },
-  // },
+  {
+    path: "/",
+    name: "status",
+    component: StatusView,
+    meta: {
+      title: "Статус",
+    },
+  },
   {
     path: "/inventory",
     name: "inventory",

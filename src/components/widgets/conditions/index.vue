@@ -12,136 +12,111 @@
       </h3>
       <div class="mx-3 d-flex flex-wrap">
         <template v-if="haveAnyCondition">
-          <v-icon v-if="haveHPCondition" class="mr-2" :color="HPIcon.color">
+          <v-icon
+            v-if="HPIcon"
+            class="mr-2"
+            :color="HPIcon.color"
+          >
             {{ HPIcon.icon }}
           </v-icon>
-          <v-icon v-if="haveMPCondition" class="mr-2" :color="MPIcon.color">
+          <v-icon
+            v-if="MPIcon"
+            class="mr-2"
+            :color="MPIcon.color"
+          >
             {{ MPIcon.icon }}
           </v-icon>
           <v-icon
-            v-if="haveThresholdCondition"
+            v-if="thresholdIcon"
             class="mr-2"
             :color="thresholdIcon.color"
           >
             {{ thresholdIcon.icon }}
           </v-icon>
         </template>
-        <p class="text-caption" v-else>Нет активных эффектов</p>
+        <p
+          class="text-caption"
+          v-else
+        >
+          Нет активных эффектов
+        </p>
       </div>
       <EditForm v-model:editDialog="editDialog" />
     </v-col>
   </v-row>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import EditForm from "./EditForm.vue";
+import { useStatusStore } from "@/store/stores/status";
+import { computed } from "vue";
+import { usePersonalInfoStore } from "@/store/stores/personal-info";
 
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("character/status");
+const personalInfoStore = usePersonalInfoStore()
+const statusStore = useStatusStore()
 
-export default defineComponent({
-  name: "AltFatigue",
+const editDialog = ref(false)
 
-  components: {
-    EditForm,
-  },
+const HPIcon = computed(() => {
+  if (statusStore.conditions.HP === 0) return null;
 
-  data() {
+  if (statusStore.conditions.HP > 0) {
     return {
-      editDialog: false,
+      icon: "mdi-heart",
+      color: "red",
     };
-  },
+  }
 
-  computed: {
-    ...mapGetters([
-      "conditionHP",
-      "conditionMP",
-      "conditionThreshold",
-      "isMage",
-    ]),
+  return {
+    icon: "mdi-heart-broken",
+    color: "black",
+  };
+})
+const MPIcon = computed(() => {
+  if (statusStore.conditions.MP === 0) return null;
 
-    haveHPCondition(): boolean {
-      return this.conditionHP !== 0;
-    },
-    haveMPCondition(): boolean {
-      return this.conditionMP !== 0;
-    },
-    haveThresholdCondition(): boolean {
-      return this.conditionThreshold !== 0;
-    },
-
-    HPIcon() {
-      if (!this.haveHPCondition) return null;
-
-      if (this.conditionHP > 0) {
-        return {
-          icon: "mdi-heart",
-          color: "red",
-        };
-      }
-
+  if (personalInfoStore.isMage) {
+    if (statusStore.conditions.MP > 0) {
       return {
-        icon: "mdi-heart-broken",
-        color: "black",
+        icon: "mdi-star-plus",
+        color: "primary",
       };
-    },
+    }
 
-    MPIcon() {
-      if (!this.haveMPCondition) return null;
+    return {
+      icon: "mdi-star-minus",
+      color: "brown",
+    };
+  }
 
-      if (this.isMage) {
-        if (this.conditionMP > 0) {
-          return {
-            icon: "mdi-star-plus",
-            color: "primary",
-          };
-        }
+  if (statusStore.conditions.MP > 0) {
+    return {
+      icon: "mdi-flash-alert",
+      color: "yellow-darken-1",
+    };
+  }
 
-        return {
-          icon: "mdi-star-minus",
-          color: "brown",
-        };
-      }
+  return {
+    icon: "mdi-flash-off",
+    color: "purple",
+  };
+})
+const thresholdIcon = computed(() => {
+  if (statusStore.conditions.threshold === 0) return null;
 
-      if (this.conditionMP > 0) {
-        return {
-          icon: "mdi-flash-alert",
-          color: "yellow-darken-1",
-        };
-      }
+  if (statusStore.conditions.threshold > 0) {
+    return {
+      icon: "mdi-shield-plus",
+      color: "green",
+    };
+  }
 
-      return {
-        icon: "mdi-flash-off",
-        color: "purple",
-      };
-    },
+  return {
+    icon: "mdi-shield-off",
+    color: "orange",
+  };
+})
 
-    thresholdIcon() {
-      if (!this.haveThresholdCondition) return null;
-
-      if (this.conditionThreshold > 0) {
-        return {
-          icon: "mdi-shield-plus",
-          color: "green",
-        };
-      }
-
-      return {
-        icon: "mdi-shield-off",
-        color: "orange",
-      };
-    },
-
-    haveAnyCondition(): boolean {
-      return (
-        this.haveHPCondition ||
-        this.haveMPCondition ||
-        this.haveThresholdCondition
-      );
-    },
-  },
-
-  methods: {},
-});
+const haveAnyCondition = computed(() => !!HPIcon.value || !!MPIcon.value || !!thresholdIcon.value)
 </script>

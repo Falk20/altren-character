@@ -9,21 +9,12 @@
   </v-row>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { useStatusStore } from '@/store/stores/status';
+import { computed } from 'vue';
 
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("character/status");
-
-export default defineComponent({
-  name: "AltStepCount",
-
-  components: {},
-
-  computed: {
-    ...mapGetters(["stepCount"]),
-  },
-});
+const statusStore = useStatusStore()
+const stepCount = computed(() => statusStore.stepCount)
 </script>
 
 <style></style>

@@ -1,8 +1,14 @@
-import { IInventory, IPersonalInfo, ISkills, IStatus } from "../types";
+import {
+  ICharacter,
+  IInventory,
+  IPersonalInfo,
+  ISkills,
+  IStatus,
+} from "../types";
 import { BasijBar, EPBar, MPBar } from "../viewConstants";
 
 import { generateState as generateInventory } from "@/helpers/utils/inventory";
-import { generateState as generateStatus } from "@/store/modules/character/status/utils";
+import { generateState as generateStatus } from "@/helpers/utils/status";
 import { generateState as generateStats } from "@/helpers/utils/stats";
 import { generateState as generatePersonalInfo } from "@/helpers/utils/personal-info";
 import { generateState as generateSkills } from "@/helpers/utils/skills";
@@ -66,13 +72,13 @@ export function generateCharlist() {
   };
 }
 
-export function setCharacterState(item: any) {
-  localStorage.setItem(idStorageKey, item.id);
-  saveState(statusStorageKey, item.status);
-  saveState(statsStorageKey, item.stats);
-  saveState(personalInfoStorageKey, item.personalInfo);
-  saveState(inventoryStorageKey, item.inventory);
-  saveState(skillsStorageKey, item.skills);
+export function setCharacterState(character: ICharacter) {
+  localStorage.setItem(idStorageKey, character.id);
+  saveState(statusStorageKey, character.status);
+  saveState(statsStorageKey, character.stats);
+  saveState(personalInfoStorageKey, character.personalInfo);
+  saveState(inventoryStorageKey, character.inventory);
+  saveState(skillsStorageKey, character.skills);
 
   window.location.reload();
 }

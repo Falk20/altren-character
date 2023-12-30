@@ -1,36 +1,29 @@
 <template>
   <v-checkbox
-    v-model="valueModel"
+    v-model="model"
     :label="title"
     color="primary"
     hide-details
   />
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { computed } from 'vue'
 
-export default defineComponent({
-  name: "AltCheckboxField",
+export interface Props {
+  value: boolean,
+  title: string,
+}
 
-  props: {
-    value: { type: Boolean as PropType<boolean>, required: true },
-    title: String,
-  },
+const props = defineProps<Props>()
+const emit = defineEmits<{
+  "update:value": [value: boolean]
+}>()
 
-  emits: ["update:value"],
-
-  computed: {
-    valueModel: {
-      get(): boolean {
-        return this.value;
-      },
-      set(value: boolean): void {
-        this.$emit("update:value", value);
-      },
-    },
-  },
-});
+const model = computed({
+  get: () => props.value,
+  set: (value: boolean) => emit('update:value', value)
+})
 </script>
 
 <style>

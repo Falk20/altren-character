@@ -15,33 +15,23 @@
   </v-row>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { useStatusStore } from '@/store/stores/status';
+import { computed } from 'vue';
 
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("character/status");
+const statusStore = useStatusStore()
 
-export default defineComponent({
-  name: "AltThreshold",
+const calcThreshold = computed(() => statusStore.threshold - statusStore.fatigue)
 
-  computed: {
-    ...mapGetters(["threshold", "fatigue"]),
+const color = computed(() => {
+  if (statusStore.fatigue === 0) {
+    return "teal";
+  }
 
-    calcThreshold(): number {
-      return this.threshold - this.fatigue;
-    },
+  if (calcThreshold.value === 0) {
+    return "red";
+  }
 
-    color(): string {
-      if (this.fatigue === 0) {
-        return "teal";
-      }
-
-      if (this.calcThreshold === 0) {
-        return "red";
-      }
-
-      return "orange";
-    },
-  },
-});
+  return "orange";
+})
 </script>

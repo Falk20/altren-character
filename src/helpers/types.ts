@@ -15,6 +15,15 @@ export interface IStatus {
   conditions: IConditions;
 }
 
+export interface IConditions {
+  HP: number;
+  MP: number;
+  threshold: number;
+}
+
+export type TStatusFieldName = "hits" | "mana" | "inspiration" | "fatigue";
+export type TConditionsFieldName = "HP" | "MP" | "threshold";
+
 export interface IPersonalInfo {
   isMage: boolean;
   isBasij: boolean;
@@ -101,8 +110,12 @@ export interface IEquipment {
   projectiles: IProjectile[];
 }
 
-export interface IConditions {
-  HP: number;
-  MP: number;
-  threshold: number;
+export interface ICharacter {
+  id: string;
+  owner: string;
+  personalInfo: IPersonalInfo;
+  stats: Record<Stats, number>;
+  skills: ISkills;
+  inventory: IInventory;
+  status: IStatus;
 }
