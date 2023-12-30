@@ -39,37 +39,37 @@ export default defineConfig({
         background_color: "#6200ee",
         icons: [
           {
-            src: "/icons/android-chrome-192x192.png",
+            src: "/altren-character/icons/android-chrome-192x192.png",
             sizes: "192x192",
             type: "image/png",
             purpose: ["any", "maskable"],
           },
           {
-            src: "/icons/android-chrome-256x256.png",
+            src: "/altren-character/icons/android-chrome-256x256.png",
             sizes: "256x256",
             type: "image/png",
           },
           {
-            src: "/icons/apple-touch-icon.png",
+            src: "/altren-character/icons/apple-touch-icon.png",
             sizes: "180x180",
             type: "image/png",
           },
           {
-            src: "/icons/favicon-16x16.png",
+            src: "/altren-character/icons/favicon-16x16.png",
             sizes: "16x16",
             type: "image/png",
           },
           {
-            src: "/icons/favicon-32x32.png",
+            src: "/altren-character/icons/favicon-32x32.png",
             sizes: "32x32",
             type: "image/png",
           },
           {
-            src: "/icons/favicon.svg",
+            src: "/altren-character/icons/favicon.svg",
             type: "image/svg+xml",
           },
           {
-            src: "/icons/safari-pinned-tab.svg",
+            src: "/altren-character/icons/safari-pinned-tab.svg",
             type: "image/svg+xml",
           },
         ],
