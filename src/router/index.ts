@@ -1,15 +1,20 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+// Composables
+import {
+  RouteRecordSingleView,
+  createRouter,
+  createWebHashHistory,
+} from "vue-router";
 import { getCurrentUser } from "vuefire";
-import StatusView from "../views/StatusView.vue";
-import StatsView from "../views/StatsView.vue";
-import PersonalView from "../views/PersonalView.vue";
-import InventoryView from "../views/InventoryView.vue";
-import SkillsView from "../views/SkillsView.vue";
-import StartView from "../views/StartView.vue";
+import StatusView from "@/views/StatusView.vue";
+import StatsView from "@/views/StatsView.vue";
+import PersonalView from "@/views/PersonalView.vue";
+import InventoryView from "@/views/InventoryView.vue";
+import SkillsView from "@/views/SkillsView.vue";
+import StartView from "@/views/StartView.vue";
+import { useAuthStore } from "@/store/stores/auth";
+import store from "@/store";
 
-import store from "@/store/index";
-
-const routes: Array<RouteRecordRaw> = [
+const routes: Array<RouteRecordSingleView> = [
   {
     path: "/",
     name: "status",
@@ -63,7 +68,7 @@ const routes: Array<RouteRecordRaw> = [
   //   path: "/abilities",
   //   name: "abilities",
   //   component: import(
-  //     /* webpackChunkName: "abilities" */ "../views/AbilitiesView.vue"
+  //     /* webpackChunkName: "abilities" */ "@/views/AbilitiesView.vue"
   //   ),
   //   meta: {
   //     title: "Способности",
@@ -72,13 +77,15 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory("/altren-character/"),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes,
 });
 
 router.beforeEach(async (to) => {
   await getCurrentUser();
-  if (!store.getters["app/auth/isAuth"] && to.name !== "start") {
+
+  const auth = useAuthStore(store);
+  if (!auth.isAuth && to.name !== "start") {
     return { name: "start" };
   }
 });

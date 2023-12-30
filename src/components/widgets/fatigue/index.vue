@@ -16,7 +16,7 @@
             variant="text"
             icon="mdi-minus"
             @click="decrement"
-          ></v-btn>
+          />
         </template>
 
         <template v-slot:append>
@@ -25,51 +25,38 @@
             variant="text"
             icon="mdi-plus"
             @click="increment"
-          ></v-btn>
+          />
         </template>
       </v-slider>
-      <pre class="text-caption text-center">Усталость</pre>
+      <pre class="text-caption text-center">
+        Усталость
+      </pre>
     </v-col>
   </v-row>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { useStatusStore } from '@/store/stores/status';
+import { computed } from 'vue';
 
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapMutations } =
-  createNamespacedHelpers("character/status");
+const statusStore = useStatusStore()
 
-export default defineComponent({
-  name: "AltFatigue",
+const value = computed({
+  get: () => statusStore.fatigue,
+  set: (value: number) => statusStore.setStatusField('fatigue', value)
+})
 
-  computed: {
-    ...mapGetters(["fatigue", "threshold"]),
+const threshold = computed(() => statusStore.threshold)
 
-    value: {
-      get(): number {
-        return this.fatigue ?? 0;
-      },
-      set(value: number): void {
-        this.setFatigue(value);
-      },
-    },
-  },
+const decrement = () => {
+  if (statusStore.fatigue > 0) {
+    statusStore.setStatusField('fatigue', statusStore.fatigue - 1);
+  }
+}
 
-  methods: {
-    ...mapMutations(["setFatigue"]),
-
-    decrement(): void {
-      if (this.fatigue > 0) {
-        this.setFatigue(this.fatigue - 1);
-      }
-    },
-
-    increment(): void {
-      if (this.fatigue < this.threshold) {
-        this.setFatigue(this.fatigue + 1);
-      }
-    },
-  },
-});
+const increment = () => {
+  if (statusStore.fatigue < statusStore.threshold) {
+    statusStore.setStatusField('fatigue', statusStore.fatigue + 1)
+  }
+}
 </script>

@@ -1,53 +1,62 @@
 <template>
-  <v-dialog v-model="dialogModel" fullscreen scrollable>
+  <v-dialog
+    fullscreen
+    scrollable
+    transition="dialog-top-transition"
+    v-model="dialogModel"
+  >
     <v-card>
-      <v-container class="pa-0">
-        <v-toolbar height="48" color="primary">
-          <v-btn icon="mdi-close" @click="dialogModel = false" />
-          <v-toolbar-title>Эффекты</v-toolbar-title>
-        </v-toolbar>
-      </v-container>
+      <v-toolbar
+        height="48"
+        color="primary"
+      >
+        <v-btn
+          icon="mdi-close"
+          @click="dialogModel = false"
+        />
+        <v-toolbar-title>Эффекты</v-toolbar-title>
+      </v-toolbar>
       <v-card-text>
         <v-container class="pa-0">
           <v-row>
             <v-col class="mt-5">
               <v-slider
-                v-model="modelHP"
+                v-model="HP"
                 :min="-5"
                 :max="5"
                 :step="1"
                 show-ticks="always"
                 thumb-label="always"
                 :hide-details="true"
-              ></v-slider>
+              />
               <pre class="text-caption text-center">HP</pre>
             </v-col>
           </v-row>
           <v-row>
             <v-col class="mt-5">
               <v-slider
-                v-model="modelMP"
+                v-model="MP"
                 :min="-10"
                 :max="10"
                 :step="1"
                 show-ticks="always"
                 thumb-label="always"
                 :hide-details="true"
-              ></v-slider>
+              />
               <pre class="text-caption text-center">{{ mpTitle }}</pre>
             </v-col>
           </v-row>
           <v-row>
             <v-col class="mt-5">
               <v-slider
-                v-model="modelThreshold"
+                v-model="threshold"
                 :min="-10"
                 :max="30"
                 :step="1"
                 show-ticks="always"
                 thumb-label="always"
                 :hide-details="true"
-              ></v-slider>
+              />
               <pre class="text-caption text-center">Порог</pre>
             </v-col>
           </v-row>
@@ -57,76 +66,42 @@
   </v-dialog>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { usePersonalInfoStore } from '@/store/stores/personal-info';
+import { useStatusStore } from '@/store/stores/status';
+import { computed } from 'vue';
 
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapMutations } =
-  createNamespacedHelpers("character/status");
+export interface Props {
+  editDialog: boolean
+}
 
-export default defineComponent({
-  name: "AltConditionEditForm",
+const props = defineProps<Props>()
+const emit = defineEmits<{
+  'update:editDialog': [value: boolean]
+}>()
 
-  props: {
-    editDialog: Boolean,
-  },
+const personalInfoStore = usePersonalInfoStore()
+const statusStore = useStatusStore()
 
-  emits: ["update:editDialog"],
+const dialogModel = computed({
+  get: () => props.editDialog,
+  set: (value: boolean) => emit('update:editDialog', value)
+})
 
-  computed: {
-    dialogModel: {
-      get() {
-        return this.editDialog;
-      },
-      set(value: boolean) {
-        this.$emit("update:editDialog", value);
-      },
-    },
+const HP = computed({
+  get: () => statusStore.conditions.HP,
+  set: (value: number) => statusStore.setCondiField('HP', value)
+})
 
-    ...mapGetters([
-      "conditionHP",
-      "conditionMP",
-      "conditionThreshold",
-      "isMage",
-      "isBasij",
-    ]),
+const MP = computed({
+  get: () => statusStore.conditions.MP,
+  set: (value: number) => statusStore.setCondiField('MP', value)
+})
 
-    modelHP: {
-      get(): number {
-        return this.conditionHP;
-      },
-      set(value: number): void {
-        this.setConditionHP(value);
-      },
-    },
-    modelMP: {
-      get(): number {
-        return this.conditionMP;
-      },
-      set(value: number): void {
-        this.setConditionMP(value);
-      },
-    },
-    modelThreshold: {
-      get(): number {
-        return this.conditionThreshold;
-      },
-      set(value: number): void {
-        this.setConditionThreshold(value);
-      },
-    },
+const threshold = computed({
+  get: () => statusStore.conditions.threshold,
+  set: (value: number) => statusStore.setCondiField('threshold', value)
+})
 
-    mpTitle(): string {
-      return this.isMage ? (this.isBasij ? "Басидж" : "MP") : "EP";
-    },
-  },
-
-  methods: {
-    ...mapMutations([
-      "setConditionHP",
-      "setConditionMP",
-      "setConditionThreshold",
-    ]),
-  },
-});
+const mpTitle = computed(() => personalInfoStore.isMage ? personalInfoStore.isBasij ? "Басидж" : "MP" : "EP")
 </script>

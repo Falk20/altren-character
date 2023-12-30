@@ -1,98 +1,58 @@
 <template>
   <v-container>
-    <AltScaleField v-model:value="strengthModel" title="Сила" />
-    <AltScaleField v-model:value="agilityModel" title="Ловкость" />
-    <AltScaleField v-model:value="intelligenceModel" title="Интеллект" />
-    <AltScaleField v-model:value="charismaModel" title="Харизма" />
-    <AltScaleField v-model:value="enduranceModel" title="Выносливость" />
+    <AltScaleField
+      v-model:value="strength"
+      title="Сила"
+    />
+    <AltScaleField
+      v-model:value="agility"
+      title="Ловкость"
+    />
+    <AltScaleField
+      v-model:value="intelligence"
+      title="Интеллект"
+    />
+    <AltScaleField
+      v-model:value="charisma"
+      title="Харизма"
+    />
+    <AltScaleField
+      v-model:value="endurance"
+      title="Выносливость"
+    />
   </v-container>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
+<script setup lang="ts">
 import AltScaleField from "@/components/atoms/scale-field.vue";
+import { Stats } from "@/helpers/constants";
+import { useStatsStore } from "@/store/stores/stats";
+import { computed } from "vue";
 
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapMutations } = createNamespacedHelpers("character/stats");
+const statsStore = useStatsStore()
 
-export default defineComponent({
-  name: "AltStats",
+const strength = computed({
+  get: () => statsStore.strength,
+  set: (value) => statsStore.setStat(Stats.strength, value)
+})
 
-  components: {
-    AltScaleField,
-  },
+const agility = computed({
+  get: () => statsStore.agility,
+  set: (value) => statsStore.setStat(Stats.agility, value)
+})
 
-  computed: {
-    ...mapGetters([
-      "strength",
-      "agility",
-      "intelligence",
-      "charisma",
-      "endurance",
-    ]),
+const intelligence = computed({
+  get: () => statsStore.intelligence,
+  set: (value) => statsStore.setStat(Stats.intelligence, value)
+})
 
-    strengthModel: {
-      get(): number {
-        return this.strength;
-      },
-      set(value: number): void {
-        this.setStat({
-          statName: "strength",
-          value,
-        });
-      },
-    },
-    agilityModel: {
-      get(): number {
-        return this.agility;
-      },
-      set(value: number): void {
-        this.setStat({
-          statName: "agility",
-          value,
-        });
-      },
-    },
-    intelligenceModel: {
-      get(): number {
-        return this.intelligence;
-      },
-      set(value: number): void {
-        this.setStat({
-          statName: "intelligence",
-          value,
-        });
-      },
-    },
-    charismaModel: {
-      get(): number {
-        return this.charisma;
-      },
-      set(value: number): void {
-        this.setStat({
-          statName: "charisma",
-          value,
-        });
-      },
-    },
-    enduranceModel: {
-      get(): number {
-        return this.endurance;
-      },
-      set(value: number): void {
-        this.setStat({
-          statName: "endurance",
-          value,
-        });
-      },
-    },
-  },
+const charisma = computed({
+  get: () => statsStore.charisma,
+  set: (value) => statsStore.setStat(Stats.charisma, value)
+})
 
-  methods: {
-    ...mapMutations(["setStat"]),
-  },
-});
+const endurance = computed({
+  get: () => statsStore.endurance,
+  set: (value) => statsStore.setStat(Stats.endurance, value)
+})
 </script>
-
-<style></style>

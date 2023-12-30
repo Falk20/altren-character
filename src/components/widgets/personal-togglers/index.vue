@@ -2,17 +2,20 @@
   <v-container class="pa-0">
     <v-row>
       <AltCheckboxField
-        v-model:value="isMageModel"
+        v-model:value="isMage"
         title="Магическое существо"
       />
     </v-row>
-    <v-row v-if="isMageModel">
-      <AltCheckboxField v-model:value="isBasijModel" title="Басидж-каран" />
+    <v-row v-if="isMage">
+      <AltCheckboxField
+        v-model:value="isBasij"
+        title="Басидж-каран"
+      />
     </v-row>
-    <v-row v-if="isMageModel && isBasijModel">
+    <v-row v-if="isMage && isBasij">
       <v-col class="mt-5">
         <v-slider
-          v-model="basijLevelModel"
+          v-model="basijLevel"
           :min="defaultBasij"
           :max="maxBasij"
           :step="1"
@@ -24,79 +27,41 @@
       </v-col>
     </v-row>
     <v-row>
-      <AltCheckboxField v-model:value="isBardModel" title="Бард" />
+      <AltCheckboxField
+        v-model:value="isBard"
+        title="Бард"
+      />
     </v-row>
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { defaultBasij, maxBasij } from "@/helpers/constants";
-import { defineComponent } from "vue";
-
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapMutations } = createNamespacedHelpers(
-  "character/personalInfo"
-);
 
 import AltCheckboxField from "@/components/atoms/checkbox-field.vue";
 
-export default defineComponent({
-  name: "AltPersonalTogglers",
+import { usePersonalInfoStore } from "@/store/stores/personal-info";
+import { computed } from "vue";
 
-  components: {
-    AltCheckboxField,
-  },
+const personalInfoStore = usePersonalInfoStore();
 
-  data() {
-    return {
-      defaultBasij,
-      maxBasij,
-    };
-  },
+const isMage = computed({
+  get: () => personalInfoStore.isMage,
+  set: (value: boolean) => personalInfoStore.setIsMage(value),
+});
 
-  computed: {
-    ...mapGetters(["isMage", "isBasij", "basijLevel", "isBard"]),
+const isBasij = computed({
+  get: () => personalInfoStore.isBasij,
+  set: (value: boolean) => personalInfoStore.setIsBasij(value),
+});
 
-    isMageModel: {
-      get() {
-        return this.isMage ?? false;
-      },
-      set(value: boolean) {
-        this.setIsMage(value);
+const basijLevel = computed({
+  get: () => personalInfoStore.basijLevel,
+  set: (value: number) => personalInfoStore.setBasijLevel(value),
+});
 
-        if (!value) {
-          this.isBasijModel = false;
-        }
-      },
-    },
-    isBasijModel: {
-      get() {
-        return this.isBasij ?? false;
-      },
-      set(value: boolean) {
-        this.setIsBasij(value);
-      },
-    },
-    basijLevelModel: {
-      get() {
-        return this.basijLevel ?? 2;
-      },
-      set(value: number) {
-        this.setBasijLevel(value);
-      },
-    },
-    isBardModel: {
-      get() {
-        return this.isBard ?? false;
-      },
-      set(value: boolean) {
-        this.setIsBard(value);
-      },
-    },
-  },
-
-  methods: {
-    ...mapMutations(["setIsMage", "setIsBasij", "setBasijLevel", "setIsBard"]),
-  },
+const isBard = computed({
+  get: () => personalInfoStore.isBard,
+  set: (value: boolean) => personalInfoStore.setIsBard(value),
 });
 </script>

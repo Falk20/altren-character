@@ -8,7 +8,11 @@
           icon="mdi-minus"
           @click="decrement()"
         />
-        <AltNumberField v-model.number="value" label="Кошель" mask="######" />
+        <AltNumberField
+          v-model.number="wallet"
+          label="Кошель"
+          mask="######"
+        />
         <v-btn
           class="d-inline"
           variant="text"
@@ -26,15 +30,13 @@
             variant="tonal"
             rounded="pill"
             @click="decrement(100)"
-            >-100</v-btn
-          >
+          >-100</v-btn>
           <v-btn
             size="small"
             variant="tonal"
             rounded="pill"
             @click="decrement(10)"
-            >-10</v-btn
-          >
+          >-10</v-btn>
         </div>
         <div class="d-flex">
           <v-btn
@@ -43,74 +45,41 @@
             variant="tonal"
             rounded="pill"
             @click="increment(10)"
-            >+10</v-btn
-          >
+          >+10</v-btn>
 
           <v-btn
             size="small"
             variant="tonal"
             rounded="pill"
             @click="increment(100)"
-            >+100</v-btn
-          >
+          >+100</v-btn>
         </div>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapMutations } = createNamespacedHelpers(
-  "character/inventory"
-);
-
+<script setup lang="ts">
 import AltNumberField from "@/components/atoms/number-field.vue";
+import { useInventoryStore } from "@/store/stores/inventory";
+import { computed } from "vue";
 
-export default defineComponent({
-  name: "AltWallet",
+const inventoryStore = useInventoryStore()
 
-  components: {
-    AltNumberField,
-  },
+const wallet = computed({
+  get: () => inventoryStore.wallet,
+  set: (value: number) => inventoryStore.setWallet(value),
+})
 
-  computed: {
-    ...mapGetters(["wallet"]),
+const decrement = (value = 1) => {
+  const difference = wallet.value - value
 
-    value: {
-      get(): number {
-        return this.wallet ?? 0;
-      },
-      set(value: number): void {
-        this.setWallet(value);
-      },
-    },
-  },
+  if (difference >= 0) {
+    wallet.value = difference;
+  }
+}
 
-  methods: {
-    ...mapMutations(["setWallet"]),
-
-    decrement(value = 1): void {
-      if (typeof this.value !== "number") {
-        this.value = 0;
-        return;
-      }
-
-      if (this.value - value >= 0) {
-        this.value -= value;
-      }
-    },
-
-    increment(value = 1): void {
-      if (typeof this.value !== "number") {
-        this.value = value;
-        return;
-      }
-
-      this.value += value;
-    },
-  },
-});
+const increment = (value = 1) => {
+  wallet.value += value
+}
 </script>

@@ -1,7 +1,7 @@
-import { statsStorageKey } from "@/helpers/constants";
+import { Stats, statsStorageKey } from "@/helpers/constants";
 import { getState } from "@/helpers/utils";
 
-const defaultValue: Record<string, number> = {
+const defaultValue: Record<Stats, number> = {
   strength: 0,
   agility: 0,
   intelligence: 0,
@@ -9,7 +9,7 @@ const defaultValue: Record<string, number> = {
   endurance: 0,
 };
 
-export function generateState(): Record<string, number> {
+export function generateState(): Record<Stats, number> {
   return getState(
     statsStorageKey,
     defaultValue,

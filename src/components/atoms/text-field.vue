@@ -1,41 +1,28 @@
 <template>
   <v-text-field
-    v-model="valueModel"
+    v-model="model"
     variant="solo"
     density="compact"
     :label="label"
-    hide-details="true"
+    hide-details
   />
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { computed } from 'vue';
 
-export default defineComponent({
-  name: "AltTextField",
+export interface Props {
+  modelValue: string,
+  label: string,
+}
 
-  props: {
-    modelValue: {
-      type: String as PropType<string>,
-      required: true,
-    },
-    label: {
-      type: String as PropType<string>,
-      required: true,
-    },
-  },
+const props = defineProps<Props>()
+const emit = defineEmits<{
+  "update:modelValue": [value: string]
+}>()
 
-  emits: ["update:modelValue"],
-
-  computed: {
-    valueModel: {
-      get(): string {
-        return this.modelValue;
-      },
-      set(value: string): void {
-        this.$emit("update:modelValue", value);
-      },
-    },
-  },
-});
+const model = computed({
+  get: () => props.modelValue,
+  set: (value: string) => emit('update:modelValue', value),
+})
 </script>

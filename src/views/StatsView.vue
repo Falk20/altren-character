@@ -2,16 +2,6 @@
   <AltStats />
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
+<script setup lang="ts">
 import AltStats from "@/components/widgets/stats/index.vue";
-
-export default defineComponent({
-  name: "StatsView",
-
-  components: {
-    AltStats,
-  },
-});
 </script>

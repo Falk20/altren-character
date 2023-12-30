@@ -1,6 +1,12 @@
 <template>
-  <v-navigation-drawer v-model="drawer" temporary>
-    <v-list density="compact" nav>
+  <v-navigation-drawer
+    v-model="drawer"
+    temporary
+  >
+    <v-list
+      density="compact"
+      nav
+    >
       <v-list-item
         v-for="(page, index) in pageList"
         :key="index"
@@ -14,44 +20,21 @@
   </v-navigation-drawer>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { RouteRecordNormalized } from "vue-router";
-import { mapGetters, mapMutations } from "vuex";
-
+<script setup lang="ts">
+import { RouteRecordNormalized, useRouter } from "vue-router";
 import AltExportJson from "./export-json.vue";
+import { useAppStore } from "@/store/stores/app";
+import { computed } from "vue";
 
-export default defineComponent({
-  name: "AltSideMenu",
+const router = useRouter()
+const appStore = useAppStore()
 
-  components: {
-    AltExportJson,
-  },
+const drawer = computed({
+  get: () => appStore.sideMenu,
+  set: (value: boolean) => appStore.changeSideMenu(value)
+})
 
-  computed: {
-    ...mapGetters(["sideMenu"]),
+const pageList = computed(() => router.getRoutes().filter((page) => !page.meta.hideInNav))
 
-    drawer: {
-      get(): boolean {
-        return this.sideMenu;
-      },
-      set(value: boolean) {
-        this.changeSideMenu(value);
-      },
-    },
-
-    pageList(): RouteRecordNormalized[] {
-      return this.$router.getRoutes().filter((page) => !page.meta.hideInNav);
-    },
-  },
-
-  methods: {
-    ...mapMutations(["changeSideMenu"]),
-    // RouteRecordNormalized возвращает unknown, а компонент принимает только string
-    // eslint-disable-next-line
-    getPageTitle(page: RouteRecordNormalized): any {
-      return page?.meta?.title ?? "";
-    },
-  },
-});
+const getPageTitle = (page: RouteRecordNormalized) => page?.meta?.title as string ?? "";
 </script>

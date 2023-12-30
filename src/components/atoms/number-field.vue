@@ -1,47 +1,35 @@
 <template>
   <v-text-field
-    v-model.number="valueModel"
-    type="number"
+    v-model.number="model"
     variant="solo"
     density="compact"
     :label="label"
-    hide-details="true"
+    hide-details
     v-maska="mask"
   />
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { computed } from 'vue';
 
-export default defineComponent({
-  name: "AltNumberField",
+export interface Props {
+  modelValue: number,
+  label: string,
+  mask?: string | any[]
+}
 
-  props: {
-    modelValue: {
-      type: Number as PropType<number>,
-      required: true,
-    },
-    label: {
-      type: String as PropType<string>,
-      required: true,
-    },
-    mask: {
-      type: [String, Array],
-      default: "####",
-    },
-  },
+const props = withDefaults(defineProps<Props>(), {
+  mask: '####'
+})
 
-  emits: ["update:modelValue"],
+const emit = defineEmits<{
+  "update:modelValue": [value: number | string]
+}>()
 
-  computed: {
-    valueModel: {
-      get(): number {
-        return this.modelValue ?? 0;
-      },
-      set(value: number): void {
-        this.$emit("update:modelValue", value);
-      },
-    },
-  },
-});
+const model = computed({
+  get: () => props.modelValue,
+  set: (value: number | string) => {
+    emit('update:modelValue', typeof value === 'number' ? value : 0)
+  }
+})
 </script>

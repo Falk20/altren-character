@@ -1,46 +1,31 @@
 <template>
   <v-select
-    v-model="valueModel"
+    v-model="model"
     :items="items"
     variant="solo"
     density="compact"
     :label="label"
-    hide-details="true"
+    hide-details
   ></v-select>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { computed } from 'vue';
 
-export default defineComponent({
-  name: "AltSelectField",
+export interface Props {
+  value: string,
+  label: string,
+  items: any[]
+}
 
-  props: {
-    modelValue: {
-      type: String as PropType<string>,
-      required: true,
-    },
-    label: {
-      type: String as PropType<string>,
-      required: true,
-    },
-    items: {
-      type: Array as PropType<any[]>,
-      required: true,
-    },
-  },
+const props = defineProps<Props>()
 
-  emits: ["update:modelValue"],
+const emit = defineEmits<{
+  "update:value": [value: string]
+}>()
 
-  computed: {
-    valueModel: {
-      get(): string {
-        return this.modelValue;
-      },
-      set(value: string): void {
-        this.$emit("update:modelValue", value);
-      },
-    },
-  },
-});
+const model = computed({
+  get: () => props.value,
+  set: (value: string) => emit('update:value', value)
+})
 </script>

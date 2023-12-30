@@ -3,61 +3,60 @@
     <v-col class="pa-0">
       <h3 class="ml-3">{{ title }} {{ value }}/{{ maxValue }}</h3>
       <div class="d-flex justify-space-between">
-        <v-btn variant="text" icon="mdi-minus" @click="decrement" />
+        <v-btn
+          variant="text"
+          icon="mdi-minus"
+          @click="decrement"
+        />
         <v-rating
           class="flex-wrap justify-center"
-          v-model="valueModel"
+          v-model="model"
           :empty-icon="emptyIcon"
           :full-icon="fullIcon"
           :length="maxValue"
           :color="color"
         />
-        <v-btn variant="text" icon="mdi-plus" @click="increment" />
+        <v-btn
+          variant="text"
+          icon="mdi-plus"
+          @click="increment"
+        />
       </div>
     </v-col>
   </v-row>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { computed } from 'vue';
 
-export default defineComponent({
-  name: "AltPointBar",
+export interface Props {
+  value: number,
+  maxValue: number,
+  title: string,
+  emptyIcon: string,
+  fullIcon: string,
+  color: string,
+}
 
-  props: {
-    value: { type: Number as PropType<number>, required: true },
-    maxValue: { type: Number as PropType<number>, required: true },
-    title: String,
-    emptyIcon: String,
-    fullIcon: String,
-    color: String,
-  },
+const props = defineProps<Props>()
+const emit = defineEmits<{
+  "update:value": [value: number]
+}>()
 
-  emits: ["update:value"],
+const model = computed({
+  get: () => props.value,
+  set: (value: number) => emit('update:value', value)
+})
 
-  computed: {
-    valueModel: {
-      get(): number {
-        return this.value;
-      },
-      set(value: number): void {
-        this.$emit("update:value", value);
-      },
-    },
-  },
+const decrement = () => {
+  if (model.value > 0) {
+    model.value--;
+  }
+}
 
-  methods: {
-    decrement(): void {
-      if (this.valueModel > 0) {
-        this.valueModel--;
-      }
-    },
-
-    increment(): void {
-      if (this.valueModel < this.maxValue) {
-        this.valueModel++;
-      }
-    },
-  },
-});
+const increment = () => {
+  if (model.value < props.maxValue) {
+    model.value++;
+  }
+}
 </script>

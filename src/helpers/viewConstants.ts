@@ -54,3 +54,13 @@ export const InspirationBar = new PointBar(
   "mdi-music-note",
   "light-blue-lighten-1"
 );
+
+export const diceIcons = [
+  "",
+  "mdi-dice-d4",
+  "mdi-dice-d6",
+  "mdi-dice-d8",
+  "mdi-dice-d10",
+  "mdi-dice-d12",
+  "mdi-dice-d20",
+];

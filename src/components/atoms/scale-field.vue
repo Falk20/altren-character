@@ -16,11 +16,13 @@
           @click="increment"
         />
       </h4>
-      <v-rating v-model="valueModel" :length="maxValue">
+      <v-rating
+        v-model="model"
+        :length="maxValue"
+      >
         <template v-slot:item="props">
           <v-icon
             :color="props.isFilled ? 'green' : 'grey-lighten-1'"
-            @click="props.onClick"
             size="44"
           >
             {{ getIcon(props.value) }}
@@ -31,64 +33,40 @@
   </v-row>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
+import { diceIcons } from '@/helpers/viewConstants'
+import { computed } from 'vue';
 
-export default defineComponent({
-  name: "AltScaleField",
+export interface Props {
+  value: number
+  title?: string,
+  maxValue?: number
+}
 
-  props: {
-    value: { type: Number as PropType<number>, required: true },
-    title: String,
-    maxValue: {
-      type: Number as PropType<number>,
-      default: 6,
-    },
-  },
+const props = withDefaults(defineProps<Props>(), {
+  maxValue: 6,
+})
 
-  emits: ["update:value"],
+const emit = defineEmits<{
+  'update:value': [value: number]
+}>()
 
-  computed: {
-    valueModel: {
-      get() {
-        return this.value;
-      },
-      set(value: number): void {
-        this.$emit("update:value", value);
-      },
-    },
-  },
+const model = computed({
+  get: () => props.value,
+  set: (value: number) => emit('update:value', value),
+})
 
-  methods: {
-    decrement(): void {
-      if (this.valueModel > 0) {
-        this.valueModel--;
-      }
-    },
+const decrement = () => {
+  if (props.value > 0) {
+    emit('update:value', props.value - 1)
+  }
+}
 
-    increment(): void {
-      if (this.valueModel < this.maxValue) {
-        this.valueModel++;
-      }
-    },
+const increment = () => {
+  if (props.value < props.maxValue) {
+    emit('update:value', props.value + 1)
+  }
+}
 
-    getIcon(value: number) {
-      switch (value) {
-        case 1:
-          return "mdi-dice-d4";
-        case 2:
-          return "mdi-dice-d6";
-        case 3:
-          return "mdi-dice-d8";
-        case 4:
-          return "mdi-dice-d10";
-        case 5:
-          return "mdi-dice-d12";
-        case 6:
-          return "mdi-dice-d20";
-      }
-      return "mdi-dice-d4";
-    },
-  },
-});
+const getIcon = (value: number) => diceIcons?.[value] ?? "mdi-dice-d4"
 </script>

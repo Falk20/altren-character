@@ -1,10 +1,13 @@
 <template>
-  <v-app-bar color="primary" density="compact">
+  <v-app-bar
+    color="primary"
+    density="compact"
+  >
     <template v-slot:prepend>
       <v-app-bar-nav-icon
         v-if="isAuth"
-        @click="toggleSideMenu"
-      ></v-app-bar-nav-icon>
+        @click="() => appStore.toggleSideMenu()"
+      />
     </template>
 
     <v-app-bar-title>{{ $route.meta.title }}</v-app-bar-title>
@@ -15,27 +18,15 @@
   </v-app-bar>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { mapMutations } from "vuex";
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("app/auth");
-
+<script setup lang="ts">
 import HeaderRight from "@/components/widgets/header-right/index.vue";
+import { useAppStore } from "@/store/stores/app";
+import { useAuthStore } from "@/store/stores/auth";
+import { computed } from "vue";
 
-export default defineComponent({
-  name: "AltNavbar",
+const appStore = useAppStore()
 
-  components: {
-    HeaderRight,
-  },
+const authStore = useAuthStore()
 
-  computed: {
-    ...mapGetters(["isAuth"]),
-  },
-
-  methods: {
-    ...mapMutations(["toggleSideMenu"]),
-  },
-});
+const isAuth = computed(() => authStore.isAuth)
 </script>

@@ -1,4 +1,5 @@
 import { User } from "firebase/auth";
+import { Stats } from "./constants";
 
 export interface IAuth {
   user: User | null;
@@ -14,6 +15,15 @@ export interface IStatus {
   conditions: IConditions;
 }
 
+export interface IConditions {
+  HP: number;
+  MP: number;
+  threshold: number;
+}
+
+export type TStatusFieldName = "hits" | "mana" | "inspiration" | "fatigue";
+export type TConditionsFieldName = "HP" | "MP" | "threshold";
+
 export interface IPersonalInfo {
   isMage: boolean;
   isBasij: boolean;
@@ -28,13 +38,7 @@ export interface IPersonalInfo {
 }
 
 export interface ISkills {
-  skills: Record<string, Record<string, number>>;
-}
-
-export interface ISetSkillPayload {
-  name: string;
-  level: number;
-  statName: string;
+  skills: Record<Stats, Record<string, number>>;
 }
 
 export interface ISkill {
@@ -106,8 +110,12 @@ export interface IEquipment {
   projectiles: IProjectile[];
 }
 
-export interface IConditions {
-  HP: number;
-  MP: number;
-  threshold: number;
+export interface ICharacter {
+  id: string;
+  owner: string;
+  personalInfo: IPersonalInfo;
+  stats: Record<Stats, number>;
+  skills: ISkills;
+  inventory: IInventory;
+  status: IStatus;
 }

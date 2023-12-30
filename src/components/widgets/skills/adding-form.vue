@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <AltSelectField
-          v-model="selectedSkill"
+          v-model:value="selectedSkill"
           :items="skillsDictionary"
           label="Новый навык"
         />
@@ -26,52 +26,29 @@
   </v-container>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script setup lang="ts">
 import { ISkill } from "@/helpers/types";
-
-import { createNamespacedHelpers } from "vuex";
-const { mapMutations } = createNamespacedHelpers("character/skills");
-
 import AltSelectField from "@/components/atoms/select-field.vue";
+import { Stats } from "@/helpers/constants";
+import { ref } from "vue";
+import { useSkillsStore } from "@/store/stores/skills";
 
-export default defineComponent({
-  name: "altSkillAddingForm",
+export interface Props {
+  statName: Stats,
+  skillsDictionary: ISkill[]
+}
 
-  components: {
-    AltSelectField,
-  },
+const props = defineProps<Props>()
 
-  props: {
-    statName: {
-      type: String as PropType<string>,
-      requred: true,
-    },
-    skillsDictionary: {
-      type: Array as PropType<ISkill[]>,
-      requred: true,
-      default: () => [],
-    },
-  },
+const emit = defineEmits(["close-form"])
 
-  data() {
-    return {
-      selectedSkill: this.skillsDictionary[0].value,
-    };
-  },
+const skillsStore = useSkillsStore()
 
-  methods: {
-    ...mapMutations(["setSkill"]),
+const selectedSkill = ref(props.skillsDictionary[0].value)
 
-    addSkill(): void {
-      this.setSkill({
-        name: this.selectedSkill,
-        level: 1,
-        statName: this.statName,
-      });
+const addSkill = () => {
+  skillsStore.setSkill(selectedSkill.value, 1, props.statName)
 
-      this.$emit("close-form");
-    },
-  },
-});
+  emit('close-form')
+}
 </script>
