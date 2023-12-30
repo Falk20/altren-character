@@ -58,6 +58,10 @@ export interface IBag {
   items: IItem[];
 }
 
+export interface INotes {
+  notes: string[];
+}
+
 export enum ItemTypes {
   stackable = "stackable",
   nonStackable = "nonStackable",
@@ -118,4 +122,5 @@ export interface ICharacter {
   skills: ISkills;
   inventory: IInventory;
   status: IStatus;
+  notes: INotes;
 }

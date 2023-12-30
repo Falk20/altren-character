@@ -15,6 +15,7 @@ export const statsStorageKey = "character-stats";
 export const personalInfoStorageKey = "character-personal-info";
 export const inventoryStorageKey = "character-inventory";
 export const skillsStorageKey = "character-skills";
+export const notesStorageKey = "character-notes";
 export const idStorageKey = "charlistID";
 
 export const humanID = "human";

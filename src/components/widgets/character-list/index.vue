@@ -6,7 +6,7 @@
         v-for="item in chars"
         :key="item.id"
         class="char"
-        active-color="primary"
+        color="primary"
         :active="item.id === currentID"
         @click="chooseCharacter(item)"
       >

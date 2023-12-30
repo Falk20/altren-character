@@ -4,6 +4,8 @@ import {
   createRouter,
   createWebHashHistory,
 } from "vue-router";
+import { useAuthStore } from "@/store/stores/auth";
+import store from "@/store";
 import { getCurrentUser } from "vuefire";
 import StatusView from "@/views/StatusView.vue";
 import StatsView from "@/views/StatsView.vue";
@@ -11,8 +13,7 @@ import PersonalView from "@/views/PersonalView.vue";
 import InventoryView from "@/views/InventoryView.vue";
 import SkillsView from "@/views/SkillsView.vue";
 import StartView from "@/views/StartView.vue";
-import { useAuthStore } from "@/store/stores/auth";
-import store from "@/store";
+import NotesView from "@/views/NotesView.vue";
 
 const routes: Array<RouteRecordSingleView> = [
   {
@@ -29,6 +30,14 @@ const routes: Array<RouteRecordSingleView> = [
     component: InventoryView,
     meta: {
       title: "Инвентарь",
+    },
+  },
+  {
+    path: "/notes",
+    name: "notes",
+    component: NotesView,
+    meta: {
+      title: "Заметки",
     },
   },
   {
