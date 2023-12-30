@@ -44,9 +44,10 @@ export default defineConfig({
             platform: "android",
           },
           {
-            src: "/altren-character/screenshots/windows.jpg",
+            src: "/altren-character/screenshots/windows.png",
             sizes: "1920x919",
             platform: "windows",
+            form_factor: "wide",
           },
         ],
         icons: [
@@ -82,7 +83,7 @@ export default defineConfig({
           },
           {
             src: "/altren-character/icons/favicon.svg",
-            sizes: "280x280",
+            sizes: "373x373",
             type: "image/svg+xml",
           },
         ],
