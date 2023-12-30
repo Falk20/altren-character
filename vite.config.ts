@@ -69,11 +69,6 @@ export default defineConfig({
             type: "image/svg+xml",
           },
           {
-            src: "/icons/mstile-150x150.png",
-            sizes: "150x150",
-            type: "image/png",
-          },
-          {
             src: "/icons/safari-pinned-tab.svg",
             type: "image/svg+xml",
           },
