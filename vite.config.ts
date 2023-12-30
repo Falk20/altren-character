@@ -29,7 +29,15 @@ export default defineConfig({
         ],
       },
     }),
-    VitePWA({ registerType: "autoUpdate" }),
+    VitePWA({
+      registerType: "autoUpdate",
+      injectRegister: "auto",
+
+      manifest: {
+        name: "Altren Character",
+        background_color: "#6200ee",
+      },
+    }),
   ],
   define: { "process.env": {} },
   resolve: {
