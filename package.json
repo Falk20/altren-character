@@ -1,6 +1,6 @@
 {
   "name": "altren-character",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -32,6 +32,7 @@
     "typescript": "^5.0.0",
     "unplugin-fonts": "^1.0.3",
     "vite": "^4.2.0",
+    "vite-plugin-pwa": "^0.17.4",
     "vite-plugin-vuetify": "^1.0.0",
     "vue-tsc": "^1.2.0"
   },

@@ -2,6 +2,7 @@
 import vue from "@vitejs/plugin-vue";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import ViteFonts from "unplugin-fonts/vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 // Utilities
 import { defineConfig } from "vite";
@@ -28,6 +29,7 @@ export default defineConfig({
         ],
       },
     }),
+    VitePWA({ registerType: "autoUpdate" }),
   ],
   define: { "process.env": {} },
   resolve: {
