@@ -37,12 +37,23 @@ export default defineConfig({
         name: "Altren Character",
         short_name: "Altren Character",
         background_color: "#6200ee",
+        screenshots: [
+          {
+            src: "/altren-character/screenshots/android.jpg",
+            sizes: "633x1280",
+            platform: "android",
+          },
+          {
+            src: "/altren-character/screenshots/windows.jpg",
+            sizes: "1920x919",
+            platform: "windows",
+          },
+        ],
         icons: [
           {
             src: "/altren-character/icons/android-chrome-192x192.png",
             sizes: "192x192",
             type: "image/png",
-            purpose: ["any", "maskable"],
           },
           {
             src: "/altren-character/icons/android-chrome-256x256.png",
@@ -65,11 +76,13 @@ export default defineConfig({
             type: "image/png",
           },
           {
-            src: "/altren-character/icons/favicon.svg",
-            type: "image/svg+xml",
+            src: "/altren-character/icons/mstile-150x150.png",
+            sizes: "270x270",
+            type: "image/png",
           },
           {
-            src: "/altren-character/icons/safari-pinned-tab.svg",
+            src: "/altren-character/icons/favicon.svg",
+            sizes: "280x280",
             type: "image/svg+xml",
           },
         ],
