@@ -12,22 +12,16 @@
         Добавить
       </v-btn>
     </v-row>
-    <v-row
+
+    <v-textarea
       v-for="(note, index) in notes"
       :key="'note' + index"
-      no-gutters
+      :model-value="note"
+      @update:model-value="(value) => editNote(index, value)"
+      rows="2"
+      variant="solo"
     >
-      <v-col cols="11">
-        <v-textarea
-          :model-value="note"
-          @update:model-value="(value) => editNote(index, value)"
-          rows="3"
-        />
-      </v-col>
-      <v-col
-        cols="1"
-        class="pa-2"
-      >
+      <template v-slot:append-inner>
         <v-btn
           block
           density="compact"
@@ -36,8 +30,9 @@
           icon="mdi-trash-can"
           @click="removeNote(index)"
         />
-      </v-col>
-    </v-row>
+      </template>
+    </v-textarea>
+
     <v-dialog
       v-model="isShowDialog"
       width="200px"

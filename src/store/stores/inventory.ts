@@ -1,4 +1,11 @@
-import { IBag, IInventory } from "@/helpers/types";
+import {
+  IBag,
+  IEquipment,
+  IInventory,
+  IItem,
+  IItemStackeble,
+  IProjectile,
+} from "@/helpers/types";
 import { saveState } from "@/helpers/utils";
 import { generateState } from "@/helpers/utils/inventory";
 import { inventoryStorageKey } from "@/helpers/constants";
@@ -15,6 +22,26 @@ export const useInventoryStore = defineStore("inventoryStore", {
 
     addBag(bag: IBag) {
       this.bags.push(bag);
+    },
+
+    removeBag(bag: IBag) {
+      this.bags.filter((item) => item !== bag);
+    },
+
+    addItem(bag: IBag, item: IItem) {
+      bag.items.push(item);
+    },
+
+    removeItem(bag: IBag, item: IItem) {
+      bag.items.filter((currItem) => currItem !== item);
+    },
+
+    changeCount(item: IItemStackeble | IProjectile, count: number) {
+      item.count = count;
+    },
+
+    toggleIsEquiped(item: IEquipment) {
+      item.isEquiped = !item.isEquiped;
     },
   },
 });

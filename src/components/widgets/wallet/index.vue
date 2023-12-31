@@ -6,6 +6,8 @@
           class="d-inline"
           variant="text"
           icon="mdi-minus"
+          :ripple="false"
+          rounded="0"
           @click="decrement()"
         />
         <AltNumberField
@@ -17,6 +19,8 @@
           class="d-inline"
           variant="text"
           icon="mdi-plus"
+          :ripple="false"
+          rounded="0"
           @click="increment()"
         />
       </v-col>

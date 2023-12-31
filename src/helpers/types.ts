@@ -87,32 +87,36 @@ export interface IItem {
   weight: number;
 }
 
+export interface IEquipment extends IItem {
+  isEquiped: boolean;
+}
+
 export interface IItemStackeble extends IItem {
   type: ItemTypes.stackable;
   count: number;
 }
 
-export interface IWeapon extends IItem {
+export interface IWeapon extends IEquipment {
   type: ItemTypes.weapon;
   damage: IDamage[];
 }
 
-export interface IArmor extends IItem {
+export interface IArmor extends IEquipment {
   type: ItemTypes.armor;
   protection: number;
 }
 
-export interface IProjectile extends IItem {
+export interface IProjectile extends IEquipment {
   type: ItemTypes.projectile;
   count: number;
   damage: IDamage[];
 }
 
-export interface IEquipment {
-  weapons: IWeapon[];
-  armors: IArmor[];
-  projectiles: IProjectile[];
-}
+// export interface IEquipment {
+//   weapons: IWeapon[];
+//   armors: IArmor[];
+//   projectiles: IProjectile[];
+// }
 
 export interface ICharacter {
   id: string;
