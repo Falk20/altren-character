@@ -4,6 +4,7 @@ import { getState } from "@/helpers/utils";
 
 const defaultValue: IInventory = {
   wallet: 0,
+  bags: [],
 };
 
 export function generateState(): IInventory {

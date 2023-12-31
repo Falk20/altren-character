@@ -49,7 +49,7 @@ export interface ISkill {
 
 export interface IInventory {
   wallet: number;
-  bags?: IBag[];
+  bags: IBag[];
 }
 
 export interface IBag {

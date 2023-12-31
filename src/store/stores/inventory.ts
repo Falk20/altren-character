@@ -1,7 +1,6 @@
-import { IInventory } from "@/helpers/types";
+import { IBag, IInventory } from "@/helpers/types";
 import { saveState } from "@/helpers/utils";
 import { generateState } from "@/helpers/utils/inventory";
-
 import { inventoryStorageKey } from "@/helpers/constants";
 import { defineStore } from "pinia";
 import store from "..";
@@ -12,6 +11,10 @@ export const useInventoryStore = defineStore("inventoryStore", {
   actions: {
     setWallet(value: number) {
       this.wallet = value;
+    },
+
+    addBag(bag: IBag) {
+      this.bags.push(bag);
     },
   },
 });
