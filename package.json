@@ -14,6 +14,7 @@
     "@mdi/font": "7.0.96",
     "firebase": "^10.7.1",
     "maska": "^1.5.2",
+    "nanoid": "^5.0.4",
     "pinia": "^2.0.23",
     "register-service-worker": "^1.7.2",
     "roboto-fontface": "*",
