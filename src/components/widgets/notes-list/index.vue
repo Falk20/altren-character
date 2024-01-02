@@ -33,36 +33,16 @@
       </template>
     </v-textarea>
 
-    <v-dialog
+    <confirm-dialog
       v-model="isShowDialog"
-      width="200px"
-    >
-      <v-card>
-        <v-card-text>
-          Удалить заметку?
-        </v-card-text>
-        <v-card-actions class="justify-space-around">
-          <v-btn
-            color="primary"
-            variant="text"
-            @click="approveRemoving()"
-          >
-            Да
-          </v-btn>
-          <v-btn
-            color="secondaty"
-            variant="text"
-            @click="removedNoteIndex = null"
-          >
-            Отмена
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+      title="Удалить заметку?"
+      @confirm="approveRemoving"
+    />
   </v-container>
 </template>
 
 <script setup lang="ts">
+import ConfirmDialog from '@/components/atoms/confirm-dialog.vue';
 import { useNotesStore } from '@/store/stores/notes'
 import { ref } from 'vue';
 import { computed } from 'vue';
@@ -70,7 +50,10 @@ import { computed } from 'vue';
 const notesStore = useNotesStore()
 
 const removedNoteIndex = ref<number | null>(null)
-const isShowDialog = computed(() => typeof removedNoteIndex.value === 'number')
+const isShowDialog = computed({
+  get: () => typeof removedNoteIndex.value === 'number',
+  set: (value) => { if (!value) removedNoteIndex.value = null },
+})
 
 const notes = computed(() => notesStore.notes)
 
@@ -83,7 +66,6 @@ const removeNote = (index: number) => removedNoteIndex.value = index
 const approveRemoving = () => {
   if (typeof removedNoteIndex.value === 'number') {
     notesStore.removeNote(removedNoteIndex.value)
-    removedNoteIndex.value = null
   }
 }
 </script>

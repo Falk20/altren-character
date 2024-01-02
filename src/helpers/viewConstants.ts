@@ -6,22 +6,12 @@ interface IPointBar {
 }
 
 class PointBar implements IPointBar {
-  title: string;
-  emptyIcon: string;
-  fullIcon: string;
-  color: string;
-
   constructor(
-    title: string,
-    emptyIcon: string,
-    fullIcon: string,
-    color: string
-  ) {
-    this.title = title;
-    this.emptyIcon = emptyIcon;
-    this.fullIcon = fullIcon;
-    this.color = color;
-  }
+    public title: string,
+    public emptyIcon: string,
+    public fullIcon: string,
+    public color: string
+  ) {}
 }
 
 export const HPBar = new PointBar(

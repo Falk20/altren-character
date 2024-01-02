@@ -74,7 +74,13 @@ const inventoryStore = useInventoryStore()
 
 const model = computed({
   get: () => props.modelValue,
-  set: (value: boolean) => emit('update:modelValue', value)
+  set: (value: boolean) => {
+    emit('update:modelValue', value)
+    if (!value) {
+      title.value = ''
+      capacity.value = 1
+    }
+  }
 })
 
 const titleField = ref<InstanceType<typeof VTextField> | null>(null)

@@ -2,7 +2,7 @@ import {
   IBag,
   IEquipment,
   IInventory,
-  IItem,
+  IItemTypes,
   IItemStackeble,
   IProjectile,
 } from "@/helpers/types";
@@ -11,6 +11,7 @@ import { generateState } from "@/helpers/utils/inventory";
 import { inventoryStorageKey } from "@/helpers/constants";
 import { defineStore } from "pinia";
 import store from "..";
+import { unref } from "vue";
 
 export const useInventoryStore = defineStore("inventoryStore", {
   state: (): IInventory => generateState(),
@@ -25,15 +26,17 @@ export const useInventoryStore = defineStore("inventoryStore", {
     },
 
     removeBag(bag: IBag) {
-      this.bags.filter((item) => item !== bag);
+      this.bags = this.bags.filter((item) => unref(item) !== unref(bag));
     },
 
-    addItem(bag: IBag, item: IItem) {
+    addItem(bag: IBag, item: IItemTypes) {
       bag.items.push(item);
     },
 
-    removeItem(bag: IBag, item: IItem) {
-      bag.items.filter((currItem) => currItem !== item);
+    removeItem(bag: IBag, item: IItemTypes) {
+      bag.items = bag.items.filter(
+        (currItem) => unref(currItem) !== unref(item)
+      );
     },
 
     changeCount(item: IItemStackeble | IProjectile, count: number) {

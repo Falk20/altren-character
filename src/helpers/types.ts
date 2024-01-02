@@ -55,8 +55,15 @@ export interface IInventory {
 export interface IBag {
   title: string;
   capacity: number;
-  items: IItem[];
+  items: IItemTypes[];
 }
+
+export type IItemTypes =
+  | IItemNonStackeble
+  | IItemStackeble
+  | IArmor
+  | IWeapon
+  | IProjectile;
 
 export interface INotes {
   notes: string[];
@@ -76,8 +83,9 @@ export enum DamageTypes {
 }
 
 export interface IDamage {
-  type: DamageTypes;
+  isPositive: boolean;
   value: number;
+  modificator: number;
 }
 
 export interface IItem {
@@ -89,6 +97,10 @@ export interface IItem {
 
 export interface IEquipment extends IItem {
   isEquiped: boolean;
+}
+
+export interface IItemNonStackeble extends IItem {
+  type: ItemTypes.nonStackable;
 }
 
 export interface IItemStackeble extends IItem {
@@ -112,11 +124,11 @@ export interface IProjectile extends IEquipment {
   damage: IDamage[];
 }
 
-// export interface IEquipment {
-//   weapons: IWeapon[];
-//   armors: IArmor[];
-//   projectiles: IProjectile[];
-// }
+export interface IEquipments {
+  armors: IArmor[];
+  weapons: IWeapon[];
+  projectiles: IProjectile[];
+}
 
 export interface ICharacter {
   id: string;

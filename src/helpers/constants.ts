@@ -1,4 +1,4 @@
-import { ItemTypes } from "./types";
+import { DamageTypes, ItemTypes } from "./types";
 
 export const defaultHits = 4;
 export const defaultMana = 5;
@@ -229,7 +229,11 @@ export const statsWithSkills = {
   },
 };
 
-export const dices = [
+export const diceOptions = [
+  {
+    title: "—",
+    value: 0,
+  },
   {
     title: "d4",
     value: 1,
@@ -256,7 +260,7 @@ export const dices = [
   },
 ];
 
-export const itemTypes = [
+export const itemTypeOptions = [
   {
     title: "Один",
     value: ItemTypes.nonStackable,
@@ -276,5 +280,27 @@ export const itemTypes = [
   {
     title: "Снаряды",
     value: ItemTypes.projectile,
+  },
+];
+
+export const damageTypeOptions = [
+  {
+    title: "Дайс",
+    value: DamageTypes.dice,
+  },
+  {
+    title: "Число",
+    value: DamageTypes.modificator,
+  },
+];
+
+export const signOptions = [
+  {
+    title: "+",
+    value: true,
+  },
+  {
+    title: "-",
+    value: false,
   },
 ];
