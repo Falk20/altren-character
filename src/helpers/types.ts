@@ -49,14 +49,21 @@ export interface ISkill {
 
 export interface IInventory {
   wallet: number;
-  bags?: IBag[];
+  bags: IBag[];
 }
 
 export interface IBag {
   title: string;
   capacity: number;
-  items: IItem[];
+  items: IItemTypes[];
 }
+
+export type IItemTypes =
+  | IItemNonStackeble
+  | IItemStackeble
+  | IArmor
+  | IWeapon
+  | IProjectile;
 
 export interface INotes {
   notes: string[];
@@ -70,14 +77,10 @@ export enum ItemTypes {
   projectile = "projectile",
 }
 
-export enum DamageTypes {
-  dice = "dice",
-  modificator = "modificator",
-}
-
 export interface IDamage {
-  type: DamageTypes;
+  isPositive: boolean;
   value: number;
+  modificator: number;
 }
 
 export interface IItem {
@@ -85,6 +88,18 @@ export interface IItem {
   description: string;
   type: ItemTypes;
   weight: number;
+  count?: number;
+  protection?: number;
+  damage?: IDamage[];
+  isEquiped?: boolean;
+}
+
+export interface IEquipment extends IItem {
+  isEquiped: boolean;
+}
+
+export interface IItemNonStackeble extends IItem {
+  type: ItemTypes.nonStackable;
 }
 
 export interface IItemStackeble extends IItem {
@@ -92,25 +107,25 @@ export interface IItemStackeble extends IItem {
   count: number;
 }
 
-export interface IWeapon extends IItem {
+export interface IWeapon extends IEquipment {
   type: ItemTypes.weapon;
   damage: IDamage[];
 }
 
-export interface IArmor extends IItem {
+export interface IArmor extends IEquipment {
   type: ItemTypes.armor;
   protection: number;
 }
 
-export interface IProjectile extends IItem {
+export interface IProjectile extends IEquipment {
   type: ItemTypes.projectile;
   count: number;
   damage: IDamage[];
 }
 
-export interface IEquipment {
-  weapons: IWeapon[];
+export interface IEquipments {
   armors: IArmor[];
+  weapons: IWeapon[];
   projectiles: IProjectile[];
 }
 

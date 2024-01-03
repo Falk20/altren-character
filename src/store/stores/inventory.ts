@@ -1,9 +1,11 @@
-import { IInventory } from "@/helpers/types";
+import { defineStore } from "pinia";
+import { unref } from "vue";
+
+import { inventoryStorageKey } from "@/helpers/constants";
+import { IBag, IInventory, IItemTypes } from "@/helpers/types";
 import { saveState } from "@/helpers/utils";
 import { generateState } from "@/helpers/utils/inventory";
 
-import { inventoryStorageKey } from "@/helpers/constants";
-import { defineStore } from "pinia";
 import store from "..";
 
 export const useInventoryStore = defineStore("inventoryStore", {
@@ -12,6 +14,32 @@ export const useInventoryStore = defineStore("inventoryStore", {
   actions: {
     setWallet(value: number) {
       this.wallet = value;
+    },
+
+    addBag(bag: IBag) {
+      this.bags.push(bag);
+    },
+
+    removeBag(bag: IBag) {
+      this.bags = this.bags.filter((item) => unref(item) !== unref(bag));
+    },
+
+    addItem(bag: IBag, item: IItemTypes) {
+      bag.items.push(item);
+    },
+
+    removeItem(bag: IBag, item: IItemTypes) {
+      bag.items = bag.items.filter(
+        (currItem) => unref(currItem) !== unref(item)
+      );
+    },
+
+    changeCount(item: IItemTypes, count: number) {
+      item.count = count < 0 ? 0 : count;
+    },
+
+    toggleIsEquiped(item: IItemTypes) {
+      item.isEquiped = !item.isEquiped;
     },
   },
 });

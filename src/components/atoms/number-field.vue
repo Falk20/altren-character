@@ -3,6 +3,7 @@
     v-model.number="model"
     variant="solo"
     density="compact"
+    inputmode="numeric"
     :label="label"
     hide-details
     v-maska="mask"

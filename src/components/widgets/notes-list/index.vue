@@ -7,67 +7,44 @@
       <v-btn
         prepend-icon="mdi-plus"
         block
+        variant="tonal"
+        color="green"
         @click="addNewNote"
       >
         Добавить
       </v-btn>
     </v-row>
-    <v-row
+
+    <v-textarea
       v-for="(note, index) in notes"
       :key="'note' + index"
-      no-gutters
+      :model-value="note"
+      @update:model-value="(value) => editNote(index, value)"
+      rows="2"
+      variant="solo"
     >
-      <v-col cols="11">
-        <v-textarea
-          :model-value="note"
-          @update:model-value="(value) => editNote(index, value)"
-          rows="3"
-        />
-      </v-col>
-      <v-col
-        cols="1"
-        class="pa-2"
-      >
+      <template v-slot:append-inner>
         <v-btn
           block
           density="compact"
-          variant="text"
+          variant="plain"
           color="red"
           icon="mdi-trash-can"
           @click="removeNote(index)"
         />
-      </v-col>
-    </v-row>
-    <v-dialog
+      </template>
+    </v-textarea>
+
+    <confirm-dialog
       v-model="isShowDialog"
-      width="200px"
-    >
-      <v-card>
-        <v-card-text>
-          Удалить заметку?
-        </v-card-text>
-        <v-card-actions class="justify-space-around">
-          <v-btn
-            color="primary"
-            variant="text"
-            @click="approveRemoving()"
-          >
-            Да
-          </v-btn>
-          <v-btn
-            color="secondaty"
-            variant="text"
-            @click="removedNoteIndex = null"
-          >
-            Отмена
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+      title="Удалить заметку?"
+      @confirm="approveRemoving"
+    />
   </v-container>
 </template>
 
 <script setup lang="ts">
+import ConfirmDialog from '@/components/atoms/confirm-dialog.vue';
 import { useNotesStore } from '@/store/stores/notes'
 import { ref } from 'vue';
 import { computed } from 'vue';
@@ -75,7 +52,10 @@ import { computed } from 'vue';
 const notesStore = useNotesStore()
 
 const removedNoteIndex = ref<number | null>(null)
-const isShowDialog = computed(() => typeof removedNoteIndex.value === 'number')
+const isShowDialog = computed({
+  get: () => typeof removedNoteIndex.value === 'number',
+  set: (value) => { if (!value) removedNoteIndex.value = null },
+})
 
 const notes = computed(() => notesStore.notes)
 
@@ -88,7 +68,6 @@ const removeNote = (index: number) => removedNoteIndex.value = index
 const approveRemoving = () => {
   if (typeof removedNoteIndex.value === 'number') {
     notesStore.removeNote(removedNoteIndex.value)
-    removedNoteIndex.value = null
   }
 }
 </script>
