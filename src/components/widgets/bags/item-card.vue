@@ -35,12 +35,22 @@
           <v-list>
             <v-list-item
               v-if="canEquip"
+              prepend-icon="mdi-hanger"
               @click="whenEquipBtnClick"
             >
               {{ props.item.isEquiped ? 'Снять' : 'Надеть' }}
             </v-list-item>
             <v-list-item
+              v-for="(bag, index) in bagsForSwitch"
+              :key="'bag-switch-' + index"
+              prepend-icon="mdi-arrow-right-bold"
+              @click="switchBag(bag)"
+            >
+              {{ bag.title }}
+            </v-list-item>
+            <v-list-item
               base-color="red"
+              prepend-icon="mdi-trash-can"
               @click="whenRemoveBtnClick"
             >
               Удалить
@@ -107,6 +117,7 @@ import counterField from '@/components/atoms/counter-field.vue';
 import DamageView from '@/components/atoms/damage-view.vue';
 import { IBag, IItemTypes, ItemTypes } from '@/helpers/types';
 import { useInventoryStore } from '@/store/stores/inventory';
+import { unref } from 'vue';
 import { computed } from 'vue';
 import { ref } from 'vue';
 
@@ -148,6 +159,10 @@ const count = computed({
   get: () => props.item?.count ?? 0,
   set: (value: number) => inventoryStore.changeCount(props.item, value),
 })
+
+const bagsForSwitch = computed(() => inventoryStore.bags.filter((bag) => unref(bag) !== unref(props.bag)))
+
+const switchBag = (bag: IBag) => inventoryStore.switchBag(props.item, props.bag, bag)
 
 const whenEquipBtnClick = () => inventoryStore.toggleIsEquiped(props.item)
 

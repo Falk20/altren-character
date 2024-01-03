@@ -16,7 +16,6 @@ npm run dev
 
 ```
 npm run build
-
 ```
 
 ### Customize configuration

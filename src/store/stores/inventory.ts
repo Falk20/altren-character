@@ -80,6 +80,11 @@ export const useInventoryStore = defineStore("inventoryStore", {
     toggleIsEquiped(item: IItemTypes) {
       item.isEquiped = !item.isEquiped;
     },
+
+    switchBag(item: IItemTypes, from: IBag, to: IBag) {
+      this.removeItem(from, item);
+      this.addItem(to, item);
+    },
   },
 });
 
