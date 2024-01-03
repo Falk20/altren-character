@@ -6,62 +6,17 @@
         prepend-icon="mdi-arrow-projectile"
       >
         <v-icon
-          v-if="props.item.type !== ItemTypes.nonStackable"
           size="small"
           :icon="icon"
-          :color="props.item.isEquiped ? 'green' : ''"
+          :color="'green'"
         />
         {{ props.item.title }}
       </v-card-title>
-
-      <v-card-subtitle
-        v-if="props.item.weight"
-        class="d-flex align-center mt-1 pb-0"
-      >
-        <v-icon icon="mdi-kettlebell"></v-icon> {{ props.item.weight }}
-      </v-card-subtitle>
-
-      <template #append>
-        <v-menu>
-          <template #activator="{ props }">
-            <v-btn
-              size="30"
-              icon="mdi-dots-horizontal"
-              variant="plain"
-              v-bind="props"
-            />
-          </template>
-
-          <v-list>
-            <v-list-item
-              v-if="canEquip"
-              @click="whenEquipBtnClick"
-            >
-              {{ props.item.isEquiped ? 'Снять' : 'Надеть' }}
-            </v-list-item>
-            <v-list-item
-              base-color="red"
-              @click="whenRemoveBtnClick"
-            >
-              Удалить
-            </v-list-item>
-          </v-list>
-        </v-menu>
-
-        <confirm-dialog
-          v-model="isShowRemovingConfrim"
-          title="Удалить предмет?"
-          @confirm="removeItem"
-        />
-      </template>
     </v-card-item>
 
     <v-divider />
-    <v-card-text v-if="props.item.type !== ItemTypes.nonStackable || props.item.description">
-      <div
-        v-if="props.item.type !== ItemTypes.nonStackable"
-        class="item-card_custom-field"
-      >
+    <v-card-text>
+      <div class="item-card_custom-field">
         <damage-view
           v-if="props.item.type === ItemTypes.weapon || props.item.type === ItemTypes.projectile"
           :damage="props.item.damage"
@@ -87,9 +42,10 @@
       </div>
 
       <v-divider
-        v-if="props.item.type !== ItemTypes.nonStackable && props.item.description"
+        v-if="props.item.description"
         class="my-2"
       />
+
 
       <p
         v-if="props.item.description"
@@ -102,24 +58,19 @@
 </template>
 
 <script setup lang="ts">
-import ConfirmDialog from '@/components/atoms/confirm-dialog.vue';
 import counterField from '@/components/atoms/counter-field.vue';
 import DamageView from '@/components/atoms/damage-view.vue';
-import { IBag, IItemTypes, ItemTypes } from '@/helpers/types';
+import { IEquipmentTypes, ItemTypes } from '@/helpers/types';
 import { useInventoryStore } from '@/store/stores/inventory';
 import { computed } from 'vue';
-import { ref } from 'vue';
 
 interface Props {
-  bag: IBag
-  item: IItemTypes
+  item: IEquipmentTypes
 }
 
 const props = defineProps<Props>()
 
 const inventoryStore = useInventoryStore()
-
-const isShowRemovingConfrim = ref(false)
 
 const icon = computed(() => {
   switch (props.item.type) {
@@ -136,26 +87,12 @@ const icon = computed(() => {
   }
 })
 
-const canEquip = computed(() => props.item.type === ItemTypes.projectile
-  || props.item.type === ItemTypes.armor
-  || props.item.type === ItemTypes.weapon
-  || props.item.type === ItemTypes.stackable
-)
-
 const isHaveCount = computed(() => props.item.type === ItemTypes.projectile || props.item.type === ItemTypes.stackable)
 
 const count = computed({
   get: () => props.item?.count ?? 0,
   set: (value: number) => inventoryStore.changeCount(props.item, value),
 })
-
-const whenEquipBtnClick = () => inventoryStore.toggleIsEquiped(props.item)
-
-const whenRemoveBtnClick = () => {
-  isShowRemovingConfrim.value = true
-}
-
-const removeItem = () => inventoryStore.removeItem(props.bag, props.item)
 </script>
 
 <style>

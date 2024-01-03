@@ -32,6 +32,9 @@ export const useInventoryStore = defineStore("inventoryStore", {
               if (item.type === ItemTypes.projectile) {
                 equipments.projectiles.push(item);
               }
+              if (item.type === ItemTypes.stackable) {
+                equipments.consumables.push(item);
+              }
             }
           });
 
@@ -41,6 +44,7 @@ export const useInventoryStore = defineStore("inventoryStore", {
           armors: [],
           weapons: [],
           projectiles: [],
+          consumables: [],
         },
       );
     },

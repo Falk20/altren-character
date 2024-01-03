@@ -58,12 +58,8 @@ export interface IBag {
   items: IItemTypes[];
 }
 
-export type IItemTypes =
-  | IItemNonStackeble
-  | IItemStackeble
-  | IArmor
-  | IWeapon
-  | IProjectile;
+export type IEquipmentTypes = IArmor | IWeapon | IProjectile | IItemStackeble;
+export type IItemTypes = IItemNonStackeble | IEquipmentTypes;
 
 export interface INotes {
   notes: string[];
@@ -102,7 +98,7 @@ export interface IItemNonStackeble extends IItem {
   type: ItemTypes.nonStackable;
 }
 
-export interface IItemStackeble extends IItem {
+export interface IItemStackeble extends IEquipment {
   type: ItemTypes.stackable;
   count: number;
 }
@@ -127,6 +123,7 @@ export interface IEquipments {
   armors: IArmor[];
   weapons: IWeapon[];
   projectiles: IProjectile[];
+  consumables: IItemStackeble[];
 }
 
 export interface ICharacter {
