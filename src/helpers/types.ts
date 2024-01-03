@@ -63,6 +63,7 @@ export type IItemTypes = IItemNonStackeble | IEquipmentTypes;
 
 export interface INotes {
   notes: string[];
+  quests: string[];
 }
 
 export enum ItemTypes {

@@ -20,6 +20,18 @@ export const useNotesStore = defineStore("notesStore", {
     removeNote(index: number) {
       this.notes.splice(index, 1);
     },
+
+    addNewQuest() {
+      this.quests.push("");
+    },
+
+    editQuest(index: number, value: string) {
+      this.quests[index] = value;
+    },
+
+    removeQuest(index: number) {
+      this.quests.splice(index, 1);
+    },
   },
 });
 

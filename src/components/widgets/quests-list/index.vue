@@ -9,17 +9,17 @@
         block
         variant="tonal"
         color="green"
-        @click="addNewNote"
+        @click="addNewQuest"
       >
         Добавить
       </v-btn>
     </v-row>
 
     <v-textarea
-      v-for="(note, index) in notes"
-      :key="'note' + index"
-      :model-value="note"
-      @update:model-value="(value) => editNote(index, value)"
+      v-for="(quest, index) in quests"
+      :key="'quest' + index"
+      :model-value="quest"
+      @update:model-value="(value) => editQuest(index, value)"
       rows="2"
       auto-grow
       variant="solo"
@@ -31,7 +31,7 @@
           variant="plain"
           color="red"
           icon="mdi-trash-can"
-          @click="removeNote(index)"
+          @click="removeQuest(index)"
         />
       </template>
     </v-textarea>
@@ -52,23 +52,23 @@ import { computed } from 'vue';
 
 const notesStore = useNotesStore()
 
-const removedNoteIndex = ref<number | null>(null)
+const removedQuestIndex = ref<number | null>(null)
 const isShowDialog = computed({
-  get: () => typeof removedNoteIndex.value === 'number',
-  set: (value) => { if (!value) removedNoteIndex.value = null },
+  get: () => typeof removedQuestIndex.value === 'number',
+  set: (value) => { if (!value) removedQuestIndex.value = null },
 })
 
-const notes = computed(() => notesStore.notes)
+const quests = computed(() => notesStore.quests)
 
-const addNewNote = () => notesStore.addNewNote()
+const addNewQuest = () => notesStore.addNewQuest()
 
-const editNote = (index: number, value: string) => notesStore.editNote(index, value)
+const editQuest = (index: number, value: string) => notesStore.editQuest(index, value)
 
-const removeNote = (index: number) => removedNoteIndex.value = index
+const removeQuest = (index: number) => removedQuestIndex.value = index
 
 const approveRemoving = () => {
-  if (typeof removedNoteIndex.value === 'number') {
-    notesStore.removeNote(removedNoteIndex.value)
+  if (typeof removedQuestIndex.value === 'number') {
+    notesStore.removeQuest(removedQuestIndex.value)
   }
 }
 </script>
