@@ -7,16 +7,16 @@ import {
   getDocs,
   query,
   where,
+  deleteDoc,
 } from "firebase/firestore";
 
 import { firebaseApp, auth } from "@/firebase/config";
-// import store from "@/store/index";
 import { generateCharlist } from "@/helpers/utils";
 import { idStorageKey } from "@/helpers/constants";
 
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(firebaseApp);
-let charlistID = localStorage.getItem(idStorageKey);
+let currentCharlistID = localStorage.getItem(idStorageKey);
 
 export async function saveCharlist() {
   const user = auth.currentUser;
@@ -27,12 +27,14 @@ export async function saveCharlist() {
       owner: user.uid,
     };
 
-    if (charlistID) {
-      await setDoc(doc(db, "chars", charlistID), charlist, { merge: true });
+    if (currentCharlistID) {
+      await setDoc(doc(db, "chars", currentCharlistID), charlist, {
+        merge: true,
+      });
     } else {
       const docRef = await addDoc(collection(db, "chars"), charlist);
 
-      charlistID = docRef.id;
+      currentCharlistID = docRef.id;
       localStorage.setItem(idStorageKey, docRef.id);
     }
 
@@ -42,12 +44,24 @@ export async function saveCharlist() {
   }
 }
 
+export async function removeCharList(charlistID: string) {
+  await deleteDoc(doc(db, "chars", charlistID));
+
+  if (charlistID === currentCharlistID) {
+    localStorage.clear();
+    currentCharlistID = null;
+    window.location.reload();
+  }
+
+  return;
+}
+
 export async function getAllChars() {
   const user = auth.currentUser;
 
   if (user) {
     return getDocs(
-      query(collection(db, "chars"), where("owner", "==", user.uid))
+      query(collection(db, "chars"), where("owner", "==", user.uid)),
     );
   }
 
@@ -59,7 +73,7 @@ export async function createCharInDB() {
 
   if (user) {
     localStorage.clear();
-    charlistID = null;
+    currentCharlistID = null;
 
     await saveCharlist();
 

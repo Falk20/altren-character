@@ -1,65 +1,64 @@
 <template>
   <v-container class="pa-0">
-    <h2 class="d-flex justify-center">
+    <h2 class="d-flex justify-center mb-2">
       Список персонажей
-      <v-btn
-        class="ml-2"
-        size="x-small"
-        variant="tonal"
-        icon="mdi-cloud-download"
-        @click="isShowUpdateConfrim = true"
-      />
     </h2>
 
-    <confirm-dialog
-      v-model="isShowUpdateConfrim"
-      title="Загрузить лист персонажа?"
-      text="Локальная версия будет утеряна!"
-      @confirm="loadFromServer"
-    />
+    <v-btn
+      class="mb-2"
+      size="small"
+      prepend-icon="mdi-plus"
+      color="green"
+      variant="tonal"
+      block
+      @click="createCharInDB"
+    >
+      Новый персонаж
+    </v-btn>
 
-    <v-list density="compact">
-      <v-list-item
-        v-for="item in chars"
-        :key="item.id"
-        class="char"
-        color="primary"
-        :active="item.id === currentID"
-        @click="chooseCharacter(item)"
+    <template v-if="isLoading">
+      <v-skeleton-loader
+        v-for="item in 3"
+        :key="item + '-skeleton'"
+        type="list-item"
+        width="100%"
+      />
+    </template>
+
+    <v-list
+      v-else
+      density="compact"
+    >
+      <template
+        v-for="char in chars"
+        :key="char.id"
       >
-        <v-list-item-title>
-          {{ item.personalInfo.name || "Нет имени" }}
-        </v-list-item-title>
-      </v-list-item>
+        <char-item
+          :item="char"
+          @updateList="getData"
+        />
+        <v-divider />
+      </template>
     </v-list>
-    <v-row>
-      <v-col>
-        <v-btn
-          size="small"
-          prepend-icon="mdi-plus"
-          block
-          @click="createCharInDB"
-        >
-          Новый персонаж
-        </v-btn>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import { createCharInDB, getAllChars } from "@/firebase/db";
-import { setCharacterState } from "@/helpers/utils";
 import { ICharacter } from "@/helpers/types"
 import { onMounted } from "vue";
 import { ref } from "vue";
-import ConfirmDialog from "@/components/atoms/confirm-dialog.vue";
+import CharItem from "./char-item.vue";
+
 
 const chars = ref<ICharacter[]>([])
-const currentID = localStorage.getItem("charlistID")
-const isShowUpdateConfrim = ref(false)
+
+const isLoading = ref(false)
 
 const getData = async () => {
+  isLoading.value = true
+  chars.value = []
+
   const docs = await getAllChars();
 
   docs?.forEach((doc) => {
@@ -68,31 +67,11 @@ const getData = async () => {
       id: doc.id,
     } as ICharacter);
   });
-}
 
-const chooseCharacter = (character: any) => {
-  if (character.id === currentID) {
-    return;
-  }
-
-  setCharacterState(character);
-}
-
-const loadFromServer = () => {
-  const currentCharFromServer = chars.value.find((char) => char.id === currentID)
-
-  if (currentCharFromServer) {
-    setCharacterState(currentCharFromServer);
-  }
+  isLoading.value = false
 }
 
 onMounted(() => {
   getData()
 })
 </script>
-
-<style scoped>
-.char:not(:last-child) {
-  border-bottom: 1px solid grey;
-}
-</style>
