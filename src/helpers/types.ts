@@ -77,11 +77,6 @@ export enum ItemTypes {
   projectile = "projectile",
 }
 
-export enum DamageTypes {
-  dice = "dice",
-  modificator = "modificator",
-}
-
 export interface IDamage {
   isPositive: boolean;
   value: number;

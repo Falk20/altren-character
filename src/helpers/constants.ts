@@ -1,4 +1,4 @@
-import { DamageTypes, ItemTypes } from "./types";
+import { ItemTypes } from "./types";
 
 export const defaultHits = 4;
 export const defaultMana = 5;
@@ -280,17 +280,6 @@ export const itemTypeOptions = [
   {
     title: "Снаряды",
     value: ItemTypes.projectile,
-  },
-];
-
-export const damageTypeOptions = [
-  {
-    title: "Дайс",
-    value: DamageTypes.dice,
-  },
-  {
-    title: "Число",
-    value: DamageTypes.modificator,
   },
 ];
 
