@@ -1,17 +1,12 @@
-import {
-  IBag,
-  IEquipment,
-  IInventory,
-  IItemTypes,
-  IItemStackeble,
-  IProjectile,
-} from "@/helpers/types";
+import { defineStore } from "pinia";
+import { unref } from "vue";
+
+import { inventoryStorageKey } from "@/helpers/constants";
+import { IBag, IInventory, IItemTypes } from "@/helpers/types";
 import { saveState } from "@/helpers/utils";
 import { generateState } from "@/helpers/utils/inventory";
-import { inventoryStorageKey } from "@/helpers/constants";
-import { defineStore } from "pinia";
+
 import store from "..";
-import { unref } from "vue";
 
 export const useInventoryStore = defineStore("inventoryStore", {
   state: (): IInventory => generateState(),
@@ -39,11 +34,11 @@ export const useInventoryStore = defineStore("inventoryStore", {
       );
     },
 
-    changeCount(item: IItemStackeble | IProjectile, count: number) {
-      item.count = count;
+    changeCount(item: IItemTypes, count: number) {
+      item.count = count < 0 ? 0 : count;
     },
 
-    toggleIsEquiped(item: IEquipment) {
+    toggleIsEquiped(item: IItemTypes) {
       item.isEquiped = !item.isEquiped;
     },
   },

@@ -6,30 +6,25 @@
   >
     <div class="damage-field_inputs">
       <SelectField
-        v-model:value="model.value"
+        v-model:value="value"
         label="Дайс"
         :items="diceOptions"
       />
 
       <div class="damage-field_modificator">
         <SelectField
-          v-model:value="model.isPositive"
+          v-model:value="isPositive"
           label="Знак"
           :items="signOptions"
         />
 
         <v-text-field
-          ref="moduficatorField"
           variant="solo"
           density="compact"
           label="Модификатор"
           inputmode="numeric"
           hide-details
-          v-model.number="model.modificator"
-          :rules="[
-            () => (typeof model.value === 'number') || 'Введите число',
-            () => model.value >= 0 || 'Не меньше 0'
-          ]"
+          v-model.number="modificator"
           v-maska="'####'"
         />
       </div>
@@ -50,7 +45,6 @@ import { signOptions, diceOptions } from "@/helpers/constants";
 import SelectField from '@/components/atoms/select-field.vue';
 import { IDamage } from '@/helpers/types';
 import { computed } from 'vue';
-import { ref } from "vue";
 import { VTextField } from "vuetify/lib/components/index.mjs";
 
 interface Props {
@@ -63,17 +57,30 @@ const emit = defineEmits<{
   'remove': []
 }>()
 
-const model = computed({
-  get: () => props.modelValue,
-  set: (value: IDamage) => emit('update:modelValue', value)
+const value = computed({
+  get: () => props.modelValue.value,
+  set: (value: number) => {
+    emit('update:modelValue', { ...props.modelValue, value })
+  }
 })
 
-const moduficatorField = ref<InstanceType<typeof VTextField> | null>(null)
+const modificator = computed({
+  get: () => props.modelValue.modificator,
+  set: (modificator: number) => {
+    emit('update:modelValue', {
+      ...props.modelValue,
+      modificator: typeof modificator === 'number'
+        ? modificator
+        : 0
+    })
+  }
+})
 
-const $validate = () => { moduficatorField.value?.validate() }
-
-defineExpose({
-  $validate
+const isPositive = computed({
+  get: () => props.modelValue.isPositive,
+  set: (isPositive: boolean) => {
+    emit('update:modelValue', { ...props.modelValue, isPositive })
+  }
 })
 </script>
 

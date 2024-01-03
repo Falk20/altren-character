@@ -1,11 +1,10 @@
 <template>
   <v-sheet>
-    <h5>Урон</h5>
+    <h5>Урон*</h5>
 
     <DamageField
       v-for="(damage, index) in damages"
       :key="'damage' + index"
-      ref="damageFieldRef"
       v-model="damages[index]"
       @remove="remove(index)"
     />
@@ -13,7 +12,8 @@
     <v-btn
       size="x-small"
       prepend-icon="mdi-plus"
-      color="primary"
+      color="green"
+      variant="tonal"
       @click="addNewDamage"
     >
       Добавить дайс
@@ -25,7 +25,6 @@
 import { IDamage } from '@/helpers/types';
 import { computed } from 'vue';
 import DamageField from './damage-field.vue';
-import { ref } from 'vue';
 
 interface Props {
   modelValue: IDamage[]
@@ -41,8 +40,6 @@ const damages = computed({
   set: (value: IDamage[]) => emit('update:modelValue', value)
 })
 
-const damageFieldRef = ref<InstanceType<typeof DamageField>[] | null>(null)
-
 const addNewDamage = () => {
   damages.value.push({
     value: 1,
@@ -52,10 +49,4 @@ const addNewDamage = () => {
 }
 
 const remove = (index: number) => damages.value.splice(index, 1)
-
-const $validate = () => { damageFieldRef.value?.forEach((item) => item.$validate()) }
-
-defineExpose({
-  $validate
-})
 </script>

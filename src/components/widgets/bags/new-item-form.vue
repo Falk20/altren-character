@@ -137,7 +137,6 @@ const model = computed({
 
 const titleField = ref<InstanceType<typeof VTextField> | null>(null)
 const weightField = ref<InstanceType<typeof VTextField> | null>(null)
-const DamageFormRef = ref<InstanceType<typeof DamageForm> | null>(null)
 
 const itemType = ref<ItemTypes>(ItemTypes.nonStackable)
 const title = ref('')
@@ -159,7 +158,6 @@ const isShowDamageField = computed(() => {
 const submit = () => {
   titleField.value?.validate()
   weightField.value?.validate()
-  DamageFormRef.value?.$validate()
 
   if (!!title.value && !!weight.value) {
     let newItem: IItemTypes | null = null
@@ -199,7 +197,7 @@ const submit = () => {
 
     if (itemType.value === ItemTypes.weapon
       && damage.value.length > 0
-      && damage.value.every(item => item.value)
+      && damage.value.every(item => typeof item.value === 'number')
     ) {
       newItem = {
         title: title.value,
@@ -213,7 +211,7 @@ const submit = () => {
 
     if (itemType.value === ItemTypes.projectile
       && damage.value.length > 0
-      && damage.value.every(item => item.value)
+      && damage.value.every(item => typeof item.value === 'number')
       && typeof count.value === 'number'
     ) {
       newItem = {

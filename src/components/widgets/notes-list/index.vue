@@ -7,6 +7,8 @@
       <v-btn
         prepend-icon="mdi-plus"
         block
+        variant="tonal"
+        color="green"
         @click="addNewNote"
       >
         Добавить
@@ -25,7 +27,7 @@
         <v-btn
           block
           density="compact"
-          variant="text"
+          variant="plain"
           color="red"
           icon="mdi-trash-can"
           @click="removeNote(index)"

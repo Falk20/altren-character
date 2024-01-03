@@ -1,5 +1,5 @@
 <template>
-  <v-container class="px-0">
+  <v-container class="px-0 pb-0">
     <BagPanel
       v-for="bag in bags"
       :key="'bag' + bag.title"
@@ -10,7 +10,7 @@
       prepend-icon="mdi-plus"
       color="primary"
       block
-      variant="elevated"
+      variant="tonal"
       @click="isFormOpen = true"
     >
       Хранилище

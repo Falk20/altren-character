@@ -93,6 +93,10 @@ export interface IItem {
   description: string;
   type: ItemTypes;
   weight: number;
+  count?: number;
+  protection?: number;
+  damage?: IDamage[];
+  isEquiped?: boolean;
 }
 
 export interface IEquipment extends IItem {
