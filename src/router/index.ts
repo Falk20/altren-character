@@ -14,6 +14,7 @@ import InventoryView from "@/views/InventoryView.vue";
 import SkillsView from "@/views/SkillsView.vue";
 import StartView from "@/views/StartView.vue";
 import NotesView from "@/views/NotesView.vue";
+import QuestsView from "@/views/QuestsView.vue";
 
 const routes: Array<RouteRecordSingleView> = [
   {
@@ -38,6 +39,14 @@ const routes: Array<RouteRecordSingleView> = [
     component: NotesView,
     meta: {
       title: "Заметки",
+    },
+  },
+  {
+    path: "/quests",
+    name: "quests",
+    component: QuestsView,
+    meta: {
+      title: "Задания",
     },
   },
   {
