@@ -66,6 +66,15 @@ export interface INotes {
   quests: string[];
 }
 
+export interface IAbility {
+  title: string;
+  description: string;
+}
+
+export interface IAbilities {
+  abilities: IAbility[];
+}
+
 export enum ItemTypes {
   stackable = "stackable",
   nonStackable = "nonStackable",
@@ -136,4 +145,5 @@ export interface ICharacter {
   inventory: IInventory;
   status: IStatus;
   notes: INotes;
+  abilities: IAbilities;
 }

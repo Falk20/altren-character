@@ -1,4 +1,5 @@
 import {
+  IAbilities,
   ICharacter,
   IInventory,
   INotes,
@@ -14,6 +15,7 @@ import { generateState as generateStats } from "@/helpers/utils/stats";
 import { generateState as generatePersonalInfo } from "@/helpers/utils/personal-info";
 import { generateState as generateSkills } from "@/helpers/utils/skills";
 import { generateState as generateNotes } from "@/helpers/utils/notes";
+import { generateState as generateAbilities } from "@/helpers/utils/abilities";
 import {
   idStorageKey,
   statusStorageKey,
@@ -23,8 +25,10 @@ import {
   skillsStorageKey,
   Stats,
   notesStorageKey,
+  abilitiesStorageKey,
 } from "../constants";
 import { defaultNotes } from "./notes";
+import { defaultAbilities } from "./abilities";
 
 export function saveState(
   stateName: string,
@@ -34,7 +38,8 @@ export function saveState(
     | IInventory
     | ISkills
     | INotes
-    | Record<Stats, number>
+    | IAbilities
+    | Record<Stats, number>,
 ) {
   const stringifiedState = JSON.stringify(state);
 
@@ -49,8 +54,9 @@ export function getState(
     | IInventory
     | ISkills
     | INotes
+    | IAbilities
     | Record<Stats, number>,
-  errorText: string
+  errorText: string,
 ) {
   const storageValue = localStorage.getItem(storageKey);
 
@@ -81,6 +87,7 @@ export function generateCharlist() {
     personalInfo: generatePersonalInfo(),
     skills: generateSkills(),
     notes: generateNotes(),
+    abilities: generateAbilities(),
   };
 }
 
@@ -92,6 +99,7 @@ export function setCharacterState(character: ICharacter) {
   saveState(inventoryStorageKey, character.inventory);
   saveState(skillsStorageKey, character.skills);
   saveState(notesStorageKey, character.notes ?? defaultNotes);
+  saveState(abilitiesStorageKey, character.abilities ?? defaultAbilities);
 
   window.location.reload();
 }
