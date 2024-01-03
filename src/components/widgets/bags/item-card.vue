@@ -12,8 +12,14 @@
           :color="props.item.isEquiped ? 'green' : ''"
         />
         {{ props.item.title }}
-
       </v-card-title>
+
+      <v-card-subtitle
+        v-if="props.item.weight"
+        class="d-flex align-center mt-1 pb-0"
+      >
+        <v-icon icon="mdi-kettlebell"></v-icon> {{ props.item.weight }}
+      </v-card-subtitle>
 
       <template #append>
         <v-menu>
@@ -29,12 +35,22 @@
           <v-list>
             <v-list-item
               v-if="canEquip"
+              prepend-icon="mdi-hanger"
               @click="whenEquipBtnClick"
             >
               {{ props.item.isEquiped ? 'Снять' : 'Надеть' }}
             </v-list-item>
             <v-list-item
+              v-for="(bag, index) in bagsForSwitch"
+              :key="'bag-switch-' + index"
+              prepend-icon="mdi-arrow-right-bold"
+              @click="switchBag(bag)"
+            >
+              {{ bag.title }}
+            </v-list-item>
+            <v-list-item
               base-color="red"
+              prepend-icon="mdi-trash-can"
               @click="whenRemoveBtnClick"
             >
               Удалить
@@ -51,7 +67,7 @@
     </v-card-item>
 
     <v-divider />
-    <v-card-text>
+    <v-card-text v-if="props.item.type !== ItemTypes.nonStackable || props.item.description">
       <div
         v-if="props.item.type !== ItemTypes.nonStackable"
         class="item-card_custom-field"
@@ -85,13 +101,12 @@
         class="my-2"
       />
 
-      <div
+      <p
         v-if="props.item.description"
         class="text-body-1"
       >
-        <p class="font-weight-medium">Описание:</p>
-        <p>{{ props.item.description }}</p>
-      </div>
+        {{ props.item.description }}
+      </p>
     </v-card-text>
   </v-card>
 </template>
@@ -102,6 +117,7 @@ import counterField from '@/components/atoms/counter-field.vue';
 import DamageView from '@/components/atoms/damage-view.vue';
 import { IBag, IItemTypes, ItemTypes } from '@/helpers/types';
 import { useInventoryStore } from '@/store/stores/inventory';
+import { unref } from 'vue';
 import { computed } from 'vue';
 import { ref } from 'vue';
 
@@ -131,13 +147,22 @@ const icon = computed(() => {
   }
 })
 
-const canEquip = computed(() => props.item.type === ItemTypes.projectile || props.item.type === ItemTypes.armor || props.item.type === ItemTypes.weapon)
+const canEquip = computed(() => props.item.type === ItemTypes.projectile
+  || props.item.type === ItemTypes.armor
+  || props.item.type === ItemTypes.weapon
+  || props.item.type === ItemTypes.stackable
+)
+
 const isHaveCount = computed(() => props.item.type === ItemTypes.projectile || props.item.type === ItemTypes.stackable)
 
 const count = computed({
   get: () => props.item?.count ?? 0,
   set: (value: number) => inventoryStore.changeCount(props.item, value),
 })
+
+const bagsForSwitch = computed(() => inventoryStore.bags.filter((bag) => unref(bag) !== unref(props.bag)))
+
+const switchBag = (bag: IBag) => inventoryStore.switchBag(props.item, props.bag, bag)
 
 const whenEquipBtnClick = () => inventoryStore.toggleIsEquiped(props.item)
 

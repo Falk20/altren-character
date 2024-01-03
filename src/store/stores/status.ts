@@ -19,6 +19,7 @@ import store from "..";
 import { useSkillsStore } from "./skills";
 import { usePersonalInfoStore } from "./personal-info";
 import { useStatsStore } from "./stats";
+import { useInventoryStore } from "./inventory";
 
 export const useStatusStore = defineStore("statusStore", {
   state: (): IStatus => generateState(),
@@ -71,10 +72,17 @@ export const useStatusStore = defineStore("statusStore", {
 
     threshold: (state) => {
       const statsStore = useStatsStore();
+      const inventoryStore = useInventoryStore();
 
       const statBuff = statsStore.endurance;
+      const equipmentBuff = inventoryStore.equipments.armors.reduce(
+        (protection, armor) => protection + armor.protection,
+        0,
+      );
 
-      return defaultThreshold + state.conditions.threshold + statBuff;
+      return (
+        defaultThreshold + state.conditions.threshold + statBuff + equipmentBuff
+      );
     },
 
     stepCount: () => {

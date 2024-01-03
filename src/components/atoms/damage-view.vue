@@ -2,6 +2,8 @@
   <div class="d-flex flex-wrap text-body-1">
     <span class="mr-1">Урон:</span>
 
+    <div v-if="Object.keys(flatDamage.dices).length === 0 && !flatDamage.modificator">0</div>
+
     <div
       v-for="(value, key, index) in flatDamage.dices"
       :key="'dice' + key"

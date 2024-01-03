@@ -262,11 +262,11 @@ export const diceOptions = [
 
 export const itemTypeOptions = [
   {
-    title: "Один",
+    title: "Обычный",
     value: ItemTypes.nonStackable,
   },
   {
-    title: "Несколько",
+    title: "Расходник",
     value: ItemTypes.stackable,
   },
   {

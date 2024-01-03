@@ -4,8 +4,8 @@
     :title="props.bag.title"
   >
     <template #subtitle>
-      <span :class="{ 'red': weight > props.bag.capacity }">
-        ячейки: {{ weight }}/{{ props.bag.capacity }}
+      <span :class="{ 'red': weight > capacity }">
+        ячейки: {{ weight }}/{{ capacity }}
       </span>
     </template>
     <template #append>
@@ -71,6 +71,7 @@ import { ref } from 'vue';
 import NewItemForm from './new-item-form.vue';
 import { computed } from 'vue';
 import ItemCard from './item-card.vue';
+import { useSkillsStore } from '@/store/stores/skills';
 
 interface Props {
   bag: IBag
@@ -79,6 +80,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const inventoryStore = useInventoryStore()
+const skillsStore = useSkillsStore()
 
 const isItemFormOpen = ref(false)
 const isShowRemovingConfrim = ref(false)
@@ -97,6 +99,11 @@ const weight = computed(() => {
   }, 0)
 
   return sum % 1 ? +sum.toFixed(2) : sum
+})
+
+const capacity = computed(() => {
+  const mulePower = skillsStore.skills.strength?.mulePower ?? 0
+  return props.bag.capacity * (1 + mulePower)
 })
 
 const whenRemoveBtnClick = () => {
