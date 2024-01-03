@@ -180,6 +180,7 @@ const submit = () => {
         type: itemType.value,
         weight: weight.value,
         count: count.value,
+        isEquiped: false,
       }
     }
 
