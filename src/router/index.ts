@@ -15,6 +15,7 @@ import SkillsView from "@/views/SkillsView.vue";
 import StartView from "@/views/StartView.vue";
 import NotesView from "@/views/NotesView.vue";
 import QuestsView from "@/views/QuestsView.vue";
+import AbilitiesView from "@/views/AbilitiesView.vue";
 
 const routes: Array<RouteRecordSingleView> = [
   {
@@ -82,16 +83,14 @@ const routes: Array<RouteRecordSingleView> = [
       hideInNav: true,
     },
   },
-  // {
-  //   path: "/abilities",
-  //   name: "abilities",
-  //   component: import(
-  //     /* webpackChunkName: "abilities" */ "@/views/AbilitiesView.vue"
-  //   ),
-  //   meta: {
-  //     title: "Способности",
-  //   },
-  // },
+  {
+    path: "/abilities",
+    name: "abilities",
+    component: AbilitiesView,
+    meta: {
+      title: "Способности",
+    },
+  },
 ];
 
 const router = createRouter({
