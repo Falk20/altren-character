@@ -1,6 +1,23 @@
 <template>
   <v-container class="pa-0">
-    <h2 class="d-flex justify-center">Список персонажей</h2>
+    <h2 class="d-flex justify-center">
+      Список персонажей
+      <v-btn
+        class="ml-2"
+        size="x-small"
+        variant="tonal"
+        icon="mdi-cloud-download"
+        @click="isShowUpdateConfrim = true"
+      />
+    </h2>
+
+    <confirm-dialog
+      v-model="isShowUpdateConfrim"
+      title="Загрузить лист персонажа?"
+      text="Локальная версия будет утеряна!"
+      @confirm="loadFromServer"
+    />
+
     <v-list density="compact">
       <v-list-item
         v-for="item in chars"
@@ -36,9 +53,11 @@ import { setCharacterState } from "@/helpers/utils";
 import { ICharacter } from "@/helpers/types"
 import { onMounted } from "vue";
 import { ref } from "vue";
+import ConfirmDialog from "@/components/atoms/confirm-dialog.vue";
 
 const chars = ref<ICharacter[]>([])
 const currentID = localStorage.getItem("charlistID")
+const isShowUpdateConfrim = ref(false)
 
 const getData = async () => {
   const docs = await getAllChars();
@@ -57,6 +76,14 @@ const chooseCharacter = (character: any) => {
   }
 
   setCharacterState(character);
+}
+
+const loadFromServer = () => {
+  const currentCharFromServer = chars.value.find((char) => char.id === currentID)
+
+  if (currentCharFromServer) {
+    setCharacterState(currentCharFromServer);
+  }
 }
 
 onMounted(() => {

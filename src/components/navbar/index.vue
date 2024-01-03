@@ -13,7 +13,7 @@
     <v-app-bar-title>{{ $route.meta.title }}</v-app-bar-title>
 
     <template v-slot:append>
-      <HeaderRight v-if="isAuth && $route.name !== 'start'" />
+      <HeaderRight v-if="isAuth" />
     </template>
   </v-app-bar>
 </template>
