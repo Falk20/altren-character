@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="stats_container">
     <AltScaleField
       v-model:value="strength"
       title="Сила"
@@ -56,3 +56,10 @@ const endurance = computed({
   set: (value) => statsStore.setStat(Stats.endurance, value)
 })
 </script>
+
+<style>
+.stats_container {
+  display: grid;
+  gap: 8px
+}
+</style>

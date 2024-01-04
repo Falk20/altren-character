@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mb-4">
+  <v-card class="mt-4">
     <v-card-item class="align-start">
       <v-card-title
         class="text-body-1 font-weight-medium text-wrap item-card_title"

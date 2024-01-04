@@ -1,6 +1,15 @@
 <template>
   <v-sheet>
-    <h5>Урон*</h5>
+    <h5>Урон* <v-btn
+        size="x-small"
+        prepend-icon="mdi-plus"
+        color="green"
+        variant="tonal"
+        @click="addNewDamage"
+      >
+        Добавить дайс
+      </v-btn>
+    </h5>
 
     <DamageField
       v-for="(damage, index) in damages"
@@ -8,16 +17,6 @@
       v-model="damages[index]"
       @remove="remove(index)"
     />
-
-    <v-btn
-      size="x-small"
-      prepend-icon="mdi-plus"
-      color="green"
-      variant="tonal"
-      @click="addNewDamage"
-    >
-      Добавить дайс
-    </v-btn>
   </v-sheet>
 </template>
 
@@ -41,7 +40,7 @@ const damages = computed({
 })
 
 const addNewDamage = () => {
-  damages.value.push({
+  damages.value.unshift({
     value: 1,
     isPositive: true,
     modificator: 0,

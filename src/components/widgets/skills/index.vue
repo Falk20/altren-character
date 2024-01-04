@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-0">
+  <v-container>
     <span :class="[skillPointsRemains < 0 && 'text-red']">{{ skillPointCount }}</span>
     <v-img
       v-if="skillPointsRemains < 0"
@@ -8,6 +8,7 @@
     <AltSkillsStatSection
       v-for="(stat, name) in statsWithSkills"
       :key="'stat' + name"
+      class="mt-4"
       :name="name"
       :title="stat.title"
       :skillsDictionary="stat.skills"

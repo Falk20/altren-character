@@ -1,24 +1,30 @@
 <template>
-  <v-row>
-    <v-col class="d-flex flex-column align-center">
-      <h4 class="mb-2">
+  <v-card>
+    <v-card-item>
+      <v-card-title>
+        {{ title }}
         <v-btn
-          class="d-inline"
-          variant="text"
+          class="mr-2"
+          variant="tonal"
+          rounded="lg"
+          size="x-small"
           icon="mdi-minus"
           @click="decrement"
         />
-        <span>{{ title }}</span>
         <v-btn
-          class="d-inline"
-          variant="text"
+          variant="tonal"
+          rounded="lg"
+          size="x-small"
           icon="mdi-plus"
           @click="increment"
         />
-      </h4>
+      </v-card-title>
+    </v-card-item>
+    <v-card-text>
       <v-rating
         v-model="model"
-        :length="maxValue"
+        :length="6"
+        clearable
       >
         <template v-slot:item="props">
           <v-icon
@@ -29,8 +35,8 @@
           </v-icon>
         </template>
       </v-rating>
-    </v-col>
-  </v-row>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script setup lang="ts">

@@ -64,7 +64,7 @@ export const useInventoryStore = defineStore("inventoryStore", {
     },
 
     addItem(bag: IBag, item: IItemTypes) {
-      bag.items.push(item);
+      bag.items.unshift(item);
     },
 
     removeItem(bag: IBag, item: IItemTypes) {

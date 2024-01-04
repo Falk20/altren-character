@@ -10,7 +10,7 @@ export const useNotesStore = defineStore("notesStore", {
 
   actions: {
     addNewNote() {
-      this.notes.push("");
+      this.notes.unshift("");
     },
 
     editNote(index: number, value: string) {
@@ -22,7 +22,7 @@ export const useNotesStore = defineStore("notesStore", {
     },
 
     addNewQuest() {
-      this.quests.push("");
+      this.quests.unshift("");
     },
 
     editQuest(index: number, value: string) {

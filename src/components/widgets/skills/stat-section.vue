@@ -1,42 +1,54 @@
 <template>
-  <v-container class="px-0 py-2">
-    <h2 class="d-flex justify-center">
-      <span>{{ title }}</span>
-      <v-btn
-        v-if="canAddNewSkill"
-        class="ml-2"
-        size="small"
-        flat
-        color="success"
-        :icon="btnIcon"
-        @click="toggleForm"
-      />
-    </h2>
+  <v-card>
+    <v-card-item>
+      <v-card-title>{{ title }}</v-card-title>
 
-    <AltSkillAddingForm
-      v-if="isCurrentFormOpen"
-      :statName="name"
-      :skillsDictionary="filteredSkillsDictionary"
-      @close-form="closeForm"
-    />
+      <template #append>
+        <v-btn
+          v-if="canAddNewSkill"
+          size="small"
+          variant="tonal"
+          rounded="lg"
+          color="green"
+          :icon="btnIcon"
+          @click="toggleForm"
+        />
+      </template>
+    </v-card-item>
 
-    <template v-if="learnedSkills.length">
-      <AltStatField
-        v-for="skill in learnedSkills"
-        :key="'skill-' + skill"
-        :name="skill"
-        :maxValue="statLevel"
+    <v-divider />
+
+    <v-card-text>
+      <AltSkillAddingForm
+        v-if="isCurrentFormOpen"
         :statName="name"
-        :skillsDictionary="skillsDictionary"
+        :skillsDictionary="filteredSkillsDictionary"
+        @close-form="closeForm"
       />
-    </template>
-    <p
-      class="text-center"
-      v-else-if="!isCurrentFormOpen"
-    >
-      Навыки не изучены
-    </p>
-  </v-container>
+
+      <v-divider
+        v-if="isCurrentFormOpen && learnedSkills.length"
+        class="my-4"
+      />
+
+      <div
+        v-if="learnedSkills.length"
+        class="stat-section_skills"
+      >
+        <AltStatField
+          v-for="skill in learnedSkills"
+          :key="'skill-' + skill"
+          :name="skill"
+          :maxValue="statLevel"
+          :statName="name"
+          :skillsDictionary="skillsDictionary"
+        />
+      </div>
+      <p v-else-if="!isCurrentFormOpen">
+        Навыки не изучены
+      </p>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script setup lang="ts">
@@ -89,3 +101,10 @@ const closeForm = () => {
   emit("update:openedForm", null);
 }
 </script>
+
+<style>
+.stat-section_skills {
+  display: grid;
+  gap: 8px;
+}
+</style>
