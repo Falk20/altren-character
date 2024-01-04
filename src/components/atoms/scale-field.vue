@@ -24,7 +24,6 @@
       <v-rating
         v-model="model"
         :length="6"
-        clearable
       >
         <template v-slot:item="itemProps">
           <v-icon
