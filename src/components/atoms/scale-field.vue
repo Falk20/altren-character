@@ -26,12 +26,12 @@
         :length="6"
         clearable
       >
-        <template v-slot:item="props">
+        <template v-slot:item="itemProps">
           <v-icon
-            :color="props.isFilled ? 'green' : 'grey-lighten-1'"
+            :color="itemProps.isFilled ? maxValue >= itemProps.value ? 'green' : 'red' : 'grey-lighten-1'"
             size="44"
           >
-            {{ getIcon(props.value) }}
+            {{ getIcon(itemProps.value) }}
           </v-icon>
         </template>
       </v-rating>
