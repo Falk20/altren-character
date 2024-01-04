@@ -1,7 +1,5 @@
 <template>
-  <v-container>
-    <AltSkills />
-  </v-container>
+  <AltSkills />
 </template>
 
 <script setup lang="ts">

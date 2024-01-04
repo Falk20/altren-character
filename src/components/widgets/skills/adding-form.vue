@@ -1,29 +1,24 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <AltSelectField
-          v-model:value="selectedSkill"
-          :items="skillsDictionary"
-          label="Новый навык"
-        />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-btn
-          size="small"
-          flat
-          block
-          color="success"
-          :disabled="!selectedSkill"
-          @click="addSkill"
-        >
-          Добавить
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div>
+    <AltSelectField
+      v-model:value="selectedSkill"
+      :items="skillsDictionary"
+      label="Новый навык"
+    />
+
+    <v-btn
+      class="mt-4"
+      variant="tonal"
+      size="small"
+      flat
+      block
+      color="green"
+      :disabled="!selectedSkill"
+      @click="addSkill"
+    >
+      Добавить
+    </v-btn>
+  </div>
 </template>
 
 <script setup lang="ts">

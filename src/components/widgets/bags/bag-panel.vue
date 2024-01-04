@@ -38,13 +38,6 @@
     </template>
     <v-divider></v-divider>
     <v-card-text>
-      <item-card
-        v-for="(item, index) in props.bag.items"
-        :key="'bag-item' + index"
-        :bag="props.bag"
-        :item="item"
-      />
-
       <v-btn
         block
         prepend-icon="mdi-plus"
@@ -54,6 +47,13 @@
       >
         Предмет
       </v-btn>
+
+      <item-card
+        v-for="(item, index) in props.bag.items"
+        :key="'bag-item' + index"
+        :bag="props.bag"
+        :item="item"
+      />
 
       <new-item-form
         v-model="isItemFormOpen"
