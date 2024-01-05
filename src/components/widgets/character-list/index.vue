@@ -46,10 +46,8 @@
 <script setup lang="ts">
 import { createCharInDB, getAllChars } from "@/firebase/db";
 import { ICharacter } from "@/helpers/types"
-import { onMounted } from "vue";
 import { ref } from "vue";
 import CharItem from "./char-item.vue";
-
 
 const chars = ref<ICharacter[]>([])
 
@@ -71,7 +69,5 @@ const getData = async () => {
   isLoading.value = false
 }
 
-onMounted(() => {
-  getData()
-})
+getData()
 </script>
