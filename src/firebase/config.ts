@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithRedirect,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 
@@ -25,7 +25,7 @@ export const auth = getAuth(firebaseApp);
 export const provider = new GoogleAuthProvider();
 
 export const googleSignIn = () => {
-  signInWithRedirect(auth, provider);
+  signInWithPopup(auth, provider);
 };
 
 export const googleSignOut = async () => {
