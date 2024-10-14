@@ -24,8 +24,12 @@ export const firebaseApp = initializeApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);
 export const provider = new GoogleAuthProvider();
 
-export const googleSignIn = () => {
-  signInWithPopup(auth, provider);
+export const googleSignIn = async () => {
+  const credential = await signInWithPopup(auth, provider);
+
+  const authStore = useAuthStore(pinia);
+
+  authStore.setUser(credential.user);
 };
 
 export const googleSignOut = async () => {

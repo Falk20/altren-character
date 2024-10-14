@@ -17,16 +17,20 @@
 
 <script setup lang="ts">
 import { googleSignOut } from "@/firebase/config";
+import { useAppStore } from "@/store/stores/app";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter()
+const appStore = useAppStore()
 
 // todo: починить, когда перепишу стор
 const character = ref('test')
 
 const logOut = async () => {
   await googleSignOut();
+
+  appStore.changeSideMenu()
 
   router.push("/start");
 }
@@ -43,6 +47,8 @@ const importJson = () => {
 }
 </script>
 
-<style>.red {
+<style>
+.red {
   color: rgb(var(--v-theme-error));
-}</style>
+}
+</style>
