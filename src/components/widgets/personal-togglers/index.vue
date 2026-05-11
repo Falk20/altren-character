@@ -1,20 +1,21 @@
 <template>
   <v-container class="pa-0">
-    <v-row>
+    <v-row  class="my-0">
       <AltCheckboxField
         v-model:value="isMage"
         title="Магическое существо"
       />
     </v-row>
-    <v-row v-if="isMage">
+    <v-row v-if="isMage" class="my-0">
       <AltCheckboxField
         v-model:value="isBasij"
         title="Басидж-каран"
       />
     </v-row>
-    <v-row v-if="isMage && isBasij">
+    <v-row v-if="isMage && isBasij" class="my-0">
       <v-col class="mt-5">
         <v-slider
+          class="mx-3"
           v-model="basijLevel"
           :min="defaultBasij"
           :max="maxBasij"
@@ -23,10 +24,10 @@
           thumb-label="always"
           :hide-details="true"
         />
-        <pre class="text-caption text-center">Уровень Басиджа</pre>
+        <p class="text-label-large text-center my-0">Уровень Басиджа</p>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row class="my-0">
       <AltCheckboxField
         v-model:value="isBard"
         title="Бард"

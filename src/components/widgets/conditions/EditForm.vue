@@ -29,7 +29,7 @@
                 thumb-label="always"
                 :hide-details="true"
               />
-              <pre class="text-caption text-center">HP</pre>
+              <p class="text-label-large text-center my-0">HP</p>
             </v-col>
           </v-row>
           <v-row>
@@ -43,7 +43,7 @@
                 thumb-label="always"
                 :hide-details="true"
               />
-              <pre class="text-caption text-center">{{ mpTitle }}</pre>
+              <p class="text-label-large text-center my-0">{{ mpTitle }}</p>
             </v-col>
           </v-row>
           <v-row>
@@ -57,7 +57,7 @@
                 thumb-label="always"
                 :hide-details="true"
               />
-              <pre class="text-caption text-center">Порог</pre>
+              <p class="text-label-large text-center my-0">Порог</p>
             </v-col>
           </v-row>
         </v-container>

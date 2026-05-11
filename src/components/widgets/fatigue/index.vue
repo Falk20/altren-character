@@ -28,9 +28,7 @@
           />
         </template>
       </v-slider>
-      <pre class="text-caption text-center">
-        Усталость
-      </pre>
+      <p class="text-label-large text-center my-0">Усталость</p>
     </v-col>
   </v-row>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <v-row class="pa-0 ma-0 mb-3">
     <v-col class="pa-0">
-      <h3 class="ml-3">
+      <h3 class="ml-3 my-0">
         <span>Эффекты</span>
         <v-btn
           class="d-inline"
@@ -35,7 +35,7 @@
           </v-icon>
         </template>
         <p
-          class="text-caption"
+          class="text-label-large "
           v-else
         >
           Нет активных эффектов

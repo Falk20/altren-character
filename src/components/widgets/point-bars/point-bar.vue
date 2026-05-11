@@ -1,7 +1,7 @@
 <template>
   <v-row class="pa-0 ma-0 mb-3">
     <v-col class="pa-0">
-      <h3 class="ml-3">{{ title }} {{ value }}/{{ maxValue }}</h3>
+      <h3 class="ml-3 my-0">{{ title }} {{ value }}/{{ maxValue }}</h3>
       <div class="d-flex justify-space-between">
         <v-btn
           variant="text"

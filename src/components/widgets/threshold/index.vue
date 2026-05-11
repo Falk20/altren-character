@@ -1,7 +1,7 @@
 <template>
   <v-row class="pa-0 ma-0 mb-3">
     <v-col class="pa-0">
-      <h3 class="ml-3">
+      <h3 class="ml-3 my-0">
         Порог {{ calcThreshold }}
         <v-icon :color="color"> mdi-shield </v-icon>
         <span

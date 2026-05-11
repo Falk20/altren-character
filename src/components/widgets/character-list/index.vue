@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-0">
-    <h2 class="d-flex justify-center mb-2">
+    <h2 class="d-flex justify-center mb-2 mt-0">
       Список персонажей
     </h2>
 

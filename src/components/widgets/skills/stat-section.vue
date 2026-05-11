@@ -44,7 +44,7 @@
           :skillsDictionary="skillsDictionary"
         />
       </div>
-      <p v-else-if="!isCurrentFormOpen">
+      <p class="my-0" v-else-if="!isCurrentFormOpen">
         Навыки не изучены
       </p>
     </v-card-text>
