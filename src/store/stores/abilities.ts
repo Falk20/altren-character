@@ -1,41 +1,50 @@
-import { IAbilities, IAbility } from "@/helpers/types"
+import { IAbility } from "@/helpers/types"
 import { saveState } from "@/helpers/utils"
 
 import { defineStore } from "pinia"
-import store from ".."
 import { generateState } from "@/helpers/utils/abilities"
 import { abilitiesStorageKey } from "@/helpers/constants"
-import { unref } from "vue"
+import { ref, toValue, watch } from "vue"
 
-export const useAbilitiesStore = defineStore("abilitiesStore", {
-  state: (): IAbilities => generateState(),
+export const useAbilitiesStore = defineStore("abilitiesStore", () => {
+  const abilities = ref<IAbility[]>(generateState().abilities)
 
-  actions: {
-    addNewAbility() {
-      this.abilities.unshift({
-        title: "",
-        description: "",
+  const addNewAbility = () => {
+    abilities.value.unshift({
+      title: "",
+      description: "",
+    })
+  }
+
+  const editAbilityTitle = (item: IAbility, value: string) => {
+    item.title = value
+  }
+
+  const editAbilityDescription = (item: IAbility, value: string) => {
+    item.description = value
+  }
+
+  const removeAbility = (item: IAbility) => {
+    abilities.value = abilities.value.filter(
+      (ability) => toValue(ability) !== toValue(item),
+    )
+  }
+
+  watch(
+    abilities,
+    () => {
+      saveState(abilitiesStorageKey, {
+        abilities: abilities.value,
       })
     },
+    { deep: true },
+  )
 
-    editAbilityTitle(item: IAbility, value: string) {
-      item.title = value
-    },
-
-    editAbilityDescription(item: IAbility, value: string) {
-      item.description = value
-    },
-
-    removeAbility(item: IAbility) {
-      this.abilities = this.abilities.filter(
-        (ability) => unref(ability) !== unref(item),
-      )
-    },
-  },
-})
-
-useAbilitiesStore(store).$onAction(({ after, store }) => {
-  after(() => {
-    saveState(abilitiesStorageKey, store.$state)
-  })
+  return {
+    abilities,
+    addNewAbility,
+    editAbilityTitle,
+    editAbilityDescription,
+    removeAbility,
+  }
 })

@@ -103,7 +103,7 @@
 
       <p
         v-if="props.item.description"
-        class="text-body-1"
+        class="text-body-1 mb-0"
       >
         {{ props.item.description }}
       </p>

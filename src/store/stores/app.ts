@@ -1,21 +1,24 @@
 // Utilities
 import { defineStore } from "pinia"
+import { ref } from "vue"
 
 export interface IState {
-  sideMenu: boolean;
+  sideMenu: boolean
 }
 
-export const useAppStore = defineStore("app", {
-  state: (): IState => ({
-    sideMenu: false,
-  }),
+export const useAppStore = defineStore("app", () => {
+  const sideMenu = ref(false)
 
-  actions: {
-    changeSideMenu(value = false) {
-      this.sideMenu = value
-    },
-    toggleSideMenu() {
-      return (this.sideMenu = !this.sideMenu)
-    },
-  },
+  const changeSideMenu = (value = false) => {
+    sideMenu.value = value
+  }
+  const toggleSideMenu = () => {
+    return (sideMenu.value = !sideMenu.value)
+  }
+
+  return {
+    sideMenu,
+    changeSideMenu,
+    toggleSideMenu,
+  }
 })

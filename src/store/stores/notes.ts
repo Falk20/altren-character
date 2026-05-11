@@ -1,42 +1,58 @@
-import { INotes } from "@/helpers/types"
 import { saveState } from "@/helpers/utils"
 import { generateState } from "@/helpers/utils/notes"
 import { notesStorageKey } from "@/helpers/constants"
 import { defineStore } from "pinia"
-import store from ".."
+import { ref, watch } from "vue"
 
-export const useNotesStore = defineStore("notesStore", {
-  state: (): INotes => generateState(),
+export const useNotesStore = defineStore("notesStore", () => {
+  const initialState = generateState()
 
-  actions: {
-    addNewNote() {
-      this.notes.unshift("")
+  const notes = ref(initialState.notes)
+  const quests = ref(initialState.quests)
+
+  const addNewNote = () => {
+    notes.value.unshift("")
+  }
+
+  const editNote = (index: number, value: string) => {
+    notes.value[index] = value
+  }
+
+  const removeNote = (index: number) => {
+    notes.value.splice(index, 1)
+  }
+
+  const addNewQuest = () => {
+    quests.value.unshift("")
+  }
+
+  const editQuest = (index: number, value: string) => {
+    quests.value[index] = value
+  }
+
+  const removeQuest = (index: number) => {
+    quests.value.splice(index, 1)
+  }
+
+  watch(
+    [notes, quests],
+    () => {
+      saveState(notesStorageKey, {
+        notes: notes.value,
+        quests: quests.value,
+      })
     },
+    { deep: true },
+  )
 
-    editNote(index: number, value: string) {
-      this.notes[index] = value
-    },
-
-    removeNote(index: number) {
-      this.notes.splice(index, 1)
-    },
-
-    addNewQuest() {
-      this.quests.unshift("")
-    },
-
-    editQuest(index: number, value: string) {
-      this.quests[index] = value
-    },
-
-    removeQuest(index: number) {
-      this.quests.splice(index, 1)
-    },
-  },
-})
-
-useNotesStore(store).$onAction(({ after, store }) => {
-  after(() => {
-    saveState(notesStorageKey, store.$state)
-  })
+  return {
+    notes,
+    quests,
+    addNewNote,
+    editNote,
+    removeNote,
+    addNewQuest,
+    editQuest,
+    removeQuest,
+  }
 })

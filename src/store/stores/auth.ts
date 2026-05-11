@@ -1,19 +1,19 @@
-import { IAuth } from "@/helpers/types"
 import { User } from "firebase/auth"
 import { defineStore } from "pinia"
+import { computed, ref } from "vue"
 
-export const useAuthStore = defineStore("auth", {
-  state: (): IAuth => ({
-    user: null,
-  }),
+export const useAuthStore = defineStore("auth", () => {
+  const user = ref<User | null>(null)
 
-  getters: {
-    isAuth: (state) => !!state.user,
-  },
+  const isAuth = computed(() => !!user.value)
 
-  actions: {
-    setUser(value: User | null): void {
-      this.user = value
-    },
-  },
+  const setUser = (value: User | null): void => {
+    user.value = value
+  }
+
+  return {
+    user,
+    isAuth,
+    setUser,
+  }
 })

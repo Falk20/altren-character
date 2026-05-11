@@ -1,44 +1,49 @@
 import { Stats, skillsStorageKey } from "@/helpers/constants"
-import { ISkills } from "@/helpers/types"
 import { saveState } from "@/helpers/utils"
 
 import { generateState } from "@/helpers/utils/skills"
 import { defineStore } from "pinia"
-import store from ".."
+import { computed, ref, watch } from "vue"
 
-export const useSkillsStore = defineStore("skillsStore", {
-  state: (): ISkills => generateState(),
+export const useSkillsStore = defineStore("skillsStore", () => {
+  const skills = ref(generateState().skills)
 
-  getters: {
-    skillPointCount: (state): number => {
-      const statsArr = Object.values(Stats)
+  const skillPointCount = computed(() => {
+    const statsArr = Object.values(Stats)
 
-      return statsArr.reduce((total, statName) => {
-        const statSkills = Object.keys(state.skills[statName])
+    return statsArr.reduce((total, statName) => {
+      const statSkills = Object.keys(skills.value[statName])
 
-        return (
-          total +
-          statSkills.reduce((count, skillName) => {
-            return count + state.skills[statName][skillName]
-          }, 0)
-        )
-      }, 0)
-    },
-  },
-
-  actions: {
-    setSkill(name: string, level: number, statName: Stats) {
-      if (level) {
-        this.skills[statName][name] = level
-      } else {
-        delete this.skills[statName][name]
-      }
-    },
-  },
-})
-
-useSkillsStore(store).$onAction(({ after, store }) => {
-  after(() => {
-    saveState(skillsStorageKey, store.$state)
+      return (
+        total +
+        statSkills.reduce((count, skillName) => {
+          return count + skills.value[statName][skillName]
+        }, 0)
+      )
+    }, 0)
   })
+
+  const setSkill = (name: string, level: number, statName: Stats) => {
+    if (level) {
+      skills.value[statName][name] = level
+    } else {
+      delete skills.value[statName][name]
+    }
+  }
+
+  watch(
+    skills,
+    () => {
+      saveState(skillsStorageKey, {
+        skills: skills.value,
+      })
+    },
+    { deep: true },
+  )
+
+  return {
+    skills,
+    skillPointCount,
+    setSkill,
+  }
 })
