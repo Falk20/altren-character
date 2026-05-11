@@ -37,16 +37,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from "vue"
 
-import { getCurrentPointBar } from "@/helpers/utils";
-import { HPBar, InspirationBar } from "@/helpers/viewConstants";
-import { fameLvl3 } from "@/helpers/constants";
+import { getCurrentPointBar } from "@/helpers/utils"
+import { HPBar, InspirationBar } from "@/helpers/viewConstants"
+import { fameLvl3 } from "@/helpers/constants"
 
-import { useStatusStore } from "@/store/stores/status";
-import { usePersonalInfoStore } from "@/store/stores/personal-info";
+import { useStatusStore } from "@/store/stores/status"
+import { usePersonalInfoStore } from "@/store/stores/personal-info"
 
-import AltPointBar from "./point-bar.vue";
+import AltPointBar from "./point-bar.vue"
 
 const personalInfoStore = usePersonalInfoStore()
 const statusStore = useStatusStore()

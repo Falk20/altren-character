@@ -22,8 +22,8 @@
 </template>
 
 <script setup lang="ts">
-import { saveCharlist } from "@/firebase/db";
-import { ref } from "vue";
+import { saveCharlist } from "@/firebase/db"
+import { ref } from "vue"
 
 const alert = ref(false)
 const alertType = ref("success")
@@ -31,19 +31,19 @@ const alertText = ref("Лист персонажа сохранён")
 
 const saveChar = async () => {
   try {
-    await saveCharlist();
-    alertText.value = "Лист персонажа сохранён";
-    alertType.value = "success";
+    await saveCharlist()
+    alertText.value = "Лист персонажа сохранён"
+    alertType.value = "success"
   } catch (error) {
-    console.error(error);
-    alertText.value = "Ошибка сохранения";
-    alertType.value = "error";
+    console.error(error)
+    alertText.value = "Ошибка сохранения"
+    alertType.value = "error"
   } finally {
-    alert.value = true;
+    alert.value = true
 
     setTimeout(() => {
-      alert.value = false;
-    }, 2000);
+      alert.value = false
+    }, 2000)
   }
 }
 </script>

@@ -99,13 +99,13 @@
 </template>
 
 <script setup lang="ts">
-import SelectField from "@/components/atoms/select-field.vue";
-import { useInventoryStore } from '@/store/stores/inventory';
-import { ref, computed } from 'vue';
-import { VTextField, VTextarea } from 'vuetify/components';
-import { IBag, IDamage, IItemTypes, ItemTypes } from '@/helpers/types';
-import { itemTypeOptions } from "@/helpers/constants";
-import DamageForm from "./damage-form.vue";
+import SelectField from "@/components/atoms/select-field.vue"
+import { useInventoryStore } from '@/store/stores/inventory'
+import { ref, computed } from 'vue'
+import { VTextField, VTextarea } from 'vuetify/components'
+import { IBag, IDamage, IItemTypes, ItemTypes } from '@/helpers/types'
+import { itemTypeOptions } from "@/helpers/constants"
+import DamageForm from "./damage-form.vue"
 
 interface Props {
   bag: IBag,

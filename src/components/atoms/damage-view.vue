@@ -20,9 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import { IDamage } from '@/helpers/types';
-import { diceIcons } from '@/helpers/viewConstants';
-import { computed } from 'vue';
+import { IDamage } from '@/helpers/types'
+import { diceIcons } from '@/helpers/viewConstants'
+import { computed } from 'vue'
 
 interface Props {
   damage: IDamage[]

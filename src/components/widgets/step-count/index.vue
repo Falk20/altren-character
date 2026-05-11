@@ -10,8 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import { useStatusStore } from '@/store/stores/status';
-import { computed } from 'vue';
+import { useStatusStore } from '@/store/stores/status'
+import { computed } from 'vue'
 
 const statusStore = useStatusStore()
 const stepCount = computed(() => statusStore.stepCount)

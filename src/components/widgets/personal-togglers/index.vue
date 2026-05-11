@@ -36,32 +36,32 @@
 </template>
 
 <script setup lang="ts">
-import { defaultBasij, maxBasij } from "@/helpers/constants";
+import { defaultBasij, maxBasij } from "@/helpers/constants"
 
-import AltCheckboxField from "@/components/atoms/checkbox-field.vue";
+import AltCheckboxField from "@/components/atoms/checkbox-field.vue"
 
-import { usePersonalInfoStore } from "@/store/stores/personal-info";
-import { computed } from "vue";
+import { usePersonalInfoStore } from "@/store/stores/personal-info"
+import { computed } from "vue"
 
-const personalInfoStore = usePersonalInfoStore();
+const personalInfoStore = usePersonalInfoStore()
 
 const isMage = computed({
   get: () => personalInfoStore.isMage,
   set: (value: boolean) => personalInfoStore.setIsMage(value),
-});
+})
 
 const isBasij = computed({
   get: () => personalInfoStore.isBasij,
   set: (value: boolean) => personalInfoStore.setIsBasij(value),
-});
+})
 
 const basijLevel = computed({
   get: () => personalInfoStore.basijLevel,
   set: (value: number) => personalInfoStore.setBasijLevel(value),
-});
+})
 
 const isBard = computed({
   get: () => personalInfoStore.isBard,
   set: (value: boolean) => personalInfoStore.setIsBard(value),
-});
+})
 </script>

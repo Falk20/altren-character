@@ -64,9 +64,9 @@
 </template>
 
 <script setup lang="ts">
-import AltNumberField from "@/components/atoms/number-field.vue";
-import { useInventoryStore } from "@/store/stores/inventory";
-import { computed } from "vue";
+import AltNumberField from "@/components/atoms/number-field.vue"
+import { useInventoryStore } from "@/store/stores/inventory"
+import { computed } from "vue"
 
 const inventoryStore = useInventoryStore()
 
@@ -79,7 +79,7 @@ const decrement = (value = 1) => {
   const difference = wallet.value - value
 
   if (difference >= 0) {
-    wallet.value = difference;
+    wallet.value = difference
   }
 }
 

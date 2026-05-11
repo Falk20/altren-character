@@ -64,14 +64,14 @@
 </template>
 
 <script setup lang="ts">
-import ConfirmDialog from '@/components/atoms/confirm-dialog.vue';
-import { IBag, ItemTypes } from '@/helpers/types';
-import { useInventoryStore } from '@/store/stores/inventory';
-import { ref } from 'vue';
-import NewItemForm from './new-item-form.vue';
-import { computed } from 'vue';
-import ItemCard from './item-card.vue';
-import { useSkillsStore } from '@/store/stores/skills';
+import ConfirmDialog from '@/components/atoms/confirm-dialog.vue'
+import { IBag, ItemTypes } from '@/helpers/types'
+import { useInventoryStore } from '@/store/stores/inventory'
+import { ref } from 'vue'
+import NewItemForm from './new-item-form.vue'
+import { computed } from 'vue'
+import ItemCard from './item-card.vue'
+import { useSkillsStore } from '@/store/stores/skills'
 
 interface Props {
   bag: IBag

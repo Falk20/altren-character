@@ -19,10 +19,10 @@
 </template>
 
 <script setup lang="ts">
-import HeaderRight from "@/components/widgets/header-right/index.vue";
-import { useAppStore } from "@/store/stores/app";
-import { useAuthStore } from "@/store/stores/auth";
-import { computed } from "vue";
+import HeaderRight from "@/components/widgets/header-right/index.vue"
+import { useAppStore } from "@/store/stores/app"
+import { useAuthStore } from "@/store/stores/auth"
+import { computed } from "vue"
 
 const appStore = useAppStore()
 

@@ -9,12 +9,12 @@
 </template>
 
 <script setup lang="ts">
-import AltScaleField from "@/components/atoms/scale-field.vue";
+import AltScaleField from "@/components/atoms/scale-field.vue"
 
-import { Stats } from "@/helpers/constants";
-import { ISkill } from "@/helpers/types";
-import { useSkillsStore } from "@/store/stores/skills";
-import { computed } from "vue";
+import { Stats } from "@/helpers/constants"
+import { ISkill } from "@/helpers/types"
+import { useSkillsStore } from "@/store/stores/skills"
+import { computed } from "vue"
 
 export interface Props {
   name: string,

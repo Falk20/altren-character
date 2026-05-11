@@ -1,12 +1,12 @@
 // Plugins
-import vue from "@vitejs/plugin-vue";
-import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
-import ViteFonts from "unplugin-fonts/vite";
-import { VitePWA } from "vite-plugin-pwa";
+import vue from "@vitejs/plugin-vue"
+import vuetify, { transformAssetUrls } from "vite-plugin-vuetify"
+import ViteFonts from "unplugin-fonts/vite"
+import { VitePWA } from "vite-plugin-pwa"
 
 // Utilities
-import { defineConfig } from "vite";
-import { fileURLToPath, URL } from "node:url";
+import { defineConfig } from "vite"
+import { fileURLToPath, URL } from "node:url"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -101,4 +101,4 @@ export default defineConfig({
     port: 3000,
     host: true,
   },
-});
+})

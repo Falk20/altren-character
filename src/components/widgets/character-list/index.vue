@@ -44,10 +44,10 @@
 </template>
 
 <script setup lang="ts">
-import { createCharInDB, getAllChars } from "@/firebase/db";
+import { createCharInDB, getAllChars } from "@/firebase/db"
 import { ICharacter } from "@/helpers/types"
-import { ref } from "vue";
-import CharItem from "./char-item.vue";
+import { ref } from "vue"
+import CharItem from "./char-item.vue"
 
 const chars = ref<ICharacter[]>([])
 
@@ -57,14 +57,14 @@ const getData = async () => {
   isLoading.value = true
   chars.value = []
 
-  const docs = await getAllChars();
+  const docs = await getAllChars()
 
   docs?.forEach((doc) => {
     chars.value.push({
       ...doc.data(),
       id: doc.id,
-    } as ICharacter);
-  });
+    } as ICharacter)
+  })
 
   isLoading.value = false
 }

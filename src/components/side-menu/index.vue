@@ -21,10 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { RouteRecordNormalized, useRouter } from "vue-router";
-import AltExportJson from "./export-json.vue";
-import { useAppStore } from "@/store/stores/app";
-import { computed } from "vue";
+import { RouteRecordNormalized, useRouter } from "vue-router"
+import AltExportJson from "./export-json.vue"
+import { useAppStore } from "@/store/stores/app"
+import { computed } from "vue"
 
 const router = useRouter()
 const appStore = useAppStore()
@@ -36,5 +36,5 @@ const drawer = computed({
 
 const pageList = computed(() => router.getRoutes().filter((page) => !page.meta.hideInNav))
 
-const getPageTitle = (page: RouteRecordNormalized) => page?.meta?.title as string ?? "";
+const getPageTitle = (page: RouteRecordNormalized) => page?.meta?.title as string ?? ""
 </script>

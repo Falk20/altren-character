@@ -1,5 +1,5 @@
 // Utilities
-import { defineStore } from "pinia";
+import { defineStore } from "pinia"
 
 export interface IState {
   sideMenu: boolean;
@@ -12,10 +12,10 @@ export const useAppStore = defineStore("app", {
 
   actions: {
     changeSideMenu(value = false) {
-      this.sideMenu = value;
+      this.sideMenu = value
     },
     toggleSideMenu() {
-      return (this.sideMenu = !this.sideMenu);
+      return (this.sideMenu = !this.sideMenu)
     },
   },
-});
+})

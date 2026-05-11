@@ -1,6 +1,6 @@
-import { IStatus } from "@/helpers/types";
-import { statusStorageKey } from "@/helpers/constants";
-import { getState } from "@/helpers/utils";
+import { IStatus } from "@/helpers/types"
+import { statusStorageKey } from "@/helpers/constants"
+import { getState } from "@/helpers/utils"
 
 const defaultValue: IStatus = {
   hits: 4,
@@ -14,12 +14,12 @@ const defaultValue: IStatus = {
     MP: 0,
     threshold: 0,
   },
-};
+}
 
 export function generateState(): IStatus {
   return getState(
     statusStorageKey,
     defaultValue,
     "В хранилище невалидные данные о статусе персонажа"
-  );
+  )
 }

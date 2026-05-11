@@ -43,11 +43,11 @@
 </template>
 
 <script setup lang="ts">
-import ConfirmDialog from "@/components/atoms/confirm-dialog.vue";
-import { removeCharList } from "@/firebase/db";
-import { ICharacter } from "@/helpers/types";
-import { setCharacterState } from "@/helpers/utils";
-import { ref } from "vue";
+import ConfirmDialog from "@/components/atoms/confirm-dialog.vue"
+import { removeCharList } from "@/firebase/db"
+import { ICharacter } from "@/helpers/types"
+import { setCharacterState } from "@/helpers/utils"
+import { ref } from "vue"
 
 interface Props {
   item: ICharacter
@@ -63,7 +63,7 @@ const isShowDeleteConfrim = ref(false)
 const currentID = localStorage.getItem("charlistID")
 
 const loadFromServer = (character: ICharacter) => {
-  setCharacterState(character);
+  setCharacterState(character)
 }
 
 const removeFromServer = async (character: ICharacter) => {

@@ -41,11 +41,11 @@
 </template>
 
 <script setup lang="ts">
-import { signOptions, diceOptions } from "@/helpers/constants";
-import SelectField from '@/components/atoms/select-field.vue';
-import { IDamage } from '@/helpers/types';
-import { computed } from 'vue';
-import { VTextField } from "vuetify/lib/components/index.mjs";
+import { signOptions, diceOptions } from "@/helpers/constants"
+import SelectField from '@/components/atoms/select-field.vue'
+import { IDamage } from '@/helpers/types'
+import { computed } from 'vue'
+import { VTextField } from "vuetify/lib/components/index.mjs"
 
 interface Props {
   modelValue: IDamage

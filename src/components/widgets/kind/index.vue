@@ -13,11 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import { kinds } from "@/helpers/constants";
+import { kinds } from "@/helpers/constants"
 
-import AltSelectField from "@/components/atoms/select-field.vue";
-import { usePersonalInfoStore } from "@/store/stores/personal-info";
-import { computed } from "vue";
+import AltSelectField from "@/components/atoms/select-field.vue"
+import { usePersonalInfoStore } from "@/store/stores/personal-info"
+import { computed } from "vue"
 
 const personalInfoStore = usePersonalInfoStore()
 

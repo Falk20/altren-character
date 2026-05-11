@@ -1,5 +1,5 @@
-import { User } from "firebase/auth";
-import { Stats } from "./constants";
+import { User } from "firebase/auth"
+import { Stats } from "./constants"
 
 export interface IAuth {
   user: User | null;

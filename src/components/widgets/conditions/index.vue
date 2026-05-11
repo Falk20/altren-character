@@ -47,11 +47,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import EditForm from "./EditForm.vue";
-import { useStatusStore } from "@/store/stores/status";
-import { computed } from "vue";
-import { usePersonalInfoStore } from "@/store/stores/personal-info";
+import { ref } from "vue"
+import EditForm from "./EditForm.vue"
+import { useStatusStore } from "@/store/stores/status"
+import { computed } from "vue"
+import { usePersonalInfoStore } from "@/store/stores/personal-info"
 
 const personalInfoStore = usePersonalInfoStore()
 const statusStore = useStatusStore()
@@ -59,63 +59,63 @@ const statusStore = useStatusStore()
 const editDialog = ref(false)
 
 const HPIcon = computed(() => {
-  if (statusStore.conditions.HP === 0) return null;
+  if (statusStore.conditions.HP === 0) return null
 
   if (statusStore.conditions.HP > 0) {
     return {
       icon: "mdi-heart",
       color: "red",
-    };
+    }
   }
 
   return {
     icon: "mdi-heart-broken",
     color: "black",
-  };
+  }
 })
 const MPIcon = computed(() => {
-  if (statusStore.conditions.MP === 0) return null;
+  if (statusStore.conditions.MP === 0) return null
 
   if (personalInfoStore.isMage) {
     if (statusStore.conditions.MP > 0) {
       return {
         icon: "mdi-star-plus",
         color: "primary",
-      };
+      }
     }
 
     return {
       icon: "mdi-star-minus",
       color: "brown",
-    };
+    }
   }
 
   if (statusStore.conditions.MP > 0) {
     return {
       icon: "mdi-flash-alert",
       color: "yellow-darken-1",
-    };
+    }
   }
 
   return {
     icon: "mdi-flash-off",
     color: "purple",
-  };
+  }
 })
 const thresholdIcon = computed(() => {
-  if (statusStore.conditions.threshold === 0) return null;
+  if (statusStore.conditions.threshold === 0) return null
 
   if (statusStore.conditions.threshold > 0) {
     return {
       icon: "mdi-shield-plus",
       color: "green",
-    };
+    }
   }
 
   return {
     icon: "mdi-shield-off",
     color: "orange",
-  };
+  }
 })
 
 const haveAnyCondition = computed(() => !!HPIcon.value || !!MPIcon.value || !!thresholdIcon.value)

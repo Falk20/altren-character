@@ -12,9 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import AltTextField from "@/components/atoms/text-field.vue";
-import { usePersonalInfoStore } from "@/store/stores/personal-info";
-import { computed } from "vue";
+import AltTextField from "@/components/atoms/text-field.vue"
+import { usePersonalInfoStore } from "@/store/stores/personal-info"
+import { computed } from "vue"
 
 const personalInfoStore = usePersonalInfoStore()
 

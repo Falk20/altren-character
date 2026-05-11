@@ -22,11 +22,11 @@
 </template>
 
 <script setup lang="ts">
-import { ISkill } from "@/helpers/types";
-import AltSelectField from "@/components/atoms/select-field.vue";
-import { Stats } from "@/helpers/constants";
-import { ref } from "vue";
-import { useSkillsStore } from "@/store/stores/skills";
+import { ISkill } from "@/helpers/types"
+import AltSelectField from "@/components/atoms/select-field.vue"
+import { Stats } from "@/helpers/constants"
+import { ref } from "vue"
+import { useSkillsStore } from "@/store/stores/skills"
 
 export interface Props {
   statName: Stats,

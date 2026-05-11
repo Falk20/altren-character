@@ -1,27 +1,27 @@
-import { ItemTypes } from "./types";
+import { ItemTypes } from "./types"
 
-export const defaultHits = 4;
-export const defaultMana = 5;
-export const defaultThreshold = 4;
-export const defaultInspiration = 6;
-export const defaultBasij = 2;
-export const maxBasij = 20;
-export const defaultStepCount = 3;
-export const defaultMaxSkillPointCount = 5;
-export const fameLvl2 = 100;
-export const fameLvl3 = 350;
-export const statusStorageKey = "character-status";
-export const statsStorageKey = "character-stats";
-export const personalInfoStorageKey = "character-personal-info";
-export const inventoryStorageKey = "character-inventory";
-export const skillsStorageKey = "character-skills";
-export const notesStorageKey = "character-notes";
-export const abilitiesStorageKey = "character-abilities";
-export const idStorageKey = "charlistID";
+export const defaultHits = 4
+export const defaultMana = 5
+export const defaultThreshold = 4
+export const defaultInspiration = 6
+export const defaultBasij = 2
+export const maxBasij = 20
+export const defaultStepCount = 3
+export const defaultMaxSkillPointCount = 5
+export const fameLvl2 = 100
+export const fameLvl3 = 350
+export const statusStorageKey = "character-status"
+export const statsStorageKey = "character-stats"
+export const personalInfoStorageKey = "character-personal-info"
+export const inventoryStorageKey = "character-inventory"
+export const skillsStorageKey = "character-skills"
+export const notesStorageKey = "character-notes"
+export const abilitiesStorageKey = "character-abilities"
+export const idStorageKey = "charlistID"
 
-export const humanID = "human";
-export const malfID = "malf";
-export const beastmanID = "beastman";
+export const humanID = "human"
+export const malfID = "malf"
+export const beastmanID = "beastman"
 
 export const kinds = [
   {
@@ -36,7 +36,7 @@ export const kinds = [
     title: "Зверолюд",
     value: beastmanID,
   },
-];
+]
 
 export enum Stats {
   strength = "strength",
@@ -228,7 +228,7 @@ export const statsWithSkills = {
       },
     ],
   },
-};
+}
 
 export const diceOptions = [
   {
@@ -259,7 +259,7 @@ export const diceOptions = [
     title: "d20",
     value: 6,
   },
-];
+]
 
 export const itemTypeOptions = [
   {
@@ -282,7 +282,7 @@ export const itemTypeOptions = [
     title: "Снаряды",
     value: ItemTypes.projectile,
   },
-];
+]
 
 export const signOptions = [
   {
@@ -293,4 +293,4 @@ export const signOptions = [
     title: "-",
     value: false,
   },
-];
+]

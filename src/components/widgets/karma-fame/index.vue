@@ -21,10 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import AltNumberField from "@/components/atoms/number-field.vue";
+import AltNumberField from "@/components/atoms/number-field.vue"
 
-import { usePersonalInfoStore } from "@/store/stores/personal-info";
-import { computed } from "vue";
+import { usePersonalInfoStore } from "@/store/stores/personal-info"
+import { computed } from "vue"
 
 const personalInfoStore = usePersonalInfoStore()
 

@@ -24,10 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import AltScaleField from "@/components/atoms/scale-field.vue";
-import { Stats } from "@/helpers/constants";
-import { useStatsStore } from "@/store/stores/stats";
-import { computed } from "vue";
+import AltScaleField from "@/components/atoms/scale-field.vue"
+import { Stats } from "@/helpers/constants"
+import { useStatsStore } from "@/store/stores/stats"
+import { computed } from "vue"
 
 const statsStore = useStatsStore()
 

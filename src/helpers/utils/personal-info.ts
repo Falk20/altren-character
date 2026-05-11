@@ -1,6 +1,6 @@
-import { IPersonalInfo } from "@/helpers/types";
-import { personalInfoStorageKey } from "@/helpers/constants";
-import { getState } from "@/helpers/utils";
+import { IPersonalInfo } from "@/helpers/types"
+import { personalInfoStorageKey } from "@/helpers/constants"
+import { getState } from "@/helpers/utils"
 
 const defaultValue: IPersonalInfo = {
   isMage: false,
@@ -13,12 +13,12 @@ const defaultValue: IPersonalInfo = {
   mutations: [],
   karma: 0,
   fame: 0,
-};
+}
 
 export function generateState(): IPersonalInfo {
   return getState(
     personalInfoStorageKey,
     defaultValue,
     "В хранилище невалидные данные о личности персонажа"
-  );
+  )
 }

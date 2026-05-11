@@ -1,12 +1,12 @@
-import { useAuthStore } from "@/store/stores/auth";
-import pinia from "@/store";
-import { initializeApp } from "firebase/app";
+import { useAuthStore } from "@/store/stores/auth"
+import pinia from "@/store"
+import { initializeApp } from "firebase/app"
 import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
-} from "firebase/auth";
+} from "firebase/auth"
 
 const firebaseConfig = {
   apiKey: "AIzaSyAwm7Sgf-Hk64_VjALFEadEsT4RinaWjtY",
@@ -15,31 +15,31 @@ const firebaseConfig = {
   storageBucket: "altren-character.appspot.com",
   messagingSenderId: "840081531485",
   appId: "1:840081531485:web:39e407ebec598ea9c7e3b4",
-};
+}
 
 // Initialize Firebase
-export const firebaseApp = initializeApp(firebaseConfig);
+export const firebaseApp = initializeApp(firebaseConfig)
 
 // Initialize Firebase Authentication and get a reference to the service
-export const auth = getAuth(firebaseApp);
-export const provider = new GoogleAuthProvider();
+export const auth = getAuth(firebaseApp)
+export const provider = new GoogleAuthProvider()
 
 export const googleSignIn = async () => {
-  const credential = await signInWithPopup(auth, provider);
+  const credential = await signInWithPopup(auth, provider)
 
-  const authStore = useAuthStore(pinia);
+  const authStore = useAuthStore(pinia)
 
-  authStore.setUser(credential.user);
-};
+  authStore.setUser(credential.user)
+}
 
 export const googleSignOut = async () => {
   try {
-    await signOut(auth);
+    await signOut(auth)
 
-    const authStore = useAuthStore(pinia);
+    const authStore = useAuthStore(pinia)
 
-    authStore.setUser(null);
+    authStore.setUser(null)
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-};
+}

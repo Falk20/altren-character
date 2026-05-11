@@ -36,9 +36,9 @@
 </template>
 
 <script setup lang="ts">
-import { useInventoryStore } from '@/store/stores/inventory';
-import { computed } from 'vue';
-import EquipmentCard from './equipment-card.vue';
+import { useInventoryStore } from '@/store/stores/inventory'
+import { computed } from 'vue'
+import EquipmentCard from './equipment-card.vue'
 
 const inventoryStore = useInventoryStore()
 

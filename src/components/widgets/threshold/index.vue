@@ -16,8 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import { useStatusStore } from '@/store/stores/status';
-import { computed } from 'vue';
+import { useStatusStore } from '@/store/stores/status'
+import { computed } from 'vue'
 
 const statusStore = useStatusStore()
 
@@ -25,13 +25,13 @@ const calcThreshold = computed(() => statusStore.threshold - statusStore.fatigue
 
 const color = computed(() => {
   if (statusStore.fatigue === 0) {
-    return "teal";
+    return "teal"
   }
 
   if (calcThreshold.value === 0) {
-    return "red";
+    return "red"
   }
 
-  return "orange";
+  return "orange"
 })
 </script>

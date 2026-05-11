@@ -21,11 +21,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import NewBagForm from './new-bag-form.vue';
-import BagPanel from './bag-panel.vue';
-import { useInventoryStore } from '@/store/stores/inventory';
-import { computed } from 'vue';
+import { ref } from 'vue'
+import NewBagForm from './new-bag-form.vue'
+import BagPanel from './bag-panel.vue'
+import { useInventoryStore } from '@/store/stores/inventory'
+import { computed } from 'vue'
 
 const inventoryStore = useInventoryStore()
 

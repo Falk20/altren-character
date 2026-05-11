@@ -6,6 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import AltWallet from "@/components/widgets/wallet/index.vue";
+import AltWallet from "@/components/widgets/wallet/index.vue"
 import AltBags from '@/components/widgets/bags/index.vue'
 </script>

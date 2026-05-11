@@ -6,16 +6,16 @@ import {
   IPersonalInfo,
   ISkills,
   IStatus,
-} from "../types";
-import { BasijBar, EPBar, MPBar } from "../viewConstants";
+} from "../types"
+import { BasijBar, EPBar, MPBar } from "../viewConstants"
 
-import { generateState as generateInventory } from "@/helpers/utils/inventory";
-import { generateState as generateStatus } from "@/helpers/utils/status";
-import { generateState as generateStats } from "@/helpers/utils/stats";
-import { generateState as generatePersonalInfo } from "@/helpers/utils/personal-info";
-import { generateState as generateSkills } from "@/helpers/utils/skills";
-import { generateState as generateNotes } from "@/helpers/utils/notes";
-import { generateState as generateAbilities } from "@/helpers/utils/abilities";
+import { generateState as generateInventory } from "@/helpers/utils/inventory"
+import { generateState as generateStatus } from "@/helpers/utils/status"
+import { generateState as generateStats } from "@/helpers/utils/stats"
+import { generateState as generatePersonalInfo } from "@/helpers/utils/personal-info"
+import { generateState as generateSkills } from "@/helpers/utils/skills"
+import { generateState as generateNotes } from "@/helpers/utils/notes"
+import { generateState as generateAbilities } from "@/helpers/utils/abilities"
 import {
   idStorageKey,
   statusStorageKey,
@@ -26,9 +26,9 @@ import {
   Stats,
   notesStorageKey,
   abilitiesStorageKey,
-} from "../constants";
-import { defaultNotes } from "./notes";
-import { defaultAbilities } from "./abilities";
+} from "../constants"
+import { defaultNotes } from "./notes"
+import { defaultAbilities } from "./abilities"
 
 export function saveState(
   stateName: string,
@@ -41,9 +41,9 @@ export function saveState(
     | IAbilities
     | Record<Stats, number>,
 ) {
-  const stringifiedState = JSON.stringify(state);
+  const stringifiedState = JSON.stringify(state)
 
-  localStorage.setItem(stateName, stringifiedState);
+  localStorage.setItem(stateName, stringifiedState)
 }
 
 export function getState(
@@ -58,25 +58,25 @@ export function getState(
     | Record<Stats, number>,
   errorText: string,
 ) {
-  const storageValue = localStorage.getItem(storageKey);
+  const storageValue = localStorage.getItem(storageKey)
 
   if (storageValue) {
     try {
-      return JSON.parse(storageValue);
+      return JSON.parse(storageValue)
     } catch {
-      console.error(errorText);
+      console.error(errorText)
     }
   }
 
-  return defaultValue;
+  return defaultValue
 }
 
 export function getCurrentPointBar(isMage: boolean, isBasij: boolean) {
-  if (isMage && isBasij) return BasijBar;
+  if (isMage && isBasij) return BasijBar
 
-  if (isMage && !isBasij) return MPBar;
+  if (isMage && !isBasij) return MPBar
 
-  return EPBar;
+  return EPBar
 }
 
 export function generateCharlist() {
@@ -88,18 +88,18 @@ export function generateCharlist() {
     skills: generateSkills(),
     notes: generateNotes(),
     abilities: generateAbilities(),
-  };
+  }
 }
 
 export function setCharacterState(character: ICharacter) {
-  localStorage.setItem(idStorageKey, character.id);
-  saveState(statusStorageKey, character.status);
-  saveState(statsStorageKey, character.stats);
-  saveState(personalInfoStorageKey, character.personalInfo);
-  saveState(inventoryStorageKey, character.inventory);
-  saveState(skillsStorageKey, character.skills);
-  saveState(notesStorageKey, character.notes ?? defaultNotes);
-  saveState(abilitiesStorageKey, character.abilities ?? defaultAbilities);
+  localStorage.setItem(idStorageKey, character.id)
+  saveState(statusStorageKey, character.status)
+  saveState(statsStorageKey, character.stats)
+  saveState(personalInfoStorageKey, character.personalInfo)
+  saveState(inventoryStorageKey, character.inventory)
+  saveState(skillsStorageKey, character.skills)
+  saveState(notesStorageKey, character.notes ?? defaultNotes)
+  saveState(abilitiesStorageKey, character.abilities ?? defaultAbilities)
 
-  window.location.reload();
+  window.location.reload()
 }

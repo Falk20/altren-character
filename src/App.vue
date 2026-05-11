@@ -11,10 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { useAuthStore } from "./store/stores/auth";
-import AltNavbar from "@/components/navbar/index.vue";
-import AltSideMenu from "@/components/side-menu/index.vue";
+import { computed } from "vue"
+import { useAuthStore } from "./store/stores/auth"
+import AltNavbar from "@/components/navbar/index.vue"
+import AltSideMenu from "@/components/side-menu/index.vue"
 
 const authStore = useAuthStore()
 

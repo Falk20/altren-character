@@ -58,11 +58,11 @@
 </template>
 
 <script setup lang="ts">
-import counterField from '@/components/atoms/counter-field.vue';
-import DamageView from '@/components/atoms/damage-view.vue';
-import { IEquipmentTypes, ItemTypes } from '@/helpers/types';
-import { useInventoryStore } from '@/store/stores/inventory';
-import { computed } from 'vue';
+import counterField from '@/components/atoms/counter-field.vue'
+import DamageView from '@/components/atoms/damage-view.vue'
+import { IEquipmentTypes, ItemTypes } from '@/helpers/types'
+import { useInventoryStore } from '@/store/stores/inventory'
+import { computed } from 'vue'
 
 interface Props {
   item: IEquipmentTypes

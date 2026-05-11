@@ -1,6 +1,6 @@
-import { IAuth } from "@/helpers/types";
-import { User } from "firebase/auth";
-import { defineStore } from "pinia";
+import { IAuth } from "@/helpers/types"
+import { User } from "firebase/auth"
+import { defineStore } from "pinia"
 
 export const useAuthStore = defineStore("auth", {
   state: (): IAuth => ({
@@ -13,7 +13,7 @@ export const useAuthStore = defineStore("auth", {
 
   actions: {
     setUser(value: User | null): void {
-      this.user = value;
+      this.user = value
     },
   },
-});
+})

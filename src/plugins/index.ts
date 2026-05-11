@@ -3,25 +3,24 @@
  *
  * Automatically included in `./src/main.ts`
  */
-import vuetify from "./vuetify";
-import pinia from "../store";
-import router from "../router";
-import Maska from "maska";
+import vuetify from "./vuetify"
+import pinia from "../store"
+import router from "../router"
 
-import { VueFire, VueFireAuth } from "vuefire";
-import { onAuthStateChanged } from "firebase/auth";
-import { firebaseApp, auth } from "@/firebase/config";
+import { VueFire, VueFireAuth } from "vuefire"
+import { onAuthStateChanged } from "firebase/auth"
+import { firebaseApp, auth } from "@/firebase/config"
 
-import type { App } from "vue";
-import { useAuthStore } from "@/store/stores/auth";
+import type { App } from "vue"
+import { useAuthStore } from "@/store/stores/auth"
 
 const unsub = onAuthStateChanged(auth, (user) => {
-  const auth = useAuthStore(pinia);
+  const auth = useAuthStore(pinia)
 
-  auth.setUser(user);
+  auth.setUser(user)
 
-  unsub();
-});
+  unsub()
+})
 
 export function registerPlugins(app: App) {
   app
@@ -32,5 +31,4 @@ export function registerPlugins(app: App) {
     .use(vuetify)
     .use(router)
     .use(pinia)
-    .use(Maska);
 }

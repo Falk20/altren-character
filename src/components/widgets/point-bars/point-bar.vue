@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 export interface Props {
   value: number,
@@ -50,13 +50,13 @@ const model = computed({
 
 const decrement = () => {
   if (model.value > 0) {
-    model.value--;
+    model.value--
   }
 }
 
 const increment = () => {
   if (model.value < props.maxValue) {
-    model.value++;
+    model.value++
   }
 }
 </script>

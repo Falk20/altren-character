@@ -19,31 +19,31 @@ export const HPBar = new PointBar(
   "mdi-heart-outline",
   "mdi-heart",
   "error"
-);
+)
 export const MPBar = new PointBar(
   "MP",
   "mdi-star-outline",
   "mdi-star",
   "primary"
-);
+)
 export const EPBar = new PointBar(
   "EP",
   "mdi-flash-outline",
   "mdi-flash",
   "yellow-darken-1"
-);
+)
 export const BasijBar = new PointBar(
   "Басидж",
   "mdi-adjust",
   "mdi-album",
   "primary"
-);
+)
 export const InspirationBar = new PointBar(
   "Вдохновение",
   "mdi-music-note-outline",
   "mdi-music-note",
   "light-blue-lighten-1"
-);
+)
 
 export const diceIcons = [
   "",
@@ -53,4 +53,4 @@ export const diceIcons = [
   "mdi-dice-d10",
   "mdi-dice-d12",
   "mdi-dice-d20",
-];
+]

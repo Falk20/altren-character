@@ -16,10 +16,10 @@
 </template>
 
 <script setup lang="ts">
-import { googleSignOut } from "@/firebase/config";
-import { useAppStore } from "@/store/stores/app";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { googleSignOut } from "@/firebase/config"
+import { useAppStore } from "@/store/stores/app"
+import { ref } from "vue"
+import { useRouter } from "vue-router"
 
 const router = useRouter()
 const appStore = useAppStore()
@@ -28,22 +28,22 @@ const appStore = useAppStore()
 const character = ref('test')
 
 const logOut = async () => {
-  await googleSignOut();
+  await googleSignOut()
 
   appStore.changeSideMenu()
 
-  router.push("/start");
+  router.push("/start")
 }
 
 const importJson = () => {
-  const stateJson = JSON.stringify(character);
+  const stateJson = JSON.stringify(character)
   const stateFile =
-    "data:text/json;charset=utf-8," + encodeURIComponent(stateJson);
+    "data:text/json;charset=utf-8," + encodeURIComponent(stateJson)
 
-  const linkElem = document.createElement("a");
-  linkElem.setAttribute("href", stateFile);
-  linkElem.setAttribute("download", "character.json");
-  linkElem.click();
+  const linkElem = document.createElement("a")
+  linkElem.setAttribute("href", stateFile)
+  linkElem.setAttribute("download", "character.json")
+  linkElem.click()
 }
 </script>
 

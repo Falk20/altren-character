@@ -21,9 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import { IDamage } from '@/helpers/types';
-import { computed } from 'vue';
-import DamageField from './damage-field.vue';
+import { IDamage } from '@/helpers/types'
+import { computed } from 'vue'
+import DamageField from './damage-field.vue'
 
 interface Props {
   modelValue: IDamage[]

@@ -67,9 +67,9 @@
 </template>
 
 <script setup lang="ts">
-import { usePersonalInfoStore } from '@/store/stores/personal-info';
-import { useStatusStore } from '@/store/stores/status';
-import { computed } from 'vue';
+import { usePersonalInfoStore } from '@/store/stores/personal-info'
+import { useStatusStore } from '@/store/stores/status'
+import { computed } from 'vue'
 
 export interface Props {
   editDialog: boolean

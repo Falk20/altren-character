@@ -52,13 +52,13 @@
 </template>
 
 <script setup lang="ts">
-import { ISkill } from "@/helpers/types";
-import AltStatField from "./stat-field.vue";
-import AltSkillAddingForm from "./adding-form.vue";
-import { Stats } from "@/helpers/constants";
-import { useStatsStore } from "@/store/stores/stats";
-import { useSkillsStore } from "@/store/stores/skills";
-import { computed } from "vue";
+import { ISkill } from "@/helpers/types"
+import AltStatField from "./stat-field.vue"
+import AltSkillAddingForm from "./adding-form.vue"
+import { Stats } from "@/helpers/constants"
+import { useStatsStore } from "@/store/stores/stats"
+import { useSkillsStore } from "@/store/stores/skills"
+import { computed } from "vue"
 
 export interface Props {
   name: Stats,
@@ -94,11 +94,11 @@ const canAddNewSkill = computed(() => {
 const btnIcon = computed(() => isCurrentFormOpen.value ? "mdi-minus" : "mdi-plus")
 
 const toggleForm = () => {
-  emit("update:openedForm", isCurrentFormOpen.value ? null : props.name);
+  emit("update:openedForm", isCurrentFormOpen.value ? null : props.name)
 }
 
 const closeForm = () => {
-  emit("update:openedForm", null);
+  emit("update:openedForm", null)
 }
 </script>
 

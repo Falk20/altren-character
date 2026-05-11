@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import { diceIcons } from '@/helpers/viewConstants'
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 export interface Props {
   value: number

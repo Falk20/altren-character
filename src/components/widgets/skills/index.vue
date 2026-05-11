@@ -19,13 +19,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import { statsWithSkills } from "@/helpers/constants";
-import { getMaxSkillPointCount } from "@/helpers/utils/skills";
-import { useSkillsStore } from "@/store/stores/skills";
-import { useStatsStore } from "@/store/stores/stats";
+import { ref, computed } from "vue"
+import { statsWithSkills } from "@/helpers/constants"
+import { getMaxSkillPointCount } from "@/helpers/utils/skills"
+import { useSkillsStore } from "@/store/stores/skills"
+import { useStatsStore } from "@/store/stores/stats"
 import sb from '@/assets/sb.webp'
-import AltSkillsStatSection from "./stat-section.vue";
+import AltSkillsStatSection from "./stat-section.vue"
 
 const statsStore = useStatsStore()
 const skillsStore = useSkillsStore()

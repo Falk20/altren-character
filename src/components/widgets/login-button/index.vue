@@ -13,5 +13,5 @@
 </template>
 
 <script setup lang="ts">
-import { googleSignIn } from "@/firebase/config";
+import { googleSignIn } from "@/firebase/config"
 </script>

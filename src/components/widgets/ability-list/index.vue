@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import { useAbilitiesStore } from '@/store/stores/abilities';
-import { computed } from 'vue';
-import AbilityCard from './ability-card.vue';
+import { useAbilitiesStore } from '@/store/stores/abilities'
+import { computed } from 'vue'
+import AbilityCard from './ability-card.vue'
 
 const abilitiesStore = useAbilitiesStore()
 

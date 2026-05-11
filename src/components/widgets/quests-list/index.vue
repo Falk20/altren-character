@@ -45,10 +45,10 @@
 </template>
 
 <script setup lang="ts">
-import ConfirmDialog from '@/components/atoms/confirm-dialog.vue';
+import ConfirmDialog from '@/components/atoms/confirm-dialog.vue'
 import { useNotesStore } from '@/store/stores/notes'
-import { ref } from 'vue';
-import { computed } from 'vue';
+import { ref } from 'vue'
+import { computed } from 'vue'
 
 const notesStore = useNotesStore()
 

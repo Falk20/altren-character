@@ -1,11 +1,13 @@
-import { registerPlugins } from "@/plugins";
+import { registerPlugins } from "@/plugins"
 
-import App from "./App.vue";
+import App from "./App.vue"
 
-import { createApp } from "vue";
+import { createApp } from "vue"
+import { vMaska } from "maska/vue"
 
-const app = createApp(App);
+const app = createApp(App)
 
-registerPlugins(app);
+registerPlugins(app)
+app.directive("maska", vMaska)
 
-app.mount("#app");
+app.mount("#app")

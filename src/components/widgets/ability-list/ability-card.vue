@@ -39,12 +39,12 @@
 </template>
 
 <script setup lang="ts">
-import ConfirmDialog from '@/components/atoms/confirm-dialog.vue';
-import TextField from '@/components/atoms/text-field.vue';
-import { IAbility } from '@/helpers/types';
-import { useAbilitiesStore } from '@/store/stores/abilities';
-import { computed } from 'vue';
-import { ref } from 'vue';
+import ConfirmDialog from '@/components/atoms/confirm-dialog.vue'
+import TextField from '@/components/atoms/text-field.vue'
+import { IAbility } from '@/helpers/types'
+import { useAbilitiesStore } from '@/store/stores/abilities'
+import { computed } from 'vue'
+import { ref } from 'vue'
 
 interface Props {
   ability: IAbility

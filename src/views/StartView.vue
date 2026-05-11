@@ -6,11 +6,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { useAuthStore } from "@/store/stores/auth";
+import { computed } from "vue"
+import { useAuthStore } from "@/store/stores/auth"
 
-import LoginButton from "@/components/widgets/login-button/index.vue";
-import CharacterList from "@/components/widgets/character-list/index.vue";
+import LoginButton from "@/components/widgets/login-button/index.vue"
+import CharacterList from "@/components/widgets/character-list/index.vue"
 
 const authStore = useAuthStore()
 

@@ -112,14 +112,14 @@
 </template>
 
 <script setup lang="ts">
-import ConfirmDialog from '@/components/atoms/confirm-dialog.vue';
-import counterField from '@/components/atoms/counter-field.vue';
-import DamageView from '@/components/atoms/damage-view.vue';
-import { IBag, IItemTypes, ItemTypes } from '@/helpers/types';
-import { useInventoryStore } from '@/store/stores/inventory';
-import { unref } from 'vue';
-import { computed } from 'vue';
-import { ref } from 'vue';
+import ConfirmDialog from '@/components/atoms/confirm-dialog.vue'
+import counterField from '@/components/atoms/counter-field.vue'
+import DamageView from '@/components/atoms/damage-view.vue'
+import { IBag, IItemTypes, ItemTypes } from '@/helpers/types'
+import { useInventoryStore } from '@/store/stores/inventory'
+import { unref } from 'vue'
+import { computed } from 'vue'
+import { ref } from 'vue'
 
 interface Props {
   bag: IBag

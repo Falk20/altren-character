@@ -57,9 +57,9 @@
 </template>
 
 <script setup lang="ts">
-import { useInventoryStore } from '@/store/stores/inventory';
-import { ref, computed } from 'vue';
-import { VTextField } from 'vuetify/components';
+import { useInventoryStore } from '@/store/stores/inventory'
+import { ref, computed } from 'vue'
+import { VTextField } from 'vuetify/components'
 
 interface Props {
   modelValue: boolean
