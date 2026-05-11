@@ -10,7 +10,7 @@
       />
     </template>
 
-    <v-app-bar-title>{{ $route.meta.title }}</v-app-bar-title>
+    <v-app-bar-title>{{ route.meta.title }}</v-app-bar-title>
 
     <template v-slot:append>
       <HeaderRight v-if="isAuth" />
@@ -23,7 +23,9 @@ import HeaderRight from "@/components/widgets/header-right/index.vue"
 import { useAppStore } from "@/store/stores/app"
 import { useAuthStore } from "@/store/stores/auth"
 import { computed } from "vue"
+import { useRoute } from "vue-router"
 
+const route = useRoute()
 const appStore = useAppStore()
 
 const authStore = useAuthStore()

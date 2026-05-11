@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex">
     <v-btn
-      v-if="$route.name !== 'start'"
+      v-if="route.name !== 'start'"
       :to="'/start'"
       icon="mdi-swap-horizontal"
     />
@@ -24,7 +24,9 @@
 <script setup lang="ts">
 import { saveCharlist } from "@/firebase/db"
 import { ref } from "vue"
+import { useRoute } from "vue-router"
 
+const route = useRoute()
 const alert = ref(false)
 const alertType = ref("success")
 const alertText = ref("Лист персонажа сохранён")
