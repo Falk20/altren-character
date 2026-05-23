@@ -28,9 +28,7 @@ export async function saveCharlist() {
     }
 
     if (currentCharlistID) {
-      await setDoc(doc(db, "chars", currentCharlistID), charlist, {
-        merge: true,
-      })
+      await setDoc(doc(db, "chars", currentCharlistID), charlist)
     } else {
       const docRef = await addDoc(collection(db, "chars"), charlist)
 
