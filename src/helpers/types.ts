@@ -142,3 +142,8 @@ export interface ICharacter {
   notes: INotes
   abilities: IAbilities
 }
+
+export interface IOption<T> {
+  title: string
+  value: T
+}

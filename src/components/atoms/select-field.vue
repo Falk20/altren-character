@@ -9,23 +9,24 @@
   ></v-select>
 </template>
 
-<script setup lang="ts">
-import { computed } from 'vue'
+<script setup lang="ts" generic="T">
+import { IOption } from "@/helpers/types"
+import { computed } from "vue"
 
-export interface Props {
-  value: string | boolean | number,
-  label: string,
-  items: any[]
+export interface Props<T> {
+  value: T
+  label: string
+  items: IOption<T>[]
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props<T>>()
 
 const emit = defineEmits<{
-  "update:value": [value: string | boolean | number]
+  "update:value": [value: T]
 }>()
 
 const model = computed({
   get: () => props.value,
-  set: (value: string | boolean | number) => emit('update:value', value)
+  set: (value: T) => emit("update:value", value),
 })
 </script>

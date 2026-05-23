@@ -1,8 +1,8 @@
 interface IPointBar {
-  title: string;
-  emptyIcon: string;
-  fullIcon: string;
-  color: string;
+  title: string
+  emptyIcon: string
+  fullIcon: string
+  color: string
 }
 
 class PointBar implements IPointBar {
@@ -10,7 +10,7 @@ class PointBar implements IPointBar {
     public title: string,
     public emptyIcon: string,
     public fullIcon: string,
-    public color: string
+    public color: string,
   ) {}
 }
 
@@ -18,31 +18,31 @@ export const HPBar = new PointBar(
   "HP",
   "mdi-heart-outline",
   "mdi-heart",
-  "error"
+  "error",
 )
 export const MPBar = new PointBar(
   "MP",
   "mdi-star-outline",
   "mdi-star",
-  "primary"
+  "primary",
 )
 export const EPBar = new PointBar(
   "EP",
   "mdi-flash-outline",
   "mdi-flash",
-  "yellow-darken-1"
+  "yellow-darken-1",
 )
 export const BasijBar = new PointBar(
   "Басидж",
   "mdi-adjust",
   "mdi-album",
-  "primary"
+  "primary",
 )
 export const InspirationBar = new PointBar(
   "Вдохновение",
   "mdi-music-note-outline",
   "mdi-music-note",
-  "light-blue-lighten-1"
+  "light-blue-lighten-1",
 )
 
 export const diceIcons = [
@@ -54,3 +54,5 @@ export const diceIcons = [
   "mdi-dice-d12",
   "mdi-dice-d20",
 ]
+
+export const levelMaxDiceNumber = [0, 4, 6, 8, 10, 12, 20]

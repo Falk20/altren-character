@@ -1,10 +1,7 @@
 <template>
-  <v-card
-    class="mb-4"
-    :title="props.bag.title"
-  >
+  <v-card class="mb-4" :title="props.bag.title">
     <template #subtitle>
-      <span :class="{ 'red': weight > capacity }">
+      <span :class="{ red: weight > capacity }">
         ячейки: {{ weight }}/{{ capacity }}
       </span>
     </template>
@@ -20,10 +17,7 @@
         </template>
 
         <v-list>
-          <v-list-item
-            base-color="red"
-            @click="whenRemoveBtnClick"
-          >
+          <v-list-item base-color="red" @click="whenRemoveBtnClick">
             Удалить
           </v-list-item>
         </v-list>
@@ -55,23 +49,20 @@
         :item="item"
       />
 
-      <new-item-form
-        v-model="isItemFormOpen"
-        :bag="props.bag"
-      />
+      <new-item-form v-model="isItemFormOpen" :bag="props.bag" />
     </v-card-text>
   </v-card>
 </template>
 
 <script setup lang="ts">
-import ConfirmDialog from '@/components/atoms/confirm-dialog.vue'
-import { IBag, ItemTypes } from '@/helpers/types'
-import { useInventoryStore } from '@/store/stores/inventory'
-import { ref } from 'vue'
-import NewItemForm from './new-item-form.vue'
-import { computed } from 'vue'
-import ItemCard from './item-card.vue'
-import { useSkillsStore } from '@/store/stores/skills'
+import ConfirmDialog from "@/components/atoms/confirm-dialog.vue"
+import { IBag, ItemTypes } from "@/helpers/types"
+import { useInventoryStore } from "@/store/stores/inventory"
+import { ref } from "vue"
+import NewItemForm from "./new-item-form.vue"
+import { computed } from "vue"
+import ItemCard from "./item-card.vue"
+import { useSkillsStore } from "@/store/stores/skills"
 
 interface Props {
   bag: IBag
@@ -87,7 +78,10 @@ const isShowRemovingConfrim = ref(false)
 
 const weight = computed(() => {
   const sum = props.bag.items.reduce((sum, item) => {
-    if (item.type === ItemTypes.stackable || item.type === ItemTypes.projectile) {
+    if (
+      item.type === ItemTypes.stackable ||
+      item.type === ItemTypes.projectile
+    ) {
       sum += item.weight * item.count
 
       return sum
