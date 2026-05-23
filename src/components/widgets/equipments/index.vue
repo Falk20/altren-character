@@ -1,35 +1,33 @@
 <template>
   <v-row class="pa-0 ma-0">
-    <v-col class="pa-0">
-      <div class="mx-3">
-        <h3 class="mb-2 my-0">Экипировка</h3>
-        <div v-if="weapons.length">
-          <h4 class="mb-2">Оружие</h4>
+    <v-col class="pa-0 mx-3">
+      <h3 class="mb-2 my-0">Экипировка</h3>
+      <div v-if="weapons.length">
+        <h4 class="mt-0 mb-2">Оружие</h4>
 
-          <equipment-card
-            v-for="(weapon, index) in weapons"
-            :key="'weapon' + index"
-            :item="weapon"
-          />
-        </div>
-        <div v-if="projectiles.length">
-          <h4 class="mb-2">Снаряды</h4>
+        <equipment-card
+          v-for="(weapon, index) in weapons"
+          :key="'weapon' + index"
+          :item="weapon"
+        />
+      </div>
+      <div v-if="projectiles.length">
+        <h4 class="mt-0 mb-2">Снаряды</h4>
 
-          <equipment-card
-            v-for="(projectile, index) in projectiles"
-            :key="'projectile' + index"
-            :item="projectile"
-          />
-        </div>
-        <div v-if="consumables.length">
-          <h4 class="mb-2">Расходники</h4>
+        <equipment-card
+          v-for="(projectile, index) in projectiles"
+          :key="'projectile' + index"
+          :item="projectile"
+        />
+      </div>
+      <div v-if="consumables.length">
+        <h4 class="mt-0 mb-2">Расходники</h4>
 
-          <equipment-card
-            v-for="(consumable, index) in consumables"
-            :key="'consumable' + index"
-            :item="consumable"
-          />
-        </div>
+        <equipment-card
+          v-for="(consumable, index) in consumables"
+          :key="'consumable' + index"
+          :item="consumable"
+        />
       </div>
     </v-col>
   </v-row>

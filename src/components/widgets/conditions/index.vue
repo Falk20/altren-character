@@ -10,7 +10,7 @@
           @click="editDialog = true"
         />
       </h3>
-      <div class="mx-3 d-flex flex-wrap">
+      <div class="mx-3 d-flex flex-wrap mb-3">
         <template v-if="haveAnyCondition">
           <v-icon v-if="HPIcon" class="mr-2" :color="HPIcon.color">
             {{ HPIcon.icon }}
@@ -26,7 +26,7 @@
             {{ thresholdIcon.icon }}
           </v-icon>
         </template>
-        <p class="text-label-large" v-else>Нет активных эффектов</p>
+        <p class="text-label-large ma-0" v-else>Нет активных эффектов</p>
       </div>
       <EditForm v-model:editDialog="editDialog" />
     </v-col>
