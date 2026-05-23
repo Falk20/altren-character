@@ -54,7 +54,7 @@ const emit = defineEmits<{
 
 const attemptsCount = ref(0)
 
-const cards = ref<number[]>([0, 1, 2, 3, 4, 5, 6, 7, 0, 0, 1, 0, 0, 0])
+const cards = ref<number[]>([])
 
 const selectedCardIndex = ref<Set<number>>(new Set())
 
