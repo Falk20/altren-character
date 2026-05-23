@@ -1,18 +1,11 @@
 <template>
   <v-container class="pa-0">
-    <v-row class="pa-0 ma-0 mb-3">
+    <v-row class="pa-0 ma-0">
       <v-col class="pa-0">
-        <AltPointBar
-          v-model:value="hits"
-          v-bind="HPBar"
-          :maxValue="maxHits"
-        />
+        <AltPointBar v-model:value="hits" v-bind="HPBar" :maxValue="maxHits" />
       </v-col>
     </v-row>
-    <v-row
-      v-if="!isFameLvl3"
-      class="pa-0 ma-0 mb-3"
-    >
+    <v-row v-if="!isFameLvl3" class="pa-0 ma-0">
       <v-col class="pa-0">
         <AltPointBar
           v-model:value="mana"
@@ -21,10 +14,7 @@
         />
       </v-col>
     </v-row>
-    <v-row
-      v-if="isBard"
-      class="pa-0 ma-0 mb-3"
-    >
+    <v-row v-if="isBard" class="pa-0 ma-0">
       <v-col class="pa-0">
         <AltPointBar
           v-model:value="inspiration"
@@ -53,26 +43,28 @@ const statusStore = useStatusStore()
 
 const hits = computed({
   get: () => statusStore.hits,
-  set: (value: number) => statusStore.setStatusField('hits', value)
+  set: (value: number) => statusStore.setStatusField("hits", value),
 })
 
 const maxHits = computed(() => statusStore.maxHits)
 
 const mana = computed({
   get: () => statusStore.mana,
-  set: (value: number) => statusStore.setStatusField('mana', value)
+  set: (value: number) => statusStore.setStatusField("mana", value),
 })
 
 const maxMana = computed(() => statusStore.maxMana)
 
 const inspiration = computed({
   get: () => statusStore.inspiration,
-  set: (value: number) => statusStore.setStatusField('inspiration', value)
+  set: (value: number) => statusStore.setStatusField("inspiration", value),
 })
 
 const maxInspiration = computed(() => statusStore.maxInspiration)
 
-const manaBar = computed(() => getCurrentPointBar(personalInfoStore.isMage, personalInfoStore.isBasij))
+const manaBar = computed(() =>
+  getCurrentPointBar(personalInfoStore.isMage, personalInfoStore.isBasij),
+)
 
 const isBard = computed(() => personalInfoStore.isBard)
 

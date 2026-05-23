@@ -1,10 +1,9 @@
 <template>
   <v-container>
-    <span :class="[skillPointsRemains < 0 && 'text-red']">{{ skillPointCount }}</span>
-    <v-img
-      v-if="skillPointsRemains < 0"
-      :src="sb"
-    />
+    <span :class="[skillPointsRemains < 0 && 'text-red']">
+      {{ skillPointCount }}
+    </span>
+    <v-img v-if="skillPointsRemains < 0" :src="sb" />
     <AltSkillsStatSection
       v-for="(stat, name) in statsWithSkills"
       :key="'stat' + name"
@@ -24,7 +23,7 @@ import { statsWithSkills } from "@/helpers/constants"
 import { getMaxSkillPointCount } from "@/helpers/utils/skills"
 import { useSkillsStore } from "@/store/stores/skills"
 import { useStatsStore } from "@/store/stores/stats"
-import sb from '@/assets/sb.webp'
+import sb from "@/assets/sb.webp"
 import AltSkillsStatSection from "./stat-section.vue"
 
 const statsStore = useStatsStore()
@@ -32,7 +31,14 @@ const skillsStore = useSkillsStore()
 
 const openedForm = ref<string | null>(null)
 
-const maxSkillPointCount = computed(() => getMaxSkillPointCount(statsStore.intelligence))
-const skillPointsRemains = computed(() => maxSkillPointCount.value - skillsStore.skillPointCount)
-const skillPointCount = computed(() => `Осталось очков навыков: ${skillPointsRemains.value} / ${maxSkillPointCount.value}`)
+const maxSkillPointCount = computed(() =>
+  getMaxSkillPointCount(statsStore.intelligence),
+)
+const skillPointsRemains = computed(
+  () => maxSkillPointCount.value - skillsStore.skillPointCount,
+)
+const skillPointCount = computed(
+  () =>
+    `Осталось очков навыков: ${skillPointsRemains.value} / ${maxSkillPointCount.value}`,
+)
 </script>

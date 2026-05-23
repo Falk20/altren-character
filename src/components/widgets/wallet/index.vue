@@ -10,11 +10,7 @@
           rounded="0"
           @click="decrement()"
         />
-        <AltNumberField
-          v-model.number="wallet"
-          label="Кошель"
-          mask="######"
-        />
+        <AltNumberField v-model.number="wallet" label="Кошель" mask="######" />
         <v-btn
           class="d-inline"
           variant="text"
@@ -34,13 +30,15 @@
             variant="tonal"
             rounded="pill"
             @click="decrement(100)"
-          >-100</v-btn>
+            >-100</v-btn
+          >
           <v-btn
             size="small"
             variant="tonal"
             rounded="pill"
             @click="decrement(10)"
-          >-10</v-btn>
+            >-10</v-btn
+          >
         </div>
         <div class="d-flex">
           <v-btn
@@ -49,14 +47,16 @@
             variant="tonal"
             rounded="pill"
             @click="increment(10)"
-          >+10</v-btn>
+            >+10</v-btn
+          >
 
           <v-btn
             size="small"
             variant="tonal"
             rounded="pill"
             @click="increment(100)"
-          >+100</v-btn>
+            >+100</v-btn
+          >
         </div>
       </v-col>
     </v-row>

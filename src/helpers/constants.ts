@@ -7,6 +7,7 @@ export const defaultInspiration = 6
 export const defaultBasij = 2
 export const maxBasij = 20
 export const defaultStepCount = 3
+export const defaultHittingDifficulty = 8
 export const defaultMaxSkillPointCount = 5
 export const fameLvl2 = 100
 export const fameLvl3 = 350
@@ -179,7 +180,7 @@ export const statsWithSkills = {
         value: "herbalism",
       },
       {
-        title: "Оккультизм",
+        title: "Теология",
         value: "occultism",
       },
     ],
@@ -198,6 +199,10 @@ export const statsWithSkills = {
       {
         title: "Лидерство",
         value: "leadership",
+      },
+      {
+        title: "Обучение",
+        value: "school",
       },
     ],
   },

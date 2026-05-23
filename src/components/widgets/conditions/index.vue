@@ -1,5 +1,5 @@
 <template>
-  <v-row class="pa-0 ma-0 mb-3">
+  <v-row class="pa-0 ma-0">
     <v-col class="pa-0">
       <h3 class="ml-3 my-0">
         <span>Эффекты</span>
@@ -12,18 +12,10 @@
       </h3>
       <div class="mx-3 d-flex flex-wrap">
         <template v-if="haveAnyCondition">
-          <v-icon
-            v-if="HPIcon"
-            class="mr-2"
-            :color="HPIcon.color"
-          >
+          <v-icon v-if="HPIcon" class="mr-2" :color="HPIcon.color">
             {{ HPIcon.icon }}
           </v-icon>
-          <v-icon
-            v-if="MPIcon"
-            class="mr-2"
-            :color="MPIcon.color"
-          >
+          <v-icon v-if="MPIcon" class="mr-2" :color="MPIcon.color">
             {{ MPIcon.icon }}
           </v-icon>
           <v-icon
@@ -34,12 +26,7 @@
             {{ thresholdIcon.icon }}
           </v-icon>
         </template>
-        <p
-          class="text-label-large "
-          v-else
-        >
-          Нет активных эффектов
-        </p>
+        <p class="text-label-large" v-else>Нет активных эффектов</p>
       </div>
       <EditForm v-model:editDialog="editDialog" />
     </v-col>
@@ -118,5 +105,7 @@ const thresholdIcon = computed(() => {
   }
 })
 
-const haveAnyCondition = computed(() => !!HPIcon.value || !!MPIcon.value || !!thresholdIcon.value)
+const haveAnyCondition = computed(
+  () => !!HPIcon.value || !!MPIcon.value || !!thresholdIcon.value,
+)
 </script>

@@ -2,6 +2,7 @@ import { saveState } from "@/helpers/utils"
 import { generateState } from "@/helpers/utils/status"
 import {
   defaultHits,
+  defaultHittingDifficulty,
   defaultInspiration,
   defaultMana,
   defaultStepCount,
@@ -83,6 +84,12 @@ export const useStatusStore = defineStore("statusStore", () => {
     return defaultStepCount + statBuff + skillBonus
   })
 
+  const hittingDifficulty = computed(() => {
+    const skillBonus = skillsStore.skills.agility?.evasion ?? 0
+
+    return defaultHittingDifficulty + skillBonus
+  })
+
   const setStatusField = (key: TStatusFieldName, value: number) => {
     state[key] = value
   }
@@ -106,6 +113,7 @@ export const useStatusStore = defineStore("statusStore", () => {
     maxInspiration,
     threshold,
     stepCount,
+    hittingDifficulty,
     setStatusField,
     setCondiField,
   }
