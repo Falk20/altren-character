@@ -2,11 +2,18 @@
   <v-card class="mt-4">
     <v-card-item>
       <v-card-title>
-        <text-field
-          v-model="title"
-          label="Название"
-        />
+        <text-field v-model="title" label="Название" />
       </v-card-title>
+
+      <template #prepend>
+        <v-icon
+          class="handle cursor-grab"
+          size="32"
+          color="teal"
+          icon="mdi-drag"
+        />
+      </template>
+
       <template #append>
         <v-btn
           block
@@ -39,12 +46,12 @@
 </template>
 
 <script setup lang="ts">
-import ConfirmDialog from '@/components/atoms/confirm-dialog.vue'
-import TextField from '@/components/atoms/text-field.vue'
-import { IAbility } from '@/helpers/types'
-import { useAbilitiesStore } from '@/store/stores/abilities'
-import { computed } from 'vue'
-import { ref } from 'vue'
+import ConfirmDialog from "@/components/atoms/confirm-dialog.vue"
+import TextField from "@/components/atoms/text-field.vue"
+import { IAbility } from "@/helpers/types"
+import { useAbilitiesStore } from "@/store/stores/abilities"
+import { computed } from "vue"
+import { ref } from "vue"
 
 interface Props {
   ability: IAbility
@@ -58,12 +65,13 @@ const isShowDialog = ref(false)
 
 const title = computed({
   get: () => props.ability.title,
-  set: (value: string) => abilitiesStore.editAbilityTitle(props.ability, value)
+  set: (value: string) => abilitiesStore.editAbilityTitle(props.ability, value),
 })
 
 const description = computed({
   get: () => props.ability.description,
-  set: (value: string) => abilitiesStore.editAbilityDescription(props.ability, value)
+  set: (value: string) =>
+    abilitiesStore.editAbilityDescription(props.ability, value),
 })
 
 const remove = () => {

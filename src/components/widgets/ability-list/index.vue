@@ -10,22 +10,34 @@
       Добавить
     </v-btn>
 
-    <AbilityCard
-      v-for="(ability, index) in abilities"
-      :key="'ability-' + index"
-      :ability="ability"
-    />
+    <draggable
+      v-model="abilities"
+      @start="drag = true"
+      @end="drag = false"
+      item-key="index"
+      handle=".handle"
+    >
+      <template #item="{ element }">
+        <AbilityCard :ability="element" />
+      </template>
+    </draggable>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { useAbilitiesStore } from '@/store/stores/abilities'
-import { computed } from 'vue'
-import AbilityCard from './ability-card.vue'
+import draggable from "vuedraggable"
+import { useAbilitiesStore } from "@/store/stores/abilities"
+import { computed, ref } from "vue"
+import AbilityCard from "./ability-card.vue"
+
+const drag = ref(false)
 
 const abilitiesStore = useAbilitiesStore()
 
-const abilities = computed(() => abilitiesStore.abilities)
+const abilities = computed({
+  get: () => abilitiesStore.abilities,
+  set: (newVal) => (abilitiesStore.abilities = newVal),
+})
 
 const addNewAbility = () => abilitiesStore.addNewAbility()
 </script>
