@@ -18,7 +18,8 @@
         v-if="props.item.weight"
         class="d-flex align-center mt-1 pb-0"
       >
-        <v-icon icon="mdi-kettlebell"></v-icon> {{ props.item.weight }}
+        <v-icon class="handle cursor-grab" icon="mdi-kettlebell"></v-icon>
+        {{ props.item.weight }}
       </v-card-subtitle>
 
       <template #append>
@@ -38,7 +39,7 @@
               prepend-icon="mdi-hanger"
               @click="whenEquipBtnClick"
             >
-              {{ props.item.isEquiped ? 'Снять' : 'Надеть' }}
+              {{ props.item.isEquiped ? "Снять" : "Надеть" }}
             </v-list-item>
             <v-list-item
               v-for="(bag, index) in bagsForSwitch"
@@ -67,13 +68,20 @@
     </v-card-item>
 
     <v-divider />
-    <v-card-text v-if="props.item.type !== ItemTypes.nonStackable || props.item.description">
+    <v-card-text
+      v-if="
+        props.item.type !== ItemTypes.nonStackable || props.item.description
+      "
+    >
       <div
         v-if="props.item.type !== ItemTypes.nonStackable"
         class="item-card_custom-field"
       >
         <damage-view
-          v-if="props.item.type === ItemTypes.weapon || props.item.type === ItemTypes.projectile"
+          v-if="
+            props.item.type === ItemTypes.weapon ||
+            props.item.type === ItemTypes.projectile
+          "
           :damage="props.item.damage"
         />
 
@@ -81,30 +89,21 @@
           v-if="props.item.type === ItemTypes.armor"
           class="text-body-1 d-flex align-center"
         >
-          <v-icon
-            class="mr-1"
-            size="small"
-            color="teal"
-            icon="mdi-shield"
-          />
+          <v-icon class="mr-1" size="small" color="teal" icon="mdi-shield" />
           {{ props.item.protection }}
         </p>
 
-        <counter-field
-          v-if="isHaveCount"
-          v-model="count"
-        />
+        <counter-field v-if="isHaveCount" v-model="count" />
       </div>
 
       <v-divider
-        v-if="props.item.type !== ItemTypes.nonStackable && props.item.description"
+        v-if="
+          props.item.type !== ItemTypes.nonStackable && props.item.description
+        "
         class="my-2"
       />
 
-      <p
-        v-if="props.item.description"
-        class="text-body-1 mb-0"
-      >
+      <p v-if="props.item.description" class="text-body-1 mb-0">
         {{ props.item.description }}
       </p>
     </v-card-text>
@@ -112,14 +111,14 @@
 </template>
 
 <script setup lang="ts">
-import ConfirmDialog from '@/components/atoms/confirm-dialog.vue'
-import counterField from '@/components/atoms/counter-field.vue'
-import DamageView from '@/components/atoms/damage-view.vue'
-import { IBag, IItemTypes, ItemTypes } from '@/helpers/types'
-import { useInventoryStore } from '@/store/stores/inventory'
-import { unref } from 'vue'
-import { computed } from 'vue'
-import { ref } from 'vue'
+import ConfirmDialog from "@/components/atoms/confirm-dialog.vue"
+import counterField from "@/components/atoms/counter-field.vue"
+import DamageView from "@/components/atoms/damage-view.vue"
+import { IBag, IItemTypes, ItemTypes } from "@/helpers/types"
+import { useInventoryStore } from "@/store/stores/inventory"
+import { unref } from "vue"
+import { computed } from "vue"
+import { ref } from "vue"
 
 interface Props {
   bag: IBag
@@ -135,34 +134,43 @@ const isShowRemovingConfrim = ref(false)
 const icon = computed(() => {
   switch (props.item.type) {
     case ItemTypes.armor:
-      return 'mdi-tshirt-v'
+      return "mdi-tshirt-v"
     case ItemTypes.projectile:
-      return 'mdi-arrow-projectile'
+      return "mdi-arrow-projectile"
     case ItemTypes.weapon:
-      return 'mdi-sword'
+      return "mdi-sword"
     case ItemTypes.stackable:
-      return 'mdi-animation'
+      return "mdi-animation"
     default:
-      return ''
+      return ""
   }
 })
 
-const canEquip = computed(() => props.item.type === ItemTypes.projectile
-  || props.item.type === ItemTypes.armor
-  || props.item.type === ItemTypes.weapon
-  || props.item.type === ItemTypes.stackable
+const canEquip = computed(
+  () =>
+    props.item.type === ItemTypes.projectile ||
+    props.item.type === ItemTypes.armor ||
+    props.item.type === ItemTypes.weapon ||
+    props.item.type === ItemTypes.stackable,
 )
 
-const isHaveCount = computed(() => props.item.type === ItemTypes.projectile || props.item.type === ItemTypes.stackable)
+const isHaveCount = computed(
+  () =>
+    props.item.type === ItemTypes.projectile ||
+    props.item.type === ItemTypes.stackable,
+)
 
 const count = computed({
   get: () => props.item?.count ?? 0,
   set: (value: number) => inventoryStore.changeCount(props.item, value),
 })
 
-const bagsForSwitch = computed(() => inventoryStore.bags.filter((bag) => unref(bag) !== unref(props.bag)))
+const bagsForSwitch = computed(() =>
+  inventoryStore.bags.filter((bag) => unref(bag) !== unref(props.bag)),
+)
 
-const switchBag = (bag: IBag) => inventoryStore.switchBag(props.item, props.bag, bag)
+const switchBag = (bag: IBag) =>
+  inventoryStore.switchBag(props.item, props.bag, bag)
 
 const whenEquipBtnClick = () => inventoryStore.toggleIsEquiped(props.item)
 
@@ -181,6 +189,6 @@ const removeItem = () => inventoryStore.removeItem(props.bag, props.item)
 .item-card_custom-field {
   display: flex;
   flex-direction: column;
-  gap: 8px
+  gap: 8px;
 }
 </style>

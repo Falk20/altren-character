@@ -1,5 +1,17 @@
 <template>
-  <v-card class="mb-4" :title="props.bag.title">
+  <v-card class="mb-4">
+    <template #prepend>
+      <v-icon
+        class="handle-bag cursor-grab"
+        size="32"
+        color="teal"
+        icon="mdi-drag"
+      />
+    </template>
+
+    <template #title>
+      {{ props.bag.title }}
+    </template>
     <template #subtitle>
       <span :class="{ red: weight > capacity }">
         ячейки: {{ weight }}/{{ capacity }}
@@ -42,12 +54,17 @@
         Предмет
       </v-btn>
 
-      <item-card
-        v-for="(item, index) in props.bag.items"
-        :key="'bag-item' + index"
-        :bag="props.bag"
-        :item="item"
-      />
+      <draggable
+        v-model="items"
+        @start="drag = true"
+        @end="drag = false"
+        item-key="index"
+        handle=".handle"
+      >
+        <template #item="{ element }">
+          <item-card :bag="props.bag" :item="element" />
+        </template>
+      </draggable>
 
       <new-item-form v-model="isItemFormOpen" :bag="props.bag" />
     </v-card-text>
@@ -63,6 +80,7 @@ import NewItemForm from "./new-item-form.vue"
 import { computed } from "vue"
 import ItemCard from "./item-card.vue"
 import { useSkillsStore } from "@/store/stores/skills"
+import draggable from "vuedraggable"
 
 interface Props {
   bag: IBag
@@ -73,8 +91,14 @@ const props = defineProps<Props>()
 const inventoryStore = useInventoryStore()
 const skillsStore = useSkillsStore()
 
+const drag = ref(false)
 const isItemFormOpen = ref(false)
 const isShowRemovingConfrim = ref(false)
+
+const items = computed({
+  get: () => props.bag.items,
+  set: (newVal) => inventoryStore.changeBagSort(props.bag, newVal),
+})
 
 const weight = computed(() => {
   const sum = props.bag.items.reduce((sum, item) => {

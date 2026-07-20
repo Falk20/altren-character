@@ -51,6 +51,10 @@ export const useInventoryStore = defineStore("inventoryStore", () => {
     bags.value.push(bag)
   }
 
+  const sortBags = (sortedBags: IBag[]) => {
+    bags.value = sortedBags
+  }
+
   const removeBag = (bag: IBag) => {
     bags.value = bags.value.filter((item) => toValue(item) !== toValue(bag))
   }
@@ -78,6 +82,10 @@ export const useInventoryStore = defineStore("inventoryStore", () => {
     addItem(to, item)
   }
 
+  const changeBagSort = (bag: IBag, items: IItemTypes[]) => {
+    bag.items = items
+  }
+
   watch(
     [wallet, bags],
     () => {
@@ -95,11 +103,13 @@ export const useInventoryStore = defineStore("inventoryStore", () => {
     equipments,
     setWallet,
     addBag,
+    sortBags,
     removeBag,
     addItem,
     removeItem,
     changeCount,
     toggleIsEquiped,
     switchBag,
+    changeBagSort,
   }
 })
