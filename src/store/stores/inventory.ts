@@ -51,6 +51,11 @@ export const useInventoryStore = defineStore("inventoryStore", () => {
     bags.value.push(bag)
   }
 
+  const editBag = (bag: IBag, title: string, capacity: number) => {
+    bag.title = title
+    bag.capacity = capacity
+  }
+
   const sortBags = (sortedBags: IBag[]) => {
     bags.value = sortedBags
   }
@@ -61,6 +66,16 @@ export const useInventoryStore = defineStore("inventoryStore", () => {
 
   const addItem = (bag: IBag, item: IItemTypes) => {
     bag.items.unshift(item)
+  }
+
+  const changeItem = (
+    bag: IBag,
+    currentItem: IItemTypes,
+    newItem: IItemTypes,
+  ) => {
+    bag.items = bag.items.map((item) =>
+      toValue(item) === toValue(currentItem) ? newItem : item,
+    )
   }
 
   const removeItem = (bag: IBag, item: IItemTypes) => {
@@ -103,9 +118,11 @@ export const useInventoryStore = defineStore("inventoryStore", () => {
     equipments,
     setWallet,
     addBag,
+    editBag,
     sortBags,
     removeBag,
     addItem,
+    changeItem,
     removeItem,
     changeCount,
     toggleIsEquiped,

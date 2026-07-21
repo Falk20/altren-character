@@ -29,6 +29,15 @@
           :item="consumable"
         />
       </div>
+      <div v-if="armors.length">
+        <h4 class="mt-0 mb-2">Одежда</h4>
+
+        <equipment-card
+          v-for="(armor, index) in armors"
+          :key="'armor' + index"
+          :item="armor"
+        />
+      </div>
     </v-col>
   </v-row>
 </template>
@@ -43,4 +52,5 @@ const inventoryStore = useInventoryStore()
 const weapons = computed(() => inventoryStore.equipments.weapons)
 const projectiles = computed(() => inventoryStore.equipments.projectiles)
 const consumables = computed(() => inventoryStore.equipments.consumables)
+const armors = computed(() => inventoryStore.equipments.armors)
 </script>

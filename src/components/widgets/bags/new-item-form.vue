@@ -81,7 +81,7 @@
             variant="elevated"
             @click="submit"
           >
-            Добавить
+            {{ editingItem ? "Сохранить" : "Добавить" }}
           </v-btn>
         </v-container>
       </v-card-actions>
@@ -92,7 +92,7 @@
 <script setup lang="ts">
 import SelectField from "@/components/atoms/select-field.vue"
 import { useInventoryStore } from "@/store/stores/inventory"
-import { ref, computed } from "vue"
+import { ref, computed, watch } from "vue"
 import { VTextField, VTextarea } from "vuetify/components"
 import { IBag, IDamage, IItemTypes, ItemTypes } from "@/helpers/types"
 import { itemTypeOptions } from "@/helpers/constants"
@@ -101,11 +101,13 @@ import DamageForm from "./damage-form.vue"
 interface Props {
   bag: IBag
   modelValue: boolean
+  editingItem: IItemTypes | null
 }
 
 const props = defineProps<Props>()
 const emit = defineEmits<{
   "update:modelValue": [value: boolean]
+  "stop-editing": []
 }>()
 
 const inventoryStore = useInventoryStore()
@@ -114,8 +116,8 @@ const model = computed({
   get: () => props.modelValue,
   set: (value: boolean) => {
     emit("update:modelValue", value)
-
     if (!value) {
+      emit("stop-editing")
       itemType.value = ItemTypes.nonStackable
       title.value = ""
       description.value = ""
@@ -149,6 +151,20 @@ const isShowDamageField = computed(() => {
     itemType.value === ItemTypes.weapon
   )
 })
+
+watch(
+  () => props.editingItem,
+  () => {
+    if (props.editingItem) {
+      itemType.value = props.editingItem.type
+      title.value = props.editingItem.title
+      description.value = props.editingItem.description
+      weight.value = props.editingItem.weight
+      count.value = props.editingItem.count ?? 1
+      damage.value = JSON.parse(JSON.stringify(props.editingItem.damage ?? []))
+    }
+  },
+)
 
 const submit = () => {
   titleField.value?.validate()
@@ -224,7 +240,11 @@ const submit = () => {
     }
 
     if (newItem) {
-      inventoryStore.addItem(props.bag, newItem)
+      if (props.editingItem) {
+        inventoryStore.changeItem(props.bag, props.editingItem, newItem)
+      } else {
+        inventoryStore.addItem(props.bag, newItem)
+      }
 
       model.value = false
     }

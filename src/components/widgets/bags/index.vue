@@ -8,7 +8,7 @@
       handle=".handle-bag"
     >
       <template #item="{ element }">
-        <BagPanel :bag="element" />
+        <BagPanel :bag="element" @start-edit="() => handleEditBag(element)" />
       </template>
     </draggable>
 
@@ -22,7 +22,11 @@
       Хранилище
     </v-btn>
 
-    <NewBagForm v-model="isFormOpen" />
+    <NewBagForm
+      v-model="isFormOpen"
+      :editing-bag="editingBag"
+      @stop-editing="() => (editingBag = null)"
+    />
   </v-container>
 </template>
 
@@ -33,12 +37,19 @@ import BagPanel from "./bag-panel.vue"
 import { useInventoryStore } from "@/store/stores/inventory"
 import { computed } from "vue"
 import draggable from "vuedraggable"
+import { IBag } from "@/helpers/types.js"
 
 const drag = ref(false)
 
 const inventoryStore = useInventoryStore()
 
 const isFormOpen = ref(false)
+const editingBag = ref<IBag | null>(null)
+
+const handleEditBag = (bag: IBag) => {
+  editingBag.value = bag
+  isFormOpen.value = true
+}
 
 const bags = computed({
   get: () => inventoryStore.bags,

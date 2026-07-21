@@ -5,11 +5,7 @@
         class="text-body-1 font-weight-medium text-wrap item-card_title"
         prepend-icon="mdi-arrow-projectile"
       >
-        <v-icon
-          size="small"
-          :icon="icon"
-          :color="'green'"
-        />
+        <v-icon size="small" :icon="icon" :color="'green'" />
         {{ props.item.title }}
       </v-card-title>
     </v-card-item>
@@ -18,7 +14,10 @@
     <v-card-text>
       <div class="item-card_custom-field">
         <damage-view
-          v-if="props.item.type === ItemTypes.weapon || props.item.type === ItemTypes.projectile"
+          v-if="
+            props.item.type === ItemTypes.weapon ||
+            props.item.type === ItemTypes.projectile
+          "
           :damage="props.item.damage"
         />
 
@@ -26,31 +25,16 @@
           v-if="props.item.type === ItemTypes.armor"
           class="text-body-1 d-flex align-center"
         >
-          <v-icon
-            class="mr-1"
-            size="small"
-            color="teal"
-            icon="mdi-shield"
-          />
+          <v-icon class="mr-1" size="small" color="teal" icon="mdi-shield" />
           {{ props.item.protection }}
         </p>
 
-        <counter-field
-          v-if="isHaveCount"
-          v-model="count"
-        />
+        <counter-field v-if="isHaveCount" v-model="count" />
       </div>
 
-      <v-divider
-        v-if="props.item.description"
-        class="my-2"
-      />
+      <v-divider v-if="props.item.description" class="my-2" />
 
-
-      <p
-        v-if="props.item.description"
-        class="text-body-1 mb-0"
-      >
+      <p v-if="props.item.description" class="text-body-1 mb-0">
         {{ props.item.description }}
       </p>
     </v-card-text>
@@ -58,11 +42,11 @@
 </template>
 
 <script setup lang="ts">
-import counterField from '@/components/atoms/counter-field.vue'
-import DamageView from '@/components/atoms/damage-view.vue'
-import { IEquipmentTypes, ItemTypes } from '@/helpers/types'
-import { useInventoryStore } from '@/store/stores/inventory'
-import { computed } from 'vue'
+import counterField from "@/components/atoms/counter-field.vue"
+import DamageView from "@/components/atoms/damage-view.vue"
+import { IEquipmentTypes, ItemTypes } from "@/helpers/types"
+import { useInventoryStore } from "@/store/stores/inventory"
+import { computed } from "vue"
 
 interface Props {
   item: IEquipmentTypes
@@ -75,19 +59,23 @@ const inventoryStore = useInventoryStore()
 const icon = computed(() => {
   switch (props.item.type) {
     case ItemTypes.armor:
-      return 'mdi-tshirt-v'
+      return "mdi-tshirt-v"
     case ItemTypes.projectile:
-      return 'mdi-arrow-projectile'
+      return "mdi-arrow-projectile"
     case ItemTypes.weapon:
-      return 'mdi-sword'
+      return "mdi-sword"
     case ItemTypes.stackable:
-      return 'mdi-animation'
+      return "mdi-animation"
     default:
-      return ''
+      return ""
   }
 })
 
-const isHaveCount = computed(() => props.item.type === ItemTypes.projectile || props.item.type === ItemTypes.stackable)
+const isHaveCount = computed(
+  () =>
+    props.item.type === ItemTypes.projectile ||
+    props.item.type === ItemTypes.stackable,
+)
 
 const count = computed({
   get: () => props.item?.count ?? 0,
@@ -103,6 +91,6 @@ const count = computed({
 .item-card_custom-field {
   display: flex;
   flex-direction: column;
-  gap: 8px
+  gap: 8px;
 }
 </style>

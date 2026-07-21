@@ -44,7 +44,7 @@
             variant="elevated"
             @click="submit"
           >
-            Добавить
+            {{ editingBag ? "Сохранить" : "Добавить" }}
           </v-btn>
         </v-container>
       </v-card-actions>
@@ -53,17 +53,20 @@
 </template>
 
 <script setup lang="ts">
+import { IBag } from "@/helpers/types"
 import { useInventoryStore } from "@/store/stores/inventory"
-import { ref, computed } from "vue"
+import { ref, computed, watch } from "vue"
 import { VTextField } from "vuetify/components"
 
 interface Props {
   modelValue: boolean
+  editingBag: IBag | null
 }
 
 const props = defineProps<Props>()
 const emit = defineEmits<{
   "update:modelValue": [value: boolean]
+  "stop-editing": []
 }>()
 
 const inventoryStore = useInventoryStore()
@@ -73,6 +76,7 @@ const model = computed({
   set: (value: boolean) => {
     emit("update:modelValue", value)
     if (!value) {
+      emit("stop-editing")
       title.value = ""
       capacity.value = 1
     }
@@ -85,16 +89,30 @@ const capacityField = ref<InstanceType<typeof VTextField> | null>(null)
 const title = ref("")
 const capacity = ref(1)
 
+watch(
+  () => props.editingBag,
+  () => {
+    if (props.editingBag) {
+      title.value = props.editingBag.title
+      capacity.value = props.editingBag.capacity
+    }
+  },
+)
+
 const submit = () => {
   titleField.value?.validate()
   capacityField.value?.validate()
 
   if (!!title.value && !!capacity.value) {
-    inventoryStore.addBag({
-      title: title.value,
-      capacity: capacity.value,
-      items: [],
-    })
+    if (props.editingBag) {
+      inventoryStore.editBag(props.editingBag, title.value, capacity.value)
+    } else {
+      inventoryStore.addBag({
+        title: title.value,
+        capacity: capacity.value,
+        items: [],
+      })
+    }
 
     model.value = false
   }

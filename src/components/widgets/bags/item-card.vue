@@ -49,6 +49,9 @@
             >
               {{ bag.title }}
             </v-list-item>
+            <v-list-item @click="whenEditBtnClick" prepend-icon="mdi-pencil">
+              Редактировать
+            </v-list-item>
             <v-list-item
               base-color="red"
               prepend-icon="mdi-trash-can"
@@ -127,6 +130,8 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const emit = defineEmits(["start-edit"])
+
 const inventoryStore = useInventoryStore()
 
 const isShowRemovingConfrim = ref(false)
@@ -171,6 +176,10 @@ const bagsForSwitch = computed(() =>
 
 const switchBag = (bag: IBag) =>
   inventoryStore.switchBag(props.item, props.bag, bag)
+
+const whenEditBtnClick = () => {
+  emit("start-edit")
+}
 
 const whenEquipBtnClick = () => inventoryStore.toggleIsEquiped(props.item)
 

@@ -29,6 +29,7 @@
         </template>
 
         <v-list>
+          <v-list-item @click="whenEditBtnClick"> Редактировать </v-list-item>
           <v-list-item base-color="red" @click="whenRemoveBtnClick">
             Удалить
           </v-list-item>
@@ -62,18 +63,27 @@
         handle=".handle"
       >
         <template #item="{ element }">
-          <item-card :bag="props.bag" :item="element" />
+          <item-card
+            :bag="props.bag"
+            :item="element"
+            @start-edit="() => handleEditItem(element)"
+          />
         </template>
       </draggable>
 
-      <new-item-form v-model="isItemFormOpen" :bag="props.bag" />
+      <new-item-form
+        v-model="isItemFormOpen"
+        :bag="props.bag"
+        :editing-item="editingItem"
+        @stop-editing="() => (editingItem = null)"
+      />
     </v-card-text>
   </v-card>
 </template>
 
 <script setup lang="ts">
 import ConfirmDialog from "@/components/atoms/confirm-dialog.vue"
-import { IBag, ItemTypes } from "@/helpers/types"
+import { IBag, IItemTypes, ItemTypes } from "@/helpers/types"
 import { useInventoryStore } from "@/store/stores/inventory"
 import { ref } from "vue"
 import NewItemForm from "./new-item-form.vue"
@@ -88,12 +98,21 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const emit = defineEmits(["start-edit"])
+
 const inventoryStore = useInventoryStore()
 const skillsStore = useSkillsStore()
 
 const drag = ref(false)
 const isItemFormOpen = ref(false)
 const isShowRemovingConfrim = ref(false)
+
+const editingItem = ref<IItemTypes | null>(null)
+
+const handleEditItem = (item: IItemTypes) => {
+  editingItem.value = item
+  isItemFormOpen.value = true
+}
 
 const items = computed({
   get: () => props.bag.items,
@@ -126,6 +145,10 @@ const capacity = computed(() => {
 
 const whenRemoveBtnClick = () => {
   isShowRemovingConfrim.value = true
+}
+
+const whenEditBtnClick = () => {
+  emit("start-edit")
 }
 
 const removeBag = () => inventoryStore.removeBag(props.bag)
