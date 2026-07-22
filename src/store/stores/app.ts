@@ -1,13 +1,16 @@
 // Utilities
 import { defineStore } from "pinia"
 import { ref } from "vue"
+import { useDisplay } from "vuetify"
 
 export interface IState {
   sideMenu: boolean
 }
 
 export const useAppStore = defineStore("app", () => {
-  const sideMenu = ref(false)
+  const { mobile } = useDisplay()
+
+  const sideMenu = ref(!mobile.value)
 
   const changeSideMenu = (value = false) => {
     sideMenu.value = value
