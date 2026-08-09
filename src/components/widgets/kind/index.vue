@@ -2,11 +2,7 @@
   <v-container class="px-0">
     <v-row>
       <v-col>
-        <AltSelectField
-          v-model:value="kind"
-          label="Раса"
-          :items="kinds"
-        />
+        <AltSelectField v-model:value="kind" label="Раса" :items="kinds" />
       </v-col>
     </v-row>
   </v-container>
@@ -22,7 +18,7 @@ import { computed } from "vue"
 const personalInfoStore = usePersonalInfoStore()
 
 const kind = computed({
-  get: () => personalInfoStore.race,
-  set: (value: string) => personalInfoStore.setKind(value)
+  get: () => personalInfoStore.personalInfo.race,
+  set: (value: string) => personalInfoStore.setKind(value),
 })
 </script>

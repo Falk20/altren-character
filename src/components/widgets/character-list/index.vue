@@ -1,8 +1,6 @@
 <template>
   <v-container class="pa-0">
-    <h2 class="d-flex justify-center mb-2 mt-0">
-      Список персонажей
-    </h2>
+    <h2 class="d-flex justify-center mb-2 mt-0">Список персонажей</h2>
 
     <v-btn
       class="mb-2"
@@ -11,7 +9,7 @@
       color="green"
       variant="tonal"
       block
-      @click="createCharInDB"
+      @click="createHandle"
     >
       Новый персонаж
     </v-btn>
@@ -25,18 +23,9 @@
       />
     </template>
 
-    <v-list
-      v-else
-      density="compact"
-    >
-      <template
-        v-for="char in chars"
-        :key="char.id"
-      >
-        <char-item
-          :item="char"
-          @updateList="getData"
-        />
+    <v-list v-else density="compact">
+      <template v-for="char in chars" :key="char.id">
+        <char-item :item="char" @updateList="getData" />
         <v-divider />
       </template>
     </v-list>
@@ -54,6 +43,8 @@ const chars = ref<ICharacter[]>([])
 const isLoading = ref(false)
 
 const getData = async () => {
+  console.log("Грузим...")
+
   isLoading.value = true
   chars.value = []
 
@@ -67,6 +58,12 @@ const getData = async () => {
   })
 
   isLoading.value = false
+}
+
+const createHandle = async () => {
+  await createCharInDB()
+
+  getData()
 }
 
 getData()

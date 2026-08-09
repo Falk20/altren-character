@@ -1,14 +1,18 @@
-import { saveState } from "@/helpers/utils"
-import { generateState } from "@/helpers/utils/notes"
-import { notesStorageKey } from "@/helpers/constants"
 import { defineStore } from "pinia"
-import { ref, watch } from "vue"
+import { computed } from "vue"
+import { useLocalStates } from "@/shared/useLocalStates"
 
 export const useNotesStore = defineStore("notesStore", () => {
-  const initialState = generateState()
+  const { notes: storage } = useLocalStates()
 
-  const notes = ref(initialState.notes)
-  const quests = ref(initialState.quests)
+  const notes = computed({
+    get: () => storage.value.notes,
+    set: (newVal) => (storage.value.notes = newVal),
+  })
+  const quests = computed({
+    get: () => storage.value.quests,
+    set: (newVal) => (storage.value.quests = newVal),
+  })
 
   const addNewNote = () => {
     notes.value.unshift("")
@@ -33,17 +37,6 @@ export const useNotesStore = defineStore("notesStore", () => {
   const removeQuest = (index: number) => {
     quests.value.splice(index, 1)
   }
-
-  watch(
-    [notes, quests],
-    () => {
-      saveState(notesStorageKey, {
-        notes: notes.value,
-        quests: quests.value,
-      })
-    },
-    { deep: true },
-  )
 
   return {
     notes,

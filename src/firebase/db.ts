@@ -11,29 +11,29 @@ import {
 } from "firebase/firestore"
 
 import { firebaseApp, auth } from "@/firebase/config"
-import { generateCharlist } from "@/helpers/utils"
-import { idStorageKey } from "@/helpers/constants"
+import { useLocalStates } from "@/shared/useLocalStates"
 
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(firebaseApp)
-let currentCharlistID = localStorage.getItem(idStorageKey)
+
+const { getCurrentCharList, currentCharlistID, clearCurrentCharList } =
+  useLocalStates()
 
 export async function saveCharlist() {
   const user = auth.currentUser
 
   if (user) {
     const charlist = {
-      ...generateCharlist(),
+      ...getCurrentCharList(),
       owner: user.uid,
     }
 
-    if (currentCharlistID) {
-      await setDoc(doc(db, "chars", currentCharlistID), charlist)
+    if (currentCharlistID.value) {
+      await setDoc(doc(db, "chars", currentCharlistID.value), charlist)
     } else {
       const docRef = await addDoc(collection(db, "chars"), charlist)
 
-      currentCharlistID = docRef.id
-      localStorage.setItem(idStorageKey, docRef.id)
+      currentCharlistID.value = docRef.id
     }
 
     return
@@ -45,10 +45,8 @@ export async function saveCharlist() {
 export async function removeCharList(charlistID: string) {
   await deleteDoc(doc(db, "chars", charlistID))
 
-  if (charlistID === currentCharlistID) {
-    localStorage.clear()
-    currentCharlistID = null
-    window.location.reload()
+  if (charlistID === currentCharlistID.value) {
+    clearCurrentCharList()
   }
 
   return
@@ -70,11 +68,8 @@ export async function createCharInDB() {
   const user = auth.currentUser
 
   if (user) {
-    localStorage.clear()
-    currentCharlistID = null
+    clearCurrentCharList()
 
     await saveCharlist()
-
-    window.location.reload()
   }
 }

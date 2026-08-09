@@ -42,31 +42,36 @@ const personalInfoStore = usePersonalInfoStore()
 const statusStore = useStatusStore()
 
 const hits = computed({
-  get: () => statusStore.hits,
+  get: () => statusStore.status.hits,
   set: (value: number) => statusStore.setStatusField("hits", value),
 })
 
 const maxHits = computed(() => statusStore.maxHits)
 
 const mana = computed({
-  get: () => statusStore.mana,
+  get: () => statusStore.status.mana,
   set: (value: number) => statusStore.setStatusField("mana", value),
 })
 
 const maxMana = computed(() => statusStore.maxMana)
 
 const inspiration = computed({
-  get: () => statusStore.inspiration,
+  get: () => statusStore.status.inspiration,
   set: (value: number) => statusStore.setStatusField("inspiration", value),
 })
 
 const maxInspiration = computed(() => statusStore.maxInspiration)
 
 const manaBar = computed(() =>
-  getCurrentPointBar(personalInfoStore.isMage, personalInfoStore.isBasij),
+  getCurrentPointBar(
+    personalInfoStore.personalInfo.isMage,
+    personalInfoStore.personalInfo.isBasij,
+  ),
 )
 
-const isBard = computed(() => personalInfoStore.isBard)
+const isBard = computed(() => personalInfoStore.personalInfo.isBard)
 
-const isFameLvl3 = computed(() => personalInfoStore.fame >= fameLvl3)
+const isFameLvl3 = computed(
+  () => personalInfoStore.personalInfo.fame >= fameLvl3,
+)
 </script>

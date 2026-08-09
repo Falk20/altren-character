@@ -23,6 +23,7 @@ import { statsWithSkills } from "@/helpers/constants"
 import { getMaxSkillPointCount } from "@/helpers/utils/skills"
 import { useSkillsStore } from "@/store/stores/skills"
 import { useStatsStore } from "@/store/stores/stats"
+import { Stats } from "@/helpers/constants"
 import sb from "@/assets/sb.webp"
 import AltSkillsStatSection from "./stat-section.vue"
 
@@ -32,7 +33,7 @@ const skillsStore = useSkillsStore()
 const openedForm = ref<string | null>(null)
 
 const maxSkillPointCount = computed(() =>
-  getMaxSkillPointCount(statsStore.intelligence),
+  getMaxSkillPointCount(statsStore.stats[Stats.intelligence]),
 )
 const skillPointsRemains = computed(
   () => maxSkillPointCount.value - skillsStore.skillPointCount,

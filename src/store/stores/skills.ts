@@ -1,12 +1,15 @@
-import { Stats, skillsStorageKey } from "@/helpers/constants"
-import { saveState } from "@/helpers/utils"
-
-import { generateState } from "@/helpers/utils/skills"
+import { Stats } from "@/helpers/constants"
+import { useLocalStates } from "@/shared/useLocalStates"
 import { defineStore } from "pinia"
-import { computed, ref, watch } from "vue"
+import { computed } from "vue"
 
 export const useSkillsStore = defineStore("skillsStore", () => {
-  const skills = ref(generateState().skills)
+  const { skills: storage } = useLocalStates()
+
+  const skills = computed({
+    get: () => storage.value.skills,
+    set: (newVal) => (storage.value.skills = newVal),
+  })
 
   const skillPointCount = computed(() => {
     const statsArr = Object.values(Stats)
@@ -30,16 +33,6 @@ export const useSkillsStore = defineStore("skillsStore", () => {
       delete skills.value[statName][name]
     }
   }
-
-  watch(
-    skills,
-    () => {
-      saveState(skillsStorageKey, {
-        skills: skills.value,
-      })
-    },
-    { deep: true },
-  )
 
   return {
     skills,

@@ -20,6 +20,7 @@ import AltExportJson from "./export-json.vue"
 import { useAppStore } from "@/store/stores/app"
 import { computed } from "vue"
 import { useDisplay } from "vuetify"
+import { useLocalStates } from "@/shared/useLocalStates.js"
 
 const { mobile } = useDisplay()
 
@@ -31,8 +32,12 @@ const drawer = computed({
   set: (value: boolean) => appStore.changeSideMenu(value),
 })
 
+const { currentCharlistID } = useLocalStates()
+
 const pageList = computed(() =>
-  router.getRoutes().filter((page) => !page.meta.hideInNav),
+  currentCharlistID.value
+    ? router.getRoutes().filter((page) => !page.meta.hideInNav)
+    : [],
 )
 
 const getPageTitle = (page: RouteRecordNormalized) =>

@@ -1,55 +1,44 @@
-import { saveState } from "@/helpers/utils"
-import { generateState } from "@/helpers/utils/personal-info"
-
-import { personalInfoStorageKey } from "@/helpers/constants"
 import { defineStore } from "pinia"
-import { reactive, toRefs, watch } from "vue"
+import { computed, reactive, toRefs } from "vue"
+import { useLocalStates } from "@/shared/useLocalStates"
 
 export const usePersonalInfoStore = defineStore("personalInfo", () => {
-  const state = reactive(generateState())
+  const { personalInfo } = useLocalStates()
 
   const setName = (value: string) => {
-    state.name = value
+    personalInfo.value.name = value
   }
 
   const setKind = (value: string) => {
-    state.race = value
+    personalInfo.value.race = value
   }
 
   const setIsMage = (value: boolean) => {
-    state.isMage = value
+    personalInfo.value.isMage = value
   }
 
   const setIsBasij = (value: boolean) => {
-    state.isBasij = value
+    personalInfo.value.isBasij = value
   }
 
   const setBasijLevel = (value: number) => {
-    state.basijLevel = value
+    personalInfo.value.basijLevel = value
   }
 
   const setIsBard = (value: boolean) => {
-    state.isBard = value
+    personalInfo.value.isBard = value
   }
 
   const setKarma = (value: number) => {
-    state.karma = value
+    personalInfo.value.karma = value
   }
 
   const setFame = (value: number) => {
-    state.fame = value
+    personalInfo.value.fame = value
   }
 
-  watch(
-    state,
-    () => {
-      saveState(personalInfoStorageKey, state)
-    },
-    { deep: true },
-  )
-
   return {
-    ...toRefs(state),
+    personalInfo,
     setName,
     setKind,
     setIsMage,

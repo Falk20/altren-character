@@ -1,5 +1,3 @@
-import { saveState } from "@/helpers/utils"
-import { generateState } from "@/helpers/utils/status"
 import {
   defaultHits,
   defaultHittingDifficulty,
@@ -10,7 +8,7 @@ import {
   fameLvl2,
   humanID,
   malfID,
-  statusStorageKey,
+  Stats,
 } from "@/helpers/constants"
 import { TStatusFieldName, TConditionsFieldName } from "@/helpers/types"
 import { defineStore } from "pinia"
@@ -19,7 +17,8 @@ import { useSkillsStore } from "./skills"
 import { usePersonalInfoStore } from "./personal-info"
 import { useStatsStore } from "./stats"
 import { useInventoryStore } from "./inventory"
-import { computed, reactive, toRefs, watch } from "vue"
+import { computed, toRefs } from "vue"
+import { useLocalStates } from "@/shared/useLocalStates"
 
 export const useStatusStore = defineStore("statusStore", () => {
   const personalInfoStore = usePersonalInfoStore()
@@ -27,59 +26,64 @@ export const useStatusStore = defineStore("statusStore", () => {
   const statsStore = useStatsStore()
   const inventoryStore = useInventoryStore()
 
-  const state = reactive(generateState())
+  const { status } = useLocalStates()
 
   const maxHits = computed(() => {
     const skillBonus = skillsStore.skills.endurance?.health ?? 0
-    const kindBonus = personalInfoStore.race === malfID ? 1 : 0
+    const kindBonus = personalInfoStore.personalInfo.race === malfID ? 1 : 0
     const bonusHP = skillBonus + kindBonus
 
-    return defaultHits + state.conditions.HP + bonusHP
+    return defaultHits + status.value.conditions.HP + bonusHP
   })
 
   const maxMana = computed(() => {
-    const conditionMP = state.conditions.MP
+    const conditionMP = status.value.conditions.MP
 
-    if (personalInfoStore.isBasij) {
-      return personalInfoStore.basijLevel + conditionMP
+    if (personalInfoStore.personalInfo.isBasij) {
+      return personalInfoStore.personalInfo.basijLevel + conditionMP
     }
 
-    if (personalInfoStore.isMage) {
-      const statBuff = statsStore.intelligence * 2
+    if (personalInfoStore.personalInfo.isMage) {
+      const statBuff = statsStore.stats[Stats.intelligence] * 2
       const manaBuff =
-        personalInfoStore.race === humanID ? statBuff + 1 : statBuff
+        personalInfoStore.personalInfo.race === humanID
+          ? statBuff + 1
+          : statBuff
 
       return defaultMana + conditionMP + manaBuff
     }
 
-    const statBuff = statsStore.endurance
+    const statBuff = statsStore.stats[Stats.endurance]
 
     return defaultMana + conditionMP + statBuff
   })
 
   const maxInspiration = computed(() => {
-    const statBuff = statsStore.charisma
-    const fameModifier = personalInfoStore.fame >= fameLvl2 ? 2 : 1
+    const statBuff = statsStore.stats[Stats.charisma]
+    const fameModifier = personalInfoStore.personalInfo.fame >= fameLvl2 ? 2 : 1
     const maxInspiration = (defaultInspiration + statBuff) * fameModifier
 
     return maxInspiration
   })
 
   const threshold = computed(() => {
-    const statBuff = statsStore.endurance
+    const statBuff = statsStore.stats[Stats.endurance]
     const equipmentBuff = inventoryStore.equipments.armors.reduce(
       (protection, armor) => protection + armor.protection,
       0,
     )
 
     return (
-      defaultThreshold + state.conditions.threshold + statBuff + equipmentBuff
+      defaultThreshold +
+      status.value.conditions.threshold +
+      statBuff +
+      equipmentBuff
     )
   })
 
   const stepCount = computed(() => {
     const skillBonus = skillsStore.skills.agility?.athletics ?? 0
-    const statBuff = Math.floor(statsStore.agility / 2)
+    const statBuff = Math.floor(statsStore.stats[Stats.agility] / 2)
 
     return defaultStepCount + statBuff + skillBonus
   })
@@ -91,23 +95,15 @@ export const useStatusStore = defineStore("statusStore", () => {
   })
 
   const setStatusField = (key: TStatusFieldName, value: number) => {
-    state[key] = value
+    status.value[key] = value
   }
 
   const setCondiField = (key: TConditionsFieldName, value: number) => {
-    state.conditions[key] = value
+    status.value.conditions[key] = value
   }
 
-  watch(
-    state,
-    () => {
-      saveState(statusStorageKey, state)
-    },
-    { deep: true },
-  )
-
   return {
-    ...toRefs(state),
+    status,
     maxHits,
     maxMana,
     maxInspiration,

@@ -11,14 +11,32 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, watch } from "vue"
 import { useAuthStore } from "./store/stores/auth"
 import AltNavbar from "@/components/navbar/index.vue"
 import AltSideMenu from "@/components/side-menu/index.vue"
+import { useLocalStates } from "./shared/useLocalStates"
+import { useRouter } from "vue-router"
+
+const $router = useRouter()
 
 const authStore = useAuthStore()
 
 const isAuth = computed(() => authStore.isAuth)
+
+const { currentCharlistID } = useLocalStates()
+
+watch(
+  currentCharlistID,
+  (val) => {
+    if (!val && $router.currentRoute.value.path !== "/start") {
+      $router.push("/start")
+    }
+  },
+  {
+    immediate: true,
+  },
+)
 </script>
 
 <style>
