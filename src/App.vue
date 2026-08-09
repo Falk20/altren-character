@@ -27,9 +27,9 @@ const isAuth = computed(() => authStore.isAuth)
 const { currentCharlistID } = useLocalStates()
 
 watch(
-  currentCharlistID,
-  (val) => {
-    if (!val && $router.currentRoute.value.path !== "/start") {
+  [currentCharlistID, isAuth],
+  ([val, val2]) => {
+    if ((!val || !val2) && $router.currentRoute.value.path !== "/start") {
       $router.push("/start")
     }
   },

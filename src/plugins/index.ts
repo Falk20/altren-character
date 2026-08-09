@@ -18,8 +18,6 @@ const unsub = onAuthStateChanged(auth, (user) => {
   const auth = useAuthStore(pinia)
 
   auth.setUser(user)
-
-  unsub()
 })
 
 export function registerPlugins(app: App) {

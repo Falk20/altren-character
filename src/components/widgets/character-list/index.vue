@@ -35,15 +35,18 @@
 <script setup lang="ts">
 import { createCharInDB, getAllChars } from "@/firebase/db"
 import { ICharacter } from "@/helpers/types"
-import { ref } from "vue"
+import { ref, watch } from "vue"
 import CharItem from "./char-item.vue"
+import { useAuthStore } from "@/store/stores/auth.js"
+
+const authStore = useAuthStore()
 
 const chars = ref<ICharacter[]>([])
 
 const isLoading = ref(false)
 
 const getData = async () => {
-  console.log("Грузим...")
+  console.log("Грузим...", authStore.user?.uid)
 
   isLoading.value = true
   chars.value = []
@@ -66,5 +69,13 @@ const createHandle = async () => {
   getData()
 }
 
-getData()
+watch(
+  () => authStore.isAuth,
+  (val) => {
+    if (val) getData()
+  },
+  {
+    immediate: true,
+  },
+)
 </script>
