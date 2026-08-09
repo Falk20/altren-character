@@ -141,6 +141,9 @@ export interface ICharacter {
   status: IStatus
   notes: INotes
   abilities: IAbilities
+
+  updatedAt?: number
+  lastKnownCloudUpdatedAt?: number
 }
 
 export interface IOption<T> {

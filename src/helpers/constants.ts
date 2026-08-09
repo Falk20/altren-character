@@ -19,6 +19,8 @@ export const skillsStorageKey = "character-skills"
 export const notesStorageKey = "character-notes"
 export const abilitiesStorageKey = "character-abilities"
 export const idStorageKey = "charlistID"
+export const updatedAtKey = "updatedAt"
+export const lastKnownCloudUpdatedAtKey = "lastKnownCloudUpdatedAt"
 
 export const humanID = "human"
 export const malfID = "malf"

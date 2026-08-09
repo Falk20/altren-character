@@ -1,7 +1,7 @@
-import { watch } from "vue"
+import { onMounted, watch } from "vue"
 import { debounce } from "vuetify/lib/util/helpers.mjs"
 import { useLocalStates } from "./useLocalStates"
-import { saveCharlist } from "@/firebase/db"
+import { getCurrentCharFromCloud, saveCharlist } from "@/firebase/db"
 
 export const useSyncWithCloud = () => {
   const {
@@ -15,8 +15,11 @@ export const useSyncWithCloud = () => {
     abilities,
   } = useLocalStates()
 
+  const initState = async () => {
+    await getCurrentCharFromCloud()
+  }
+
   const sendToCloud = debounce(async () => {
-    console.log("save start")
     await saveCharlist()
   }, 2500)
 
@@ -29,4 +32,6 @@ export const useSyncWithCloud = () => {
     },
     { deep: true },
   )
+
+  onMounted(initState)
 }
