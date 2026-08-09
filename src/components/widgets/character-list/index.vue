@@ -46,8 +46,6 @@ const chars = ref<ICharacter[]>([])
 const isLoading = ref(false)
 
 const getData = async () => {
-  console.log("Грузим...", authStore.user?.uid)
-
   isLoading.value = true
   chars.value = []
 
