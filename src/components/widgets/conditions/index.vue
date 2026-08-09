@@ -46,9 +46,9 @@ const statusStore = useStatusStore()
 const editDialog = ref(false)
 
 const HPIcon = computed(() => {
-  if (statusStore.conditions.HP === 0) return null
+  if (statusStore.status.conditions.HP === 0) return null
 
-  if (statusStore.conditions.HP > 0) {
+  if (statusStore.status.conditions.HP > 0) {
     return {
       icon: "mdi-heart",
       color: "red",
@@ -61,10 +61,10 @@ const HPIcon = computed(() => {
   }
 })
 const MPIcon = computed(() => {
-  if (statusStore.conditions.MP === 0) return null
+  if (statusStore.status.conditions.MP === 0) return null
 
-  if (personalInfoStore.isMage) {
-    if (statusStore.conditions.MP > 0) {
+  if (personalInfoStore.personalInfo.isMage) {
+    if (statusStore.status.conditions.MP > 0) {
       return {
         icon: "mdi-star-plus",
         color: "primary",
@@ -77,7 +77,7 @@ const MPIcon = computed(() => {
     }
   }
 
-  if (statusStore.conditions.MP > 0) {
+  if (statusStore.status.conditions.MP > 0) {
     return {
       icon: "mdi-flash-alert",
       color: "yellow-darken-1",
@@ -90,9 +90,9 @@ const MPIcon = computed(() => {
   }
 })
 const thresholdIcon = computed(() => {
-  if (statusStore.conditions.threshold === 0) return null
+  if (statusStore.status.conditions.threshold === 0) return null
 
-  if (statusStore.conditions.threshold > 0) {
+  if (statusStore.status.conditions.threshold > 0) {
     return {
       icon: "mdi-shield-plus",
       color: "green",

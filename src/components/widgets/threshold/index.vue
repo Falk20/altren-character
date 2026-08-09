@@ -19,11 +19,11 @@ import { computed } from "vue"
 const statusStore = useStatusStore()
 
 const calcThreshold = computed(
-  () => statusStore.threshold - statusStore.fatigue,
+  () => statusStore.threshold - statusStore.status.fatigue,
 )
 
 const color = computed(() => {
-  if (statusStore.fatigue === 0) {
+  if (statusStore.status.fatigue === 0) {
     return "teal"
   }
 

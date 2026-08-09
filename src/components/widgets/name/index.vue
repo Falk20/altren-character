@@ -2,10 +2,7 @@
   <v-container class="pa-0">
     <v-row>
       <v-col>
-        <AltTextField
-          v-model="name"
-          label="Имя"
-        />
+        <AltTextField v-model="name" label="Имя" />
       </v-col>
     </v-row>
   </v-container>
@@ -19,7 +16,7 @@ import { computed } from "vue"
 const personalInfoStore = usePersonalInfoStore()
 
 const name = computed({
-  get: () => personalInfoStore.name,
-  set: (value: string) => personalInfoStore.setName(value)
+  get: () => personalInfoStore.personalInfo.name,
+  set: (value: string) => personalInfoStore.setName(value),
 })
 </script>

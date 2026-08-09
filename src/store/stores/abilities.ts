@@ -1,13 +1,16 @@
 import { IAbility } from "@/helpers/types"
-import { saveState } from "@/helpers/utils"
 
 import { defineStore } from "pinia"
-import { generateState } from "@/helpers/utils/abilities"
-import { abilitiesStorageKey } from "@/helpers/constants"
-import { ref, toValue, watch } from "vue"
+import { computed, toValue } from "vue"
+import { useLocalStates } from "@/shared/useLocalStates"
 
 export const useAbilitiesStore = defineStore("abilitiesStore", () => {
-  const abilities = ref<IAbility[]>(generateState().abilities)
+  const { abilities: storage } = useLocalStates()
+
+  const abilities = computed({
+    get: () => storage.value.abilities,
+    set: (newVal) => (storage.value.abilities = newVal),
+  })
 
   const addNewAbility = () => {
     abilities.value.unshift({
@@ -29,16 +32,6 @@ export const useAbilitiesStore = defineStore("abilitiesStore", () => {
       (ability) => toValue(ability) !== toValue(item),
     )
   }
-
-  watch(
-    abilities,
-    () => {
-      saveState(abilitiesStorageKey, {
-        abilities: abilities.value,
-      })
-    },
-    { deep: true },
-  )
 
   return {
     abilities,

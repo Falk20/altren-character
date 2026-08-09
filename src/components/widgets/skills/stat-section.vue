@@ -31,10 +31,7 @@
         class="my-4"
       />
 
-      <div
-        v-if="learnedSkills.length"
-        class="stat-section_skills"
-      >
+      <div v-if="learnedSkills.length" class="stat-section_skills">
         <AltStatField
           v-for="skill in learnedSkills"
           :key="'skill-' + skill"
@@ -44,9 +41,7 @@
           :skillsDictionary="skillsDictionary"
         />
       </div>
-      <p class="my-0" v-else-if="!isCurrentFormOpen">
-        Навыки не изучены
-      </p>
+      <p class="my-0" v-else-if="!isCurrentFormOpen">Навыки не изучены</p>
     </v-card-text>
   </v-card>
 </template>
@@ -61,8 +56,8 @@ import { useSkillsStore } from "@/store/stores/skills"
 import { computed } from "vue"
 
 export interface Props {
-  name: Stats,
-  title: string,
+  name: Stats
+  title: string
   skillsDictionary: ISkill[]
   maxSkillPointCount: number
   openedForm: string | null
@@ -71,7 +66,7 @@ export interface Props {
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  'update:openedForm': [value: string | null]
+  "update:openedForm": [value: string | null]
 }>()
 
 const statsStore = useStatsStore()
@@ -79,19 +74,27 @@ const skillsStore = useSkillsStore()
 
 const isCurrentFormOpen = computed(() => props.openedForm === props.name)
 
-const learnedSkills = computed(() => Object.keys(skillsStore.skills[props.name]))
-const filteredSkillsDictionary = computed(() => props.skillsDictionary.filter(
-  (skill) => !learnedSkills.value.includes(skill.value)
-))
+const learnedSkills = computed(() =>
+  Object.keys(skillsStore.skills[props.name]),
+)
+const filteredSkillsDictionary = computed(() =>
+  props.skillsDictionary.filter(
+    (skill) => !learnedSkills.value.includes(skill.value),
+  ),
+)
 
-const statLevel = computed(() => statsStore[props.name])
+const statLevel = computed(() => statsStore.stats[props.name])
 const canAddNewSkill = computed(() => {
-  return !!filteredSkillsDictionary.value.length
-    && statLevel.value > 0
-    && skillsStore.skillPointCount < props.maxSkillPointCount
+  return (
+    !!filteredSkillsDictionary.value.length &&
+    statLevel.value > 0 &&
+    skillsStore.skillPointCount < props.maxSkillPointCount
+  )
 })
 
-const btnIcon = computed(() => isCurrentFormOpen.value ? "mdi-minus" : "mdi-plus")
+const btnIcon = computed(() =>
+  isCurrentFormOpen.value ? "mdi-minus" : "mdi-plus",
+)
 
 const toggleForm = () => {
   emit("update:openedForm", isCurrentFormOpen.value ? null : props.name)

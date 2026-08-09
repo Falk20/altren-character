@@ -1,8 +1,5 @@
 <template>
-  <v-list-item
-    color="green"
-    :active="props.item.id === currentID"
-  >
+  <v-list-item color="green" :active="isSelected">
     <v-list-item-title>
       {{ props.item.personalInfo.name || "Нет имени" }}
     </v-list-item-title>
@@ -46,8 +43,8 @@
 import ConfirmDialog from "@/components/atoms/confirm-dialog.vue"
 import { removeCharList } from "@/firebase/db"
 import { ICharacter } from "@/helpers/types"
-import { setCharacterState } from "@/helpers/utils"
-import { ref } from "vue"
+import { useLocalStates } from "@/shared/useLocalStates"
+import { computed, ref } from "vue"
 
 interface Props {
   item: ICharacter
@@ -55,20 +52,23 @@ interface Props {
 
 const props = defineProps<Props>()
 const emit = defineEmits<{
-  'updateList': []
+  updateList: []
 }>()
+
+const { currentCharlistID, setCurrentCharList } = useLocalStates()
 
 const isShowUpdateConfrim = ref(false)
 const isShowDeleteConfrim = ref(false)
-const currentID = localStorage.getItem("charlistID")
+
+const isSelected = computed(() => currentCharlistID.value === props.item.id)
 
 const loadFromServer = (character: ICharacter) => {
-  setCharacterState(character)
+  setCurrentCharList(character)
 }
 
 const removeFromServer = async (character: ICharacter) => {
   await removeCharList(character.id)
 
-  emit('updateList')
+  emit("updateList")
 }
 </script>

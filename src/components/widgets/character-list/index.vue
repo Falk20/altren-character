@@ -1,8 +1,6 @@
 <template>
   <v-container class="pa-0">
-    <h2 class="d-flex justify-center mb-2 mt-0">
-      Список персонажей
-    </h2>
+    <h2 class="d-flex justify-center mb-2 mt-0">Список персонажей</h2>
 
     <v-btn
       class="mb-2"
@@ -11,7 +9,7 @@
       color="green"
       variant="tonal"
       block
-      @click="createCharInDB"
+      @click="createHandle"
     >
       Новый персонаж
     </v-btn>
@@ -25,18 +23,9 @@
       />
     </template>
 
-    <v-list
-      v-else
-      density="compact"
-    >
-      <template
-        v-for="char in chars"
-        :key="char.id"
-      >
-        <char-item
-          :item="char"
-          @updateList="getData"
-        />
+    <v-list v-else density="compact">
+      <template v-for="char in chars" :key="char.id">
+        <char-item :item="char" @updateList="getData" />
         <v-divider />
       </template>
     </v-list>
@@ -46,8 +35,11 @@
 <script setup lang="ts">
 import { createCharInDB, getAllChars } from "@/firebase/db"
 import { ICharacter } from "@/helpers/types"
-import { ref } from "vue"
+import { ref, watch } from "vue"
 import CharItem from "./char-item.vue"
+import { useAuthStore } from "@/store/stores/auth.js"
+
+const authStore = useAuthStore()
 
 const chars = ref<ICharacter[]>([])
 
@@ -69,5 +61,19 @@ const getData = async () => {
   isLoading.value = false
 }
 
-getData()
+const createHandle = async () => {
+  await createCharInDB()
+
+  getData()
+}
+
+watch(
+  () => authStore.isAuth,
+  (val) => {
+    if (val) getData()
+  },
+  {
+    immediate: true,
+  },
+)
 </script>

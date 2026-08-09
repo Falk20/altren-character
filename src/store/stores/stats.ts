@@ -1,26 +1,17 @@
-import { generateState } from "@/helpers/utils/stats"
-import { saveState } from "@/helpers/utils"
-import { Stats, statsStorageKey } from "@/helpers/constants"
+import { Stats } from "@/helpers/constants"
 import { defineStore } from "pinia"
-import { reactive, toRefs, watch } from "vue"
+import { toRefs } from "vue"
+import { useLocalStates } from "@/shared/useLocalStates"
 
 export const useStatsStore = defineStore("statsStore", () => {
-  const state = reactive(generateState())
+  const { stats } = useLocalStates()
 
   const setStat = (statName: Stats, value: number) => {
-    state[statName] = value
+    stats.value[statName] = value
   }
 
-  watch(
-    state,
-    () => {
-      saveState(statsStorageKey, state)
-    },
-    { deep: true },
-  )
-
   return {
-    ...toRefs(state),
+    stats,
     setStat,
   }
 })

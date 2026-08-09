@@ -40,21 +40,21 @@ import { computed } from "vue"
 const statusStore = useStatusStore()
 
 const value = computed({
-  get: () => statusStore.fatigue,
+  get: () => statusStore.status.fatigue,
   set: (value: number) => statusStore.setStatusField("fatigue", value),
 })
 
 const threshold = computed(() => statusStore.threshold)
 
 const decrement = () => {
-  if (statusStore.fatigue > 0) {
-    statusStore.setStatusField("fatigue", statusStore.fatigue - 1)
+  if (statusStore.status.fatigue > 0) {
+    statusStore.setStatusField("fatigue", statusStore.status.fatigue - 1)
   }
 }
 
 const increment = () => {
-  if (statusStore.fatigue < statusStore.threshold) {
-    statusStore.setStatusField("fatigue", statusStore.fatigue + 1)
+  if (statusStore.status.fatigue < statusStore.threshold) {
+    statusStore.setStatusField("fatigue", statusStore.status.fatigue + 1)
   }
 }
 </script>

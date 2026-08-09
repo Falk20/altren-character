@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { googleSignOut } from "@/firebase/config"
-import { generateCharlist } from "@/helpers/utils"
+import { useLocalStates } from "@/shared/useLocalStates"
 import { useAppStore } from "@/store/stores/app"
 import { useRouter } from "vue-router"
 
@@ -22,8 +22,10 @@ const logOut = async () => {
   router.push("/start")
 }
 
+const { getCurrentCharList } = useLocalStates()
+
 const importJson = () => {
-  const stateJson = JSON.stringify(generateCharlist())
+  const stateJson = JSON.stringify(getCurrentCharList())
   const stateFile =
     "data:text/json;charset=utf-8," + encodeURIComponent(stateJson)
 

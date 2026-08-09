@@ -1,16 +1,20 @@
 import { defineStore } from "pinia"
-import { computed, ref, toValue, watch } from "vue"
+import { computed, toValue } from "vue"
 
-import { inventoryStorageKey } from "@/helpers/constants"
 import { IBag, IEquipments, IItemTypes, ItemTypes } from "@/helpers/types"
-import { saveState } from "@/helpers/utils"
-import { generateState } from "@/helpers/utils/inventory"
+import { useLocalStates } from "@/shared/useLocalStates"
 
 export const useInventoryStore = defineStore("inventoryStore", () => {
-  const initialState = generateState()
+  const { inventory } = useLocalStates()
 
-  const wallet = ref(initialState.wallet)
-  const bags = ref(initialState.bags)
+  const wallet = computed({
+    get: () => inventory.value.wallet,
+    set: (newVal) => (inventory.value.wallet = newVal),
+  })
+  const bags = computed({
+    get: () => inventory.value.bags,
+    set: (newVal) => (inventory.value.bags = newVal),
+  })
 
   const equipments = computed(() =>
     bags.value.reduce<IEquipments>(
@@ -100,17 +104,6 @@ export const useInventoryStore = defineStore("inventoryStore", () => {
   const changeBagSort = (bag: IBag, items: IItemTypes[]) => {
     bag.items = items
   }
-
-  watch(
-    [wallet, bags],
-    () => {
-      saveState(inventoryStorageKey, {
-        wallet: wallet.value,
-        bags: bags.value,
-      })
-    },
-    { deep: true },
-  )
 
   return {
     wallet,
