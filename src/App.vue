@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <AltNavbar />
+    <AltNavbar v-if="$router.currentRoute.value.path !== '/gm'" />
 
-    <AltSideMenu v-if="isAuth" />
+    <AltSideMenu v-if="isAuth && $router.currentRoute.value.path !== '/gm'" />
 
     <v-main>
       <router-view />
@@ -32,7 +32,11 @@ const { currentCharlistID } = useLocalStates()
 watch(
   currentCharlistID,
   (val) => {
-    if (!val && $router.currentRoute.value.path !== "/start") {
+    if (
+      !val &&
+      $router.currentRoute.value.path !== "/start" &&
+      $router.currentRoute.value.path !== "/gm"
+    ) {
       $router.push("/start")
     }
   },

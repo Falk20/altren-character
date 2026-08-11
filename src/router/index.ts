@@ -17,6 +17,7 @@ import NotesView from "@/views/NotesView.vue"
 import QuestsView from "@/views/QuestsView.vue"
 import AbilitiesView from "@/views/AbilitiesView.vue"
 import ResourceView from "@/views/ResourceView.vue"
+import GMView from "@/views/GMView.vue"
 
 const routes: Array<RouteRecordSingleView> = [
   {
@@ -98,6 +99,15 @@ const routes: Array<RouteRecordSingleView> = [
     component: ResourceView,
     meta: {
       title: "Добыча ресурсов",
+    },
+  },
+  {
+    path: "/gm",
+    name: "gm",
+    component: GMView,
+    meta: {
+      title: "GM",
+      hideInNav: true,
     },
   },
 ]

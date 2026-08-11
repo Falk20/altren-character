@@ -10,6 +10,7 @@ import {
   deleteDoc,
   runTransaction,
   getDoc,
+  onSnapshot,
 } from "firebase/firestore"
 
 import { firebaseApp, auth } from "@/firebase/config"
@@ -17,7 +18,7 @@ import { useLocalStates } from "@/shared/useLocalStates"
 import { ICharacter } from "@/helpers/types"
 
 // Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(firebaseApp)
+export const db = getFirestore(firebaseApp)
 
 const {
   getCurrentCharList,
@@ -103,6 +104,52 @@ export async function getAllChars() {
   }
 
   return null
+}
+
+export async function getAllCharsAsGM() {
+  const user = auth.currentUser
+
+  if (user) {
+    const snap = await getDocs(collection(db, "chars"))
+
+    return snap.docs.map(
+      (doc) =>
+        ({
+          id: doc.id,
+          ...doc.data(),
+        }) as ICharacter,
+    )
+  }
+
+  return []
+}
+
+export function subscribeToSelectedChars(
+  docIds: string[],
+  onDataUpdate: (updatedChar: ICharacter) => void,
+) {
+  const unsubscribes = docIds.map((id) => {
+    const docRef = doc(db, "chars", id)
+
+    return onSnapshot(
+      docRef,
+      (docSnap) => {
+        if (docSnap.exists()) {
+          // Документ существует или обновился — отдаем его ID и данные наружу
+          const updatedData = {
+            id: docSnap.id,
+            ...docSnap.data(),
+          } as ICharacter
+          onDataUpdate(updatedData)
+        }
+      },
+      (error) => {
+        console.error(`Ошибка отслеживания ${id}:`, error)
+      },
+    )
+  })
+
+  return () => unsubscribes.forEach((unsub) => unsub())
 }
 
 export async function getCurrentCharFromCloud() {
