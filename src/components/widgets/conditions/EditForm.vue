@@ -112,12 +112,13 @@ const threshold = computed({
 })
 
 const stepCount = computed({
-  get: () => statusStore.status.conditions.stepCount,
+  get: () => statusStore.status.conditions.stepCount ?? 0,
   set: (value: number) => statusStore.setCondiField("stepCount", value),
 })
 
 const minStepCount = computed(
-  () => -(statusStore.stepCount - statusStore.status.conditions.stepCount),
+  () =>
+    -(statusStore.stepCount - (statusStore.status.conditions.stepCount ?? 0)),
 )
 
 const mpTitle = computed(() =>

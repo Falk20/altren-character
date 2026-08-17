@@ -112,9 +112,11 @@ const thresholdIcon = computed(() => {
   }
 })
 const stepCountIcon = computed(() => {
-  if (statusStore.status.conditions.stepCount === 0) return null
+  const stepCount = statusStore.status.conditions.stepCount ?? 0
 
-  if (statusStore.status.conditions.stepCount > 0) {
+  if (stepCount === 0) return null
+
+  if (stepCount > 0) {
     return {
       icon: "mdi-arrow-up-bold-hexagon-outline",
       color: "teal",
