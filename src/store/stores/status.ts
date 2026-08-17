@@ -84,8 +84,9 @@ export const useStatusStore = defineStore("statusStore", () => {
   const stepCount = computed(() => {
     const skillBonus = skillsStore.skills.agility?.athletics ?? 0
     const statBuff = Math.floor(statsStore.stats[Stats.agility] / 2)
+    const conditionStepCount = status.value.conditions.stepCount ?? 0
 
-    return defaultStepCount + statBuff + skillBonus
+    return defaultStepCount + statBuff + skillBonus + conditionStepCount
   })
 
   const hittingDifficulty = computed(() => {

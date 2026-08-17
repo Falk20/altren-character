@@ -54,6 +54,20 @@
               <p class="text-label-large text-center my-0">Порог</p>
             </v-col>
           </v-row>
+          <v-row>
+            <v-col class="mt-5">
+              <v-slider
+                v-model="stepCount"
+                :min="minStepCount"
+                :max="10"
+                :step="1"
+                show-ticks="always"
+                thumb-label="always"
+                :hide-details="true"
+              />
+              <p class="text-label-large text-center my-0">Шаги за ход</p>
+            </v-col>
+          </v-row>
         </v-container>
       </v-card-text>
     </v-card>
@@ -96,6 +110,15 @@ const threshold = computed({
   get: () => statusStore.status.conditions.threshold,
   set: (value: number) => statusStore.setCondiField("threshold", value),
 })
+
+const stepCount = computed({
+  get: () => statusStore.status.conditions.stepCount,
+  set: (value: number) => statusStore.setCondiField("stepCount", value),
+})
+
+const minStepCount = computed(
+  () => -(statusStore.stepCount - statusStore.status.conditions.stepCount),
+)
 
 const mpTitle = computed(() =>
   personalInfoStore.personalInfo.isMage

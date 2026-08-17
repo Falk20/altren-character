@@ -61,5 +61,6 @@ export const getDefaultStatus = (): IStatus => ({
     HP: 0,
     MP: 0,
     threshold: 0,
+    stepCount: 0,
   },
 })

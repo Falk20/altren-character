@@ -14,10 +14,11 @@ export interface IConditions {
   HP: number
   MP: number
   threshold: number
+  stepCount: number
 }
 
 export type TStatusFieldName = "hits" | "mana" | "inspiration" | "fatigue"
-export type TConditionsFieldName = "HP" | "MP" | "threshold"
+export type TConditionsFieldName = "HP" | "MP" | "threshold" | "stepCount"
 
 export interface IPersonalInfo {
   isMage: boolean

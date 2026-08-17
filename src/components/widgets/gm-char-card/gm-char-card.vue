@@ -190,8 +190,9 @@ const armors = computed(
 const stepCount = computed(() => {
   const skillBonus = char.skills.skills.agility?.athletics ?? 0
   const statBuff = Math.floor((char.stats[Stats.agility] ?? 0) / 2)
+  const stepCountCondition = char.status.conditions.stepCount ?? 0
 
-  return defaultStepCount + statBuff + skillBonus
+  return defaultStepCount + statBuff + skillBonus + stepCountCondition
 })
 
 const hittingDifficulty = computed(() => {

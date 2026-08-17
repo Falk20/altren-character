@@ -25,11 +25,18 @@
           >
             {{ thresholdIcon.icon }}
           </v-icon>
+          <v-icon
+            v-if="stepCountIcon"
+            class="mr-2"
+            :color="stepCountIcon.color"
+          >
+            {{ stepCountIcon.icon }}
+          </v-icon>
         </template>
         <p class="text-label-large ma-0" v-else>Нет активных эффектов</p>
       </div>
-      <EditForm v-model:editDialog="editDialog" />
     </v-col>
+    <EditForm v-model:editDialog="editDialog" />
   </v-row>
 </template>
 
@@ -104,8 +111,27 @@ const thresholdIcon = computed(() => {
     color: "orange",
   }
 })
+const stepCountIcon = computed(() => {
+  if (statusStore.status.conditions.stepCount === 0) return null
+
+  if (statusStore.status.conditions.stepCount > 0) {
+    return {
+      icon: "mdi-arrow-up-bold-hexagon-outline",
+      color: "teal",
+    }
+  }
+
+  return {
+    icon: "mdi-arrow-down-bold-hexagon-outline",
+    color: "red",
+  }
+})
 
 const haveAnyCondition = computed(
-  () => !!HPIcon.value || !!MPIcon.value || !!thresholdIcon.value,
+  () =>
+    !!HPIcon.value ||
+    !!MPIcon.value ||
+    !!thresholdIcon.value ||
+    !!stepCountIcon.value,
 )
 </script>
